@@ -1,4 +1,11 @@
-import { View, Text, FlatList, Animated } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Animated,
+  Touchable,
+  Pressable,
+} from "react-native";
 import React, { useRef, useState } from "react";
 import slides from "./slides";
 import OnboardingItem from "./OnboardingItem";
@@ -12,6 +19,8 @@ const Onboarding = () => {
 
   const viewableItemsChanged = useRef(({ viewableItems }: any) => {
     setCurrentIndex(viewableItems[0].index);
+    console.log(viewableItems[0].index);
+    
   }).current;
 
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
@@ -36,6 +45,27 @@ const Onboarding = () => {
         ref={slidesRef}
       />
       <Paginator data={slides} scrollX={scrollX} />
+      <Pressable
+        onPress={() => {
+          if (currentIndex < slides.length - 1) {
+            slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
+          } else {
+            console.log("Last slide");
+          }
+        }}
+        style={{
+          position: "absolute",
+          bottom: 20,
+          right: 20,
+          backgroundColor: "#493d8a",
+          padding: 16,
+          borderRadius: 40,
+        }}
+      >
+        <Text style={{ color: "white", fontSize: 16 }}>
+          {currentIndex === slides.length - 1 ? "Let's Go" : "Next"}
+        </Text>
+      </Pressable>
     </View>
   );
 };
