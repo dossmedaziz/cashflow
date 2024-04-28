@@ -5,6 +5,7 @@ import {
   Animated,
   Touchable,
   Pressable,
+  StyleSheet,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import slides from "./slides";
@@ -31,25 +32,27 @@ const Onboarding = () => {
   };
   return (
     <View style={{ flex: 1 }}>
-      <FlatList
-        data={slides}
-        renderItem={({ item }) => <OnboardingItem item={item} />}
-        keyExtractor={(item : SlideItemType) => item.id}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        pagingEnabled
-        bounces={false}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: false }
-        )}
-        scrollEventThrottle={32}
-        onViewableItemsChanged={viewableItemsChanged}
-        viewabilityConfig={viewConfig}
-        ref={slidesRef}
-      />
+      <View style={styles.slidesContainer}>
+        <FlatList
+          data={slides}
+          renderItem={({ item }) => <OnboardingItem item={item} />}
+          keyExtractor={(item: SlideItemType) => item.id}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+          bounces={false}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+            { useNativeDriver: false }
+          )}
+          scrollEventThrottle={32}
+          onViewableItemsChanged={viewableItemsChanged}
+          viewabilityConfig={viewConfig}
+          ref={slidesRef}
+        />
+      </View>
       <Paginator data={slides} scrollX={scrollX} />
-      <Pressable
+      {/* <Pressable
         onPress={() => {
           if (currentIndex < slides.length - 1) {
             slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
@@ -69,9 +72,19 @@ const Onboarding = () => {
         <Text style={{ color: "white", fontSize: 16 }}>
           {currentIndex === slides.length - 1 ? "Let's Go" : "Next"}
         </Text>
-      </Pressable>
+      </Pressable> */}
     </View>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  slidesContainer: {
+    flex: 0.6,
+    borderWidth: 1,
+    borderColor: "green",
+  },
+});
 export default Onboarding;

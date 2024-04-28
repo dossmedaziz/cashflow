@@ -1,23 +1,27 @@
+import FirstSlideImage from "./onboarding/FirstSlideImage";
 export default [
   {
     id: 1,
-    title: "Welcome to the app!",
+    title: "Truck Your expenses.",
     description:
       "This is a description of the app. It's a great app. You're going to love it.",
     image: require("../assets/images/onboarding1.png"),
+    color: "red",
   },
   {
     id: 2,
-    title: "Another slide",
+    title: "Choose Your priorities.",
     description:
       "This is another description of the app. It's a great app. You're going to love it.",
-    image: require("../assets/images/onboarding1.png"),
+    image: require("../assets/images/onboarding2.png"),
+    color: "green",
   },
   {
     id: 3,
-    title: "One more slide",
+    title: "Save Your money.",
     description:
       "This is one more description of the app. It's a great app. You're going to love it.",
-    image: require("../assets/images/onboarding1.png"),
+    image: require("../assets/images/onboarding3.png"),
+    color: "blue",
   },
 ];

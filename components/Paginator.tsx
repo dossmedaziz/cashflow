@@ -6,6 +6,7 @@ import {
   Animated,
 } from "react-native";
 import React from "react";
+import { useTheme } from "../theme/useTheme";
 
 type PaginatorProps = {
   data: any[];
@@ -14,6 +15,7 @@ type PaginatorProps = {
 
 const Paginator = ({ data, scrollX }: PaginatorProps) => {
   const { width } = useWindowDimensions();
+  const {theme} = useTheme();
   return (
     <View style={styles.container}>
       {data.map((_, index) => {
@@ -36,7 +38,7 @@ const Paginator = ({ data, scrollX }: PaginatorProps) => {
 
         return (
           <Animated.View
-            style={[styles.dot, { width: dotWidth  , opacity}]}
+            style={[styles.dot, { width: dotWidth  , opacity , backgroundColor : theme.colors.primaryTextColor}]}
             key={index}
           />
         );
@@ -52,12 +54,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 64,
     justifyContent: "center",
+    // marginTop: 50,
+    borderWidth: 1,
+    borderColor: "red",
   },
   dot: {
     height: 10,
     width: 10,
     borderRadius: 5,
-    backgroundColor: "#493d8a",
     marginHorizontal: 8,
   },
 });

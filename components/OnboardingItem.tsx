@@ -8,7 +8,8 @@ import {
 } from "react-native";
 import React from "react";
 import { useTheme } from "../theme/useTheme";
-
+import { wp, hp, normalize, moderateScale } from "../helpers/ruler";
+import FirstSlideImage from "./onboarding/FirstSlideImage";
 type OnboardingItemProps = {
   title: string;
   description: string;
@@ -19,16 +20,13 @@ const OnboardingItem = ({ item }: { item: OnboardingItemProps }) => {
   const { theme } = useTheme();
   return (
     <View style={[styles.container, { width }]}>
+      <Text style={[styles.title, { color: theme.colors.primaryTextColor }]}>
+        {item.title}
+      </Text>
       <Image
         source={item.image}
-        style={[styles.image, { width, resizeMode: "contain" }]}
+        style={[styles.image, { resizeMode: "contain" }]}
       />
-      <View style={{ flex: 0.3 }}>
-        <Text style={[styles.title, { color: theme.colors.primaryTextColor }]}>
-          {item.title}
-        </Text>
-        <Text style={styles.description}>{item.description}</Text>
-      </View>
     </View>
   );
 };
@@ -37,25 +35,17 @@ export default OnboardingItem;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    paddingTop: 50,
+    flex: 0.4,
   },
   image: {
-    flex: 0.3,
     justifyContent: "center",
+    width: wp(60),
+    alignSelf: "center",
   },
   title: {
-    fontWeight: "800",
-    fontSize: 28,
-    marginBottom: 10,
-    color: "#493d8a",
-    textAlign: "center",
-  },
-  description: {
-    fontWeight: "300",
-    color: "#62656b",
-    textAlign: "center",
-    paddingHorizontal: 64,
+    width: wp(75),
+    fontSize: moderateScale(36),
+    fontWeight: "bold",
   },
 });
