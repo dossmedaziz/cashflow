@@ -18,9 +18,7 @@ const Onboarding = () => {
   const slidesRef = useRef(null);
 
   const viewableItemsChanged = useRef(({ viewableItems }: any) => {
-    setCurrentIndex(viewableItems[0].index);
-    console.log(viewableItems[0].index);
-    
+    setCurrentIndex(viewableItems[0].index);    
   }).current;
 
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
