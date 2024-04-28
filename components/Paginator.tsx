@@ -54,9 +54,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 64,
     justifyContent: "center",
-    // marginTop: 50,
-    borderWidth: 1,
-    borderColor: "red",
   },
   dot: {
     height: 10,

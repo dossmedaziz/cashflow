@@ -20,13 +20,21 @@ const OnboardingItem = ({ item }: { item: OnboardingItemProps }) => {
   const { theme } = useTheme();
   return (
     <View style={[styles.container, { width }]}>
-      <Text style={[styles.title, { color: theme.colors.primaryTextColor }]}>
-        {item.title}
-      </Text>
-      <Image
-        source={item.image}
-        style={[styles.image, { resizeMode: "contain" }]}
-      />
+      <View
+        style={{
+          width: wp(100),
+          paddingTop: hp(10),
+          paddingHorizontal: wp(5),
+        }}
+      >
+        <Text style={[styles.title, { color: theme.colors.primaryTextColor }]}>
+          {item.title}
+        </Text>
+        <Image
+          source={item.image}
+          style={[styles.image, { resizeMode: "contain" }]}
+        />
+      </View>
     </View>
   );
 };
@@ -34,10 +42,7 @@ const OnboardingItem = ({ item }: { item: OnboardingItemProps }) => {
 export default OnboardingItem;
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 50,
-    flex: 0.4,
-  },
+  container: {},
   image: {
     justifyContent: "center",
     width: wp(60),
