@@ -8,15 +8,12 @@ import {
 } from "react-native";
 import React from "react";
 
-interface OnboardingItemProps {
+type OnboardingItemProps = {
   title: string;
   description: string;
   image: ImageSourcePropType;
 }
 const OnboardingItem = ({ item }: { item: OnboardingItemProps }) => {
-  console.log("====================================");
-  console.log(item);
-  console.log("====================================");
   const { width } = useWindowDimensions();
   return (
     <View style={[styles.container, { width }]}>
@@ -41,7 +38,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    flex: 0.7,
+    flex: 0.3,
     justifyContent: "center",
   },
   title: {
