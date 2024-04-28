@@ -1,12 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import Onboarding from "./components/Onboarding";
+import ThemeProvider from "./theme/useTheme";
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Onboarding />
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider>
+      <View style={styles.container}>
+        <Onboarding />
+        <StatusBar style="auto" />
+      </View>
+    </ThemeProvider>
   );
 }
 

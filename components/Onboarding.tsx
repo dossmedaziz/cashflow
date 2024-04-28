@@ -18,17 +18,23 @@ const Onboarding = () => {
   const slidesRef = useRef(null);
 
   const viewableItemsChanged = useRef(({ viewableItems }: any) => {
-    setCurrentIndex(viewableItems[0].index);    
+    setCurrentIndex(viewableItems[0].index);
   }).current;
 
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 
+  type SlideItemType = {
+    id: string;
+    title: string;
+    description: string;
+    image: any;
+  };
   return (
     <View style={{ flex: 1 }}>
       <FlatList
         data={slides}
         renderItem={({ item }) => <OnboardingItem item={item} />}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item : SlideItemType) => item.id}
         horizontal
         showsHorizontalScrollIndicator={false}
         pagingEnabled

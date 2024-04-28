@@ -7,14 +7,16 @@ import {
   ImageSourcePropType,
 } from "react-native";
 import React from "react";
+import { useTheme } from "../theme/useTheme";
 
 type OnboardingItemProps = {
   title: string;
   description: string;
   image: ImageSourcePropType;
-}
+};
 const OnboardingItem = ({ item }: { item: OnboardingItemProps }) => {
   const { width } = useWindowDimensions();
+  const { theme } = useTheme();
   return (
     <View style={[styles.container, { width }]}>
       <Image
@@ -22,7 +24,9 @@ const OnboardingItem = ({ item }: { item: OnboardingItemProps }) => {
         style={[styles.image, { width, resizeMode: "contain" }]}
       />
       <View style={{ flex: 0.3 }}>
-        <Text style={styles.title}>{item.title}</Text>
+        <Text style={[styles.title, { color: theme.colors.primaryTextColor }]}>
+          {item.title}
+        </Text>
         <Text style={styles.description}>{item.description}</Text>
       </View>
     </View>
