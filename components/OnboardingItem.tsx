@@ -8,8 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { useTheme } from "../theme/useTheme";
-import { wp, hp, normalize, moderateScale } from "../helpers/ruler";
-import FirstSlideImage from "./onboarding/FirstSlideImage";
+import { wp, hp, moderateScale } from "../helpers/ruler";
 type OnboardingItemProps = {
   title: string;
   description: string;

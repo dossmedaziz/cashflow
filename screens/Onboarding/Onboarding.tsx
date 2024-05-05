@@ -1,17 +1,16 @@
 import {
   View,
-  Text,
   FlatList,
   Animated,
-  Pressable,
   StyleSheet,
 } from "react-native";
 import React, { useRef, useState } from "react";
-import slides from "../data/slides";
+import slides from "../../data/slides";
 
-import { Paginator, OnboardingItem, CashFlowButton } from "../components";
-import { hp, moderateScale, wp } from "../helpers/ruler";
-import { useTheme } from "../theme/useTheme";
+import { Paginator, OnboardingItem, CashFlowButton } from "../../components";
+import { hp, wp } from "../../helpers/ruler";
+import { useTheme } from "../../theme/useTheme";
+import SafeAreaWrapper from "../../components/shared/SafeAreaView";
 const Onboarding = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -33,7 +32,7 @@ const Onboarding = () => {
     image: any;
   };
   return (
-    <View style={{ flex: 1, backgroundColor: theme.colors.primaryBgColor }}>
+    <SafeAreaWrapper>
       <View style={styles.slidesContainer}>
         <FlatList
           data={slides}
@@ -72,7 +71,7 @@ const Onboarding = () => {
           height: hp(8),
         }}
       />
-    </View>
+    </SafeAreaWrapper>
   );
 };
 
