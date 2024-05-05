@@ -8,16 +8,24 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { SafeAreaWrapper } from "@/components";
+import { CashFlowButton, SafeAreaWrapper } from "@/components";
 import { hp, moderateScale, wp } from "@/helpers/ruler";
 import { useTheme } from "@/theme/useTheme";
 import UserIcon from "@/components/shared/UserIcon";
 import EyeIcon from "@/components/shared/EyeIcon";
 import CloseEyeIcon from "@/components/shared/CloseEyeIcon";
 import LockIcon from "@/components/shared/LockIcon";
+import { useNavigation } from "@react-navigation/native";
+
 const SignInScreen = () => {
   const { theme } = useTheme();
   const [showPassword, setShowPassword] = React.useState(false);
+  const navigateTo = useNavigation();
+
+  const navToSignUp = () => {
+    navigateTo.navigate("SignUp");
+  };
+
   return (
     <SafeAreaWrapper>
       <ScrollView>
@@ -119,6 +127,37 @@ const SignInScreen = () => {
               />
             )}
           </Pressable>
+        </View>
+        <CashFlowButton
+          label="Sign In"
+          style={{
+            width: wp(85),
+            alignSelf: "center",
+            marginVertical: hp(2.5),
+            paddingVertical: hp(1.8),
+            borderRadius: hp(1.5),
+          }}
+          onPress={() => {}}
+        />
+
+        <View
+          style={{
+            alignItems: "center",
+          }}
+        >
+          <Text>
+            Don't have an account?{" "}
+            <Pressable onPress={navToSignUp}>
+              <Text
+                style={{
+                  color: theme.colors.primaryTextColor,
+                  fontWeight: "900",
+                }}
+              >
+                Create a one
+              </Text>
+            </Pressable>
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaWrapper>
