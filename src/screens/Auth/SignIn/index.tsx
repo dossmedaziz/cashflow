@@ -15,6 +15,7 @@ import UserIcon from "@/components/shared/UserIcon";
 import EyeIcon from "@/components/shared/EyeIcon";
 import colors from "@/theme/colors";
 import CloseEyeIcon from "@/components/shared/CloseEyeIcon";
+import LockIcon from "@/components/shared/LockIcon";
 const SignInScreen = () => {
   const { theme } = useTheme();
   const [showPassword, setShowPassword] = React.useState(false);
@@ -43,7 +44,7 @@ const SignInScreen = () => {
         style={{
           width: wp(85),
           alignSelf: "center",
-          marginTop: hp(5),
+          marginVertical: hp(2.5),
         }}
       >
         <TextInput
@@ -58,9 +59,38 @@ const SignInScreen = () => {
           }}
           placeholder="Email"
           placeholderTextColor={theme.colors.labelColor}
-          secureTextEntry={showPassword}
         />
         <UserIcon
+          style={{
+            position: "absolute",
+            top: hp(1.6),
+            left: wp(3),
+            fill: theme.colors.secondaryBgColor,
+          }}
+        />
+      </View>
+      <View
+        style={{
+          width: wp(85),
+          alignSelf: "center",
+          marginVertical: hp(2.5),
+        }}
+      >
+        <TextInput
+          style={{
+            borderWidth: 1,
+            alignSelf: "center",
+            paddingVertical: 10,
+            paddingHorizontal: 50,
+            width: "100%",
+            borderColor: theme.colors.labelColor,
+            borderRadius: 10,
+          }}
+          placeholder="Password"
+          placeholderTextColor={theme.colors.labelColor}
+          secureTextEntry={showPassword}
+        />
+        <LockIcon
           style={{
             position: "absolute",
             top: hp(1.6),
