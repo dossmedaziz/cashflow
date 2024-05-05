@@ -61,11 +61,11 @@ const SignInScreen = () => {
           secureTextEntry={showPassword}
         />
         <UserIcon
-          color={theme.colors.secondaryBgColor}
           style={{
             position: "absolute",
             top: hp(1.6),
             left: wp(3),
+            fill: theme.colors.secondaryBgColor,
           }}
         />
         <Pressable
@@ -77,9 +77,17 @@ const SignInScreen = () => {
           onPress={() => setShowPassword(!showPassword)}
         >
           {showPassword ? (
-            <EyeIcon color={theme.colors.labelColor} />
+            <EyeIcon
+              color={theme.colors.labelColor}
+              width={wp(6)}
+              height={hp(5)}
+            />
           ) : (
-            <CloseEyeIcon color={theme.colors.labelColor} />
+            <CloseEyeIcon
+              color={theme.colors.labelColor}
+              width={wp(6)}
+              height={hp(5)}
+            />
           )}
         </Pressable>
       </View>
