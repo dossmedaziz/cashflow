@@ -9,7 +9,7 @@ type ButtonProps = {
   label: string;
 };
 
-const CashFlowButton = ({ onPress, style = {}, label }: ButtonProps) => {
+const CashFlowButton = ({ onPress, style, label }: ButtonProps) => {
   const { theme } = useTheme();
   return (
     <Pressable

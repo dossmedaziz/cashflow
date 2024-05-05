@@ -1,6 +1,7 @@
 import {
   Image,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -8,7 +9,7 @@ import {
 } from "react-native";
 import React from "react";
 import { SafeAreaWrapper } from "@/components";
-import { hp, wp } from "@/helpers/ruler";
+import { hp, moderateScale, wp } from "@/helpers/ruler";
 import { useTheme } from "@/theme/useTheme";
 import UserIcon from "@/components/shared/UserIcon";
 import EyeIcon from "@/components/shared/EyeIcon";
@@ -19,106 +20,107 @@ const SignInScreen = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   return (
     <SafeAreaWrapper>
-      <View
-        style={{
-          paddingTop: hp(15),
-        }}
-      >
-        <Image
-          source={require("@assets/Logo.png")}
-          //style={styles.logo}
-          resizeMode="contain"
-          style={styles.logo}
-        />
-      </View>
-      <Text style={[styles.wlc, { color: theme.colors.primaryTextColor }]}>
-        Welcome Back
-      </Text>
-      <Text style={[styles.desc, { color: theme.colors.labelColor }]}>
-        Sign in to your CashFlow account and continue tracking your expenses.
-        Please enter your login details
-      </Text>
-      <View
-        style={{
-          width: wp(85),
-          alignSelf: "center",
-          marginVertical: hp(2.5),
-        }}
-      >
-        <TextInput
+      <ScrollView>
+        <View
           style={{
-            borderWidth: 1,
-            alignSelf: "center",
-            paddingVertical: 10,
-            paddingHorizontal: 50,
-            width: "100%",
-            borderColor: theme.colors.labelColor,
-            borderRadius: 10,
+            paddingTop: hp(15),
           }}
-          placeholder="Email"
-          placeholderTextColor={theme.colors.labelColor}
-        />
-        <UserIcon
-          style={{
-            position: "absolute",
-            top: hp(1.6),
-            left: wp(3),
-            fill: theme.colors.secondaryBgColor,
-          }}
-        />
-      </View>
-      <View
-        style={{
-          width: wp(85),
-          alignSelf: "center",
-          marginVertical: hp(2.5),
-        }}
-      >
-        <TextInput
-          style={{
-            borderWidth: 1,
-            alignSelf: "center",
-            paddingVertical: 10,
-            paddingHorizontal: 50,
-            width: "100%",
-            borderColor: theme.colors.labelColor,
-            borderRadius: 10,
-          }}
-          placeholder="Password"
-          placeholderTextColor={theme.colors.labelColor}
-          secureTextEntry={showPassword}
-        />
-        <LockIcon
-          style={{
-            position: "absolute",
-            top: hp(1.6),
-            left: wp(3),
-            fill: theme.colors.secondaryBgColor,
-          }}
-        />
-        <Pressable
-          style={{
-            position: "absolute",
-            top: hp(1.6),
-            right: wp(3),
-          }}
-          onPress={() => setShowPassword(!showPassword)}
         >
-          {showPassword ? (
-            <EyeIcon
-              color={theme.colors.labelColor}
-              width={wp(6)}
-              height={hp(5)}
-            />
-          ) : (
-            <CloseEyeIcon
-              color={theme.colors.labelColor}
-              width={wp(6)}
-              height={hp(5)}
-            />
-          )}
-        </Pressable>
-      </View>
+          <Image
+            source={require("@assets/Logo.png")}
+            resizeMode="contain"
+            style={styles.logo}
+          />
+        </View>
+        <Text style={[styles.wlc, { color: theme.colors.primaryTextColor }]}>
+          Welcome Back
+        </Text>
+        <Text style={[styles.desc, { color: theme.colors.labelColor }]}>
+          Sign in to your CashFlow account and continue tracking your expenses.
+          Please enter your login details
+        </Text>
+        <View
+          style={{
+            width: wp(85),
+            alignSelf: "center",
+            marginVertical: hp(2.5),
+          }}
+        >
+          <TextInput
+            style={{
+              borderWidth: 1,
+              alignSelf: "center",
+              paddingVertical: hp(1.8),
+              paddingHorizontal: wp(15),
+              width: "100%",
+              borderColor: theme.colors.labelColor,
+              borderRadius: hp(1.5),
+            }}
+            placeholder="Email"
+            placeholderTextColor={theme.colors.labelColor}
+          />
+          <UserIcon
+            style={{
+              position: "absolute",
+              top: hp(1.6),
+              left: wp(3),
+              fill: theme.colors.secondaryBgColor,
+            }}
+          />
+        </View>
+        <View
+          style={{
+            width: wp(85),
+            alignSelf: "center",
+            marginVertical: hp(2.5),
+          }}
+        >
+          <TextInput
+            style={{
+              borderWidth: 1,
+              alignSelf: "center",
+              paddingVertical: hp(1.8),
+              paddingHorizontal: wp(15),
+              width: "100%",
+              borderColor: theme.colors.labelColor,
+              borderRadius: hp(1.5),
+            }}
+            placeholder="Password"
+            placeholderTextColor={theme.colors.labelColor}
+            secureTextEntry={!showPassword}
+          />
+          <LockIcon
+            style={{
+              position: "absolute",
+              top: hp(1.6),
+              left: wp(3),
+              fill: theme.colors.secondaryBgColor,
+            }}
+          />
+          <Pressable
+            style={{
+              position: "absolute",
+              top: hp(1.6),
+              right: wp(3),
+            }}
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            {!showPassword ? (
+              <EyeIcon
+                color={theme.colors.labelColor}
+                width={wp(6)}
+                height={hp(5)}
+              />
+            ) : (
+              <CloseEyeIcon
+                color={theme.colors.labelColor}
+                width={wp(6)}
+                height={hp(5)}
+              />
+            )}
+          </Pressable>
+        </View>
+      </ScrollView>
     </SafeAreaWrapper>
   );
 };
@@ -130,12 +132,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   wlc: {
-    fontSize: 24,
+    fontSize: moderateScale(24),
     fontWeight: "900",
     textAlign: "center",
   },
   desc: {
-    fontSize: 16,
+    fontSize: moderateScale(15),
     textAlign: "center",
     marginTop: hp(1),
     marginHorizontal: wp(10),
