@@ -9,7 +9,6 @@ import slides from "../../data/slides";
 
 import { Paginator, OnboardingItem, CashFlowButton } from "../../components";
 import { hp, wp } from "../../helpers/ruler";
-import { useTheme } from "../../theme/useTheme";
 import SafeAreaWrapper from "../../components/shared/SafeAreaView";
 const Onboarding = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -17,7 +16,6 @@ const Onboarding = () => {
 
   const slidesRef = useRef(null);
 
-  const { theme } = useTheme();
 
   const viewableItemsChanged = useRef(({ viewableItems }: any) => {
     setCurrentIndex(viewableItems[0].index);

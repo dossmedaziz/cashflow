@@ -4,7 +4,7 @@ export default [
     title: "Truck Your expenses.",
     description:
       "This is a description of the app. It's a great app. You're going to love it.",
-    image: require("../assets/images/onboarding1.png"),
+    image: require("../../assets/images/onboarding1.png"),
     color: "red",
   },
   {
@@ -12,7 +12,7 @@ export default [
     title: "Choose Your priorities.",
     description:
       "This is another description of the app. It's a great app. You're going to love it.",
-    image: require("../assets/images/onboarding2.png"),
+    image: require("../../assets/images/onboarding2.png"),
     color: "green",
   },
   {
@@ -20,7 +20,7 @@ export default [
     title: "Save Your money.",
     description:
       "This is one more description of the app. It's a great app. You're going to love it.",
-    image: require("../assets/images/onboarding3.png"),
+    image: require("../../assets/images/onboarding3.png"),
     color: "blue",
   },
 ];

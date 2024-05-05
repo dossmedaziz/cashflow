@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import {Onboarding} from "./screens";
-import ThemeProvider from "./theme/useTheme";
+import {Onboarding} from "./src/screens";
+import ThemeProvider from "./src/theme/useTheme";
 export default function App() {
   return (
     <ThemeProvider>
