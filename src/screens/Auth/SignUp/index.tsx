@@ -188,7 +188,7 @@ const SignInScreen = () => {
           </Pressable>
         </View>
         <CashFlowButton
-          label="Sign In"
+          label="Sign Up"
           style={{
             width: wp(85),
             alignSelf: "center",
