@@ -10,10 +10,8 @@ import React from "react";
 import { SafeAreaWrapper } from "@/components";
 import { hp, wp } from "@/helpers/ruler";
 import { useTheme } from "@/theme/useTheme";
-import Fontisto from "@expo/vector-icons/Fontisto";
 import UserIcon from "@/components/shared/UserIcon";
 import EyeIcon from "@/components/shared/EyeIcon";
-import colors from "@/theme/colors";
 import CloseEyeIcon from "@/components/shared/CloseEyeIcon";
 import LockIcon from "@/components/shared/LockIcon";
 const SignInScreen = () => {
