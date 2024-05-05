@@ -1,11 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import {SafeAreaWrapper} from '../../../components'
 
 const SignInScreen = () => {
   return (
-    <View>
+    <SafeAreaWrapper>
       <Text>SignInScreen</Text>
-    </View>
+    </SafeAreaWrapper>
   )
 }
 

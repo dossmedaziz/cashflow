@@ -6,16 +6,21 @@ import {
 } from "react-native";
 import React, { useRef, useState } from "react";
 import slides from "../../data/slides";
-
 import { Paginator, OnboardingItem, CashFlowButton } from "../../components";
 import { hp, wp } from "../../helpers/ruler";
-import SafeAreaWrapper from "../../components/shared/SafeAreaView";
+import {SafeAreaWrapper} from "../../components";
+import { useNavigation } from "@react-navigation/native";
 const Onboarding = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
 
   const slidesRef = useRef(null);
 
+  const navigateTo = useNavigation();
+
+  const navToSignIn = () => {
+    navigateTo.navigate("SignIn");
+  };
 
   const viewableItemsChanged = useRef(({ viewableItems }: any) => {
     setCurrentIndex(viewableItems[0].index);
@@ -57,7 +62,7 @@ const Onboarding = () => {
           if (currentIndex < slides.length - 1) {
             slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
           } else {
-            console.log("Navigate to the other screen");
+            navToSignIn()
           }
         }}
         style={{
