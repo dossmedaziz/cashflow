@@ -110,6 +110,8 @@ const SignInScreen = () => {
               position: "absolute",
               top: hp(1.6),
               right: wp(3),
+              width: wp(10),
+              alignItems: "flex-end",
             }}
             onPress={() => setShowPassword(!showPassword)}
           >
