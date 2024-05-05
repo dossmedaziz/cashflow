@@ -5,11 +5,12 @@ import {
   StyleSheet,
 } from "react-native";
 import React, { useRef, useState } from "react";
-import slides from "../../data/slides";
-import { Paginator, OnboardingItem, CashFlowButton } from "../../components";
-import { hp, wp } from "../../helpers/ruler";
-import {SafeAreaWrapper} from "../../components";
+import slides from "@/data/slides";
+import { Paginator, OnboardingItem, CashFlowButton } from "@/components";
+import { hp, wp } from "@/helpers/ruler";
 import { useNavigation } from "@react-navigation/native";
+import {SafeAreaWrapper} from '@/components'
+
 const Onboarding = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;

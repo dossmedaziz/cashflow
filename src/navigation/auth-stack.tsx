@@ -2,7 +2,7 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "./types";
 
-import { Onboarding  , SignInScreen , SignUpScreen} from "../screens";
+import { Onboarding  , SignInScreen , SignUpScreen} from "@/screens";
 import { NavigationContainer } from "@react-navigation/native";
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 

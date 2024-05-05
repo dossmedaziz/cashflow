@@ -1,11 +1,16 @@
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import React from 'react'
-import {SafeAreaWrapper} from '../../../components'
+import {SafeAreaWrapper} from '@/components'
 
 const SignInScreen = () => {
   return (
     <SafeAreaWrapper>
-      <Text>SignInScreen</Text>
+     
+     {/* <Image
+      source={require('../../../assets/images/logo.png')}
+      //style={styles.logo}
+      resizeMode="contain"
+      /> */}
     </SafeAreaWrapper>
   )
 }
