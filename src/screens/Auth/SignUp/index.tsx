@@ -31,7 +31,7 @@ const SignInScreen = () => {
       <ScrollView>
         <View
           style={{
-            paddingTop: hp(5),
+            paddingTop: hp(1),
           }}
         >
           <Image
@@ -50,7 +50,7 @@ const SignInScreen = () => {
           style={{
             width: wp(85),
             alignSelf: "center",
-            marginVertical: hp(2.5),
+            marginVertical: hp(2),
           }}
         >
           <TextInput
@@ -79,7 +79,7 @@ const SignInScreen = () => {
           style={{
             width: wp(85),
             alignSelf: "center",
-            marginVertical: hp(2.5),
+            marginVertical: hp(2),
           }}
         >
           <TextInput
@@ -108,7 +108,7 @@ const SignInScreen = () => {
           style={{
             width: wp(85),
             alignSelf: "center",
-            marginVertical: hp(2.5),
+            marginVertical: hp(2),
           }}
         >
           <TextInput
@@ -137,7 +137,7 @@ const SignInScreen = () => {
           style={{
             width: wp(85),
             alignSelf: "center",
-            marginVertical: hp(2.5),
+            marginVertical: hp(2),
           }}
         >
           <TextInput
@@ -192,7 +192,7 @@ const SignInScreen = () => {
           style={{
             width: wp(85),
             alignSelf: "center",
-            marginVertical: hp(2.5),
+            marginVertical: hp(2),
             paddingVertical: hp(1.8),
             borderRadius: hp(1.5),
           }}
