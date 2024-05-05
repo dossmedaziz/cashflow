@@ -1,11 +1,23 @@
-import { Image, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import React from "react";
 import { SafeAreaWrapper } from "@/components";
 import { hp, wp } from "@/helpers/ruler";
 import { useTheme } from "@/theme/useTheme";
-
+import Fontisto from "@expo/vector-icons/Fontisto";
+import UserIcon from "@/components/shared/UserIcon";
+import EyeIcon from "@/components/shared/EyeIcon";
+import colors from "@/theme/colors";
+import CloseEyeIcon from "@/components/shared/CloseEyeIcon";
 const SignInScreen = () => {
   const { theme } = useTheme();
+  const [showPassword, setShowPassword] = React.useState(false);
   return (
     <SafeAreaWrapper>
       <View
@@ -27,20 +39,50 @@ const SignInScreen = () => {
         Sign in to your CashFlow account and continue tracking your expenses.
         Please enter your login details
       </Text>
-
-      <TextInput
+      <View
         style={{
-          borderWidth: 1,
-          width: wp(80),
+          width: wp(85),
           alignSelf: "center",
           marginTop: hp(5),
-          padding: 10,
-          borderColor: theme.colors.labelColor,
-          borderRadius: 10,
         }}
-        placeholder="Email"
-        placeholderTextColor={theme.colors.labelColor}
-      />
+      >
+        <TextInput
+          style={{
+            borderWidth: 1,
+            alignSelf: "center",
+            paddingVertical: 10,
+            paddingHorizontal: 50,
+            width: "100%",
+            borderColor: theme.colors.labelColor,
+            borderRadius: 10,
+          }}
+          placeholder="Email"
+          placeholderTextColor={theme.colors.labelColor}
+          secureTextEntry={showPassword}
+        />
+        <UserIcon
+          color={theme.colors.secondaryBgColor}
+          style={{
+            position: "absolute",
+            top: hp(1.6),
+            left: wp(3),
+          }}
+        />
+        <Pressable
+          style={{
+            position: "absolute",
+            top: hp(1.6),
+            right: wp(3),
+          }}
+          onPress={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? (
+            <EyeIcon color={theme.colors.labelColor} />
+          ) : (
+            <CloseEyeIcon color={theme.colors.labelColor} />
+          )}
+        </Pressable>
+      </View>
     </SafeAreaWrapper>
   );
 };
