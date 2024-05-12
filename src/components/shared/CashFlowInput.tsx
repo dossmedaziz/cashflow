@@ -9,6 +9,9 @@ type CashFlowInputProps = {
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
   secureTextEntry?: boolean;
+  onChange?: (text: string) => void;
+  onBlur?: () => void;
+  value?: string;
 };
 
 const CashFlowInput = ({
@@ -18,6 +21,9 @@ const CashFlowInput = ({
   prefix,
   suffix,
   secureTextEntry = false,
+  onChange,
+  onBlur,
+  value,
 }: CashFlowInputProps) => {
   return (
     <>
@@ -26,6 +32,9 @@ const CashFlowInput = ({
         placeholder={placeholder}
         placeholderTextColor={placeholderTextColor}
         secureTextEntry={secureTextEntry}
+        onBlur={onBlur}
+        onChangeText={onChange}
+        value={value}
       />
       {prefix && (
         <View

@@ -13,6 +13,13 @@ import { useTheme } from "@/theme/useTheme";
 import { useNavigation } from "@react-navigation/native";
 
 import { EmailIcon, CloseEyeIcon, EyeIcon, LockIcon } from "@/icons";
+import { useForm, Controller } from "react-hook-form";
+
+type SignInForm = {
+  email: string;
+  password: string;
+};
+
 const SignInScreen = () => {
   const { theme } = useTheme();
   const [showPassword, setShowPassword] = React.useState(false);
@@ -22,6 +29,19 @@ const SignInScreen = () => {
     navigateTo.navigate("SignUp");
   };
 
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+  const onSubmit = (data: SignInForm) => {
+    console.log(data);
+  };
   return (
     <SafeAreaWrapper>
       <ScrollView>
@@ -45,70 +65,117 @@ const SignInScreen = () => {
         </Text>
 
         {/* started email input  */}
-        <View
-          style={{
-            width: wp(85),
-            alignSelf: "center",
-            marginVertical: hp(2.5),
+
+        <Controller
+          control={control}
+          rules={{
+            required: true,
           }}
-        >
-          <CashFlowInput
-            style={{
-              borderWidth: 1,
-              alignSelf: "center",
-              paddingVertical: hp(1.8),
-              paddingHorizontal: wp(15),
-              width: "100%",
-              borderColor: theme.colors.labelColor,
-              borderRadius: hp(1.5),
-            }}
-            placeholder="Email"
-            placeholderTextColor={theme.colors.labelColor}
-            prefix={<EmailIcon color={theme.colors.secondaryBgColor} />}
-          />
-        </View>
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View
+              style={{
+                width: wp(85),
+                alignSelf: "center",
+                marginVertical: hp(2.5),
+              }}
+            >
+              <CashFlowInput
+                style={{
+                  borderWidth: 1,
+                  alignSelf: "center",
+                  paddingVertical: hp(1.8),
+                  paddingHorizontal: wp(15),
+                  width: "100%",
+                  borderColor: errors.email
+                    ? theme.colors.errorTextColor
+                    : theme.colors.labelColor,
+                  borderRadius: hp(1.5),
+                }}
+                placeholder="Email"
+                placeholderTextColor={theme.colors.labelColor}
+                onBlur={onBlur}
+                onChange={onChange}
+                value={value}
+                prefix={
+                  <EmailIcon
+                    color={
+                      errors.email
+                        ? theme.colors.errorTextColor
+                        : theme.colors.secondaryBgColor
+                    }
+                  />
+                }
+              />
+            </View>
+          )}
+          name="email"
+        />
+        {/* {errors.email && <Text>This is required.</Text>} */}
 
         {/* started password input  */}
-        <View
-          style={{
-            width: wp(85),
-            alignSelf: "center",
-            marginVertical: hp(2.5),
+
+        <Controller
+          control={control}
+          rules={{
+            required: true,
           }}
-        >
-          <CashFlowInput
-            style={{
-              borderWidth: 1,
-              alignSelf: "center",
-              paddingVertical: hp(1.8),
-              paddingHorizontal: wp(15),
-              width: "100%",
-              borderColor: theme.colors.labelColor,
-              borderRadius: hp(1.5),
-            }}
-            placeholder="Passwords"
-            placeholderTextColor={theme.colors.labelColor}
-            secureTextEntry={!showPassword}
-            prefix={<LockIcon color={theme.colors.secondaryBgColor} />}
-            suffix={
-              <Pressable onPress={() => setShowPassword(!showPassword)}>
-                {!showPassword ? (
-                  <EyeIcon
-                    color={theme.colors.labelColor}
-                    width={wp(6)}
-                    height={hp(5)}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View
+              style={{
+                width: wp(85),
+                alignSelf: "center",
+                marginVertical: hp(2.5),
+              }}
+            >
+              <CashFlowInput
+                style={{
+                  borderWidth: 1,
+                  alignSelf: "center",
+                  paddingVertical: hp(1.8),
+                  paddingHorizontal: wp(15),
+                  width: "100%",
+                  borderColor: errors.password
+                    ? theme.colors.errorTextColor
+                    : theme.colors.labelColor,
+                  borderRadius: hp(1.5),
+                }}
+                placeholder="Passwords"
+                placeholderTextColor={theme.colors.labelColor}
+                secureTextEntry={!showPassword}
+                onBlur={onBlur}
+                onChange={onChange}
+                value={value}
+                prefix={
+                  <LockIcon
+                    color={
+                      errors.password
+                        ? theme.colors.errorTextColor
+                        : theme.colors.secondaryBgColor
+                    }
                   />
-                ) : (
-                  <CloseEyeIcon
-                    color={theme.colors.labelColor}
-                    width={wp(6)}
-                    height={hp(5)}
-                  />
-                )}
-              </Pressable>
-            }
-          />
-        </View>
+                }
+                suffix={
+                  <Pressable onPress={() => setShowPassword(!showPassword)}>
+                    {!showPassword ? (
+                      <EyeIcon
+                        color={theme.colors.labelColor}
+                        width={wp(6)}
+                        height={hp(5)}
+                      />
+                    ) : (
+                      <CloseEyeIcon
+                        color={theme.colors.labelColor}
+                        width={wp(6)}
+                        height={hp(5)}
+                      />
+                    )}
+                  </Pressable>
+                }
+              />
+            </View>
+          )}
+          name="password"
+        />
         <CashFlowButton
           label="Sign In"
           style={{
@@ -118,7 +185,7 @@ const SignInScreen = () => {
             paddingVertical: hp(1.8),
             borderRadius: hp(1.5),
           }}
-          onPress={() => {}}
+          onPress={handleSubmit(onSubmit)}
         />
 
         <View
