@@ -4,7 +4,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import React from "react";
@@ -14,7 +13,14 @@ import { useTheme } from "@/theme/useTheme";
 import { useNavigation } from "@react-navigation/native";
 
 import { UserIcon, EyeIcon, CloseEyeIcon, LockIcon, EmailIcon } from "@/icons";
+import { useForm, Controller } from "react-hook-form";
 
+type SignUpForm = {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+};
 const SignInScreen = () => {
   const { theme } = useTheme();
   const [showPassword, setShowPassword] = React.useState(false);
@@ -24,6 +30,14 @@ const SignInScreen = () => {
     navigateTo.navigate("SignIn");
   };
 
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpForm>();
+  const onSubmit = (data: SignUpForm) => {
+    console.log(data);
+  };
   return (
     <SafeAreaWrapper>
       <ScrollView>
@@ -44,112 +58,201 @@ const SignInScreen = () => {
         <Text style={[styles.desc, { color: theme.colors.labelColor }]}>
           Create your CashFlow account to start tracking your money
         </Text>
-        <View
-          style={{
-            width: wp(85),
-            alignSelf: "center",
-            marginVertical: hp(2),
+
+        <Controller
+          control={control}
+          rules={{
+            required: true,
           }}
-        >
-          <CashFlowInput
-            style={{
-              borderWidth: 1,
-              alignSelf: "center",
-              paddingVertical: hp(1.8),
-              paddingHorizontal: wp(15),
-              width: "100%",
-              borderColor: theme.colors.labelColor,
-              borderRadius: hp(1.5),
-            }}
-            placeholder="First Name"
-            placeholderTextColor={theme.colors.labelColor}
-            prefix={<UserIcon color={theme.colors.secondaryBgColor} />}
-          />
-        </View>
-        <View
-          style={{
-            width: wp(85),
-            alignSelf: "center",
-            marginVertical: hp(2),
-          }}
-        >
-          <CashFlowInput
-            style={{
-              borderWidth: 1,
-              alignSelf: "center",
-              paddingVertical: hp(1.8),
-              paddingHorizontal: wp(15),
-              width: "100%",
-              borderColor: theme.colors.labelColor,
-              borderRadius: hp(1.5),
-            }}
-            placeholder="Last Name"
-            placeholderTextColor={theme.colors.labelColor}
-            prefix={<UserIcon color={theme.colors.secondaryBgColor} />}
-          />
-        </View>
-        <View
-          style={{
-            width: wp(85),
-            alignSelf: "center",
-            marginVertical: hp(2),
-          }}
-        >
-          <CashFlowInput
-            style={{
-              borderWidth: 1,
-              alignSelf: "center",
-              paddingVertical: hp(1.8),
-              paddingHorizontal: wp(15),
-              width: "100%",
-              borderColor: theme.colors.labelColor,
-              borderRadius: hp(1.5),
-            }}
-            placeholder="Email"
-            placeholderTextColor={theme.colors.labelColor}
-            prefix={<EmailIcon color={theme.colors.secondaryBgColor} />}
-          />
-        </View>
-        <View
-          style={{
-            width: wp(85),
-            alignSelf: "center",
-            marginVertical: hp(2),
-          }}
-        >
-          <CashFlowInput
-            style={{
-              borderWidth: 1,
-              alignSelf: "center",
-              paddingVertical: hp(1.8),
-              paddingHorizontal: wp(15),
-              width: "100%",
-              borderColor: theme.colors.labelColor,
-              borderRadius: hp(1.5),
-            }}
-            placeholder="Password"
-            placeholderTextColor={theme.colors.labelColor}
-            secureTextEntry={!showPassword}
-            prefix={<LockIcon color={theme.colors.secondaryBgColor} />}
-            suffix={
-              <Pressable onPress={() => setShowPassword(!showPassword)}>
-                {!showPassword ? (
-                  <EyeIcon
-                    color={theme.colors.labelColor}
-                    width={wp(6)}
-                    height={hp(5)}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View
+              style={{
+                width: wp(85),
+                alignSelf: "center",
+                marginVertical: hp(2),
+              }}
+            >
+              <CashFlowInput
+                style={{
+                  borderWidth: 1,
+                  alignSelf: "center",
+                  paddingVertical: hp(1.8),
+                  paddingHorizontal: wp(15),
+                  width: "100%",
+                  borderColor: errors.firstName
+                    ? theme.colors.errorTextColor
+                    : theme.colors.labelColor,
+                  borderRadius: hp(1.5),
+                }}
+                placeholder="First Name"
+                placeholderTextColor={theme.colors.labelColor}
+                onBlur={onBlur}
+                onChange={onChange}
+                prefix={
+                  <UserIcon
+                    color={
+                      errors.firstName
+                        ? theme.colors.errorTextColor
+                        : theme.colors.secondaryBgColor
+                    }
                   />
-                ) : (
-                  <CloseEyeIcon
-                    color={theme.colors.labelColor}
-                    width={wp(6)}
-                    height={hp(5)}
+                }
+              />
+            </View>
+          )}
+          name="firstName"
+        />
+
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View
+              style={{
+                width: wp(85),
+                alignSelf: "center",
+                marginVertical: hp(2),
+              }}
+            >
+              <CashFlowInput
+                style={{
+                  borderWidth: 1,
+                  alignSelf: "center",
+                  paddingVertical: hp(1.8),
+                  paddingHorizontal: wp(15),
+                  width: "100%",
+                  borderColor: errors.lastName
+                    ? theme.colors.errorTextColor
+                    : theme.colors.labelColor,
+                  borderRadius: hp(1.5),
+                }}
+                placeholder="Last Name"
+                placeholderTextColor={theme.colors.labelColor}
+                onBlur={onBlur}
+                onChange={onChange}
+                prefix={
+                  <UserIcon
+                    color={
+                      errors.lastName
+                        ? theme.colors.errorTextColor
+                        : theme.colors.secondaryBgColor
+                    }
                   />
-                )}
-              </Pressable>
-            }
-          />
-        </View>
+                }
+              />
+            </View>
+          )}
+          name="lastName"
+        />
+
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View
+              style={{
+                width: wp(85),
+                alignSelf: "center",
+                marginVertical: hp(2),
+              }}
+            >
+              <CashFlowInput
+                style={{
+                  borderWidth: 1,
+                  alignSelf: "center",
+                  paddingVertical: hp(1.8),
+                  paddingHorizontal: wp(15),
+                  width: "100%",
+                  borderColor: errors.email
+                    ? theme.colors.errorTextColor
+                    : theme.colors.labelColor,
+                  borderRadius: hp(1.5),
+                }}
+                placeholder="Email"
+                placeholderTextColor={theme.colors.labelColor}
+                onBlur={onBlur}
+                onChange={onChange}
+                prefix={
+                  <EmailIcon
+                    color={
+                      errors.email
+                        ? theme.colors.errorTextColor
+                        : theme.colors.secondaryBgColor
+                    }
+                  />
+                }
+              />
+            </View>
+          )}
+          name="email"
+        />
+
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View
+              style={{
+                width: wp(85),
+                alignSelf: "center",
+                marginVertical: hp(2),
+              }}
+            >
+              <CashFlowInput
+                style={{
+                  borderWidth: 1,
+                  alignSelf: "center",
+                  paddingVertical: hp(1.8),
+                  paddingHorizontal: wp(15),
+                  width: "100%",
+                  borderColor: errors.password
+                    ? theme.colors.errorTextColor
+                    : theme.colors.labelColor,
+                  borderRadius: hp(1.5),
+                }}
+                placeholder="Password"
+                placeholderTextColor={theme.colors.labelColor}
+                secureTextEntry={!showPassword}
+                onBlur={onBlur}
+                onChange={onChange}
+                prefix={
+                  <LockIcon
+                    color={
+                      errors.password
+                        ? theme.colors.errorTextColor
+                        : theme.colors.secondaryBgColor
+                    }
+                  />
+                }
+                suffix={
+                  <Pressable onPress={() => setShowPassword(!showPassword)}>
+                    {!showPassword ? (
+                      <EyeIcon
+                        color={theme.colors.labelColor}
+                        width={wp(6)}
+                        height={hp(5)}
+                      />
+                    ) : (
+                      <CloseEyeIcon
+                        color={theme.colors.labelColor}
+                        width={wp(6)}
+                        height={hp(5)}
+                      />
+                    )}
+                  </Pressable>
+                }
+              />
+            </View>
+          )}
+          name="password"
+        />
+
         <CashFlowButton
           label="Sign Up"
           style={{
@@ -159,7 +262,7 @@ const SignInScreen = () => {
             paddingVertical: hp(1.8),
             borderRadius: hp(1.5),
           }}
-          onPress={() => {}}
+          onPress={handleSubmit(onSubmit)}
         />
 
         <View
