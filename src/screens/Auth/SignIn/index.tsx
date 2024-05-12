@@ -33,12 +33,7 @@ const SignInScreen = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
+  } = useForm<SignInForm>();
   const onSubmit = (data: SignInForm) => {
     console.log(data);
   };
