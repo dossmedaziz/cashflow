@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { CashFlowButton, SafeAreaWrapper } from "@/components";
+import { CashFlowButton, SafeAreaWrapper, CashFlowInput } from "@/components";
 import { hp, moderateScale, wp } from "@/helpers/ruler";
 import { useTheme } from "@/theme/useTheme";
 import UserIcon from "@/components/shared/UserIcon";
@@ -47,6 +47,8 @@ const SignInScreen = () => {
           Sign in to your CashFlow account and continue tracking your expenses.
           Please enter your login details
         </Text>
+
+        {/* started email input  */}
         <View
           style={{
             width: wp(85),
@@ -54,7 +56,7 @@ const SignInScreen = () => {
             marginVertical: hp(2.5),
           }}
         >
-          <TextInput
+          <CashFlowInput
             style={{
               borderWidth: 1,
               alignSelf: "center",
@@ -66,16 +68,11 @@ const SignInScreen = () => {
             }}
             placeholder="Email"
             placeholderTextColor={theme.colors.labelColor}
-          />
-          <UserIcon
-            style={{
-              position: "absolute",
-              top: hp(1.6),
-              left: wp(3),
-              fill: theme.colors.secondaryBgColor,
-            }}
+            prefix={<UserIcon color={theme.colors.secondaryBgColor} />}
           />
         </View>
+
+        {/* started password input  */}
         <View
           style={{
             width: wp(85),
@@ -83,7 +80,7 @@ const SignInScreen = () => {
             marginVertical: hp(2.5),
           }}
         >
-          <TextInput
+          <CashFlowInput
             style={{
               borderWidth: 1,
               alignSelf: "center",
@@ -96,39 +93,25 @@ const SignInScreen = () => {
             placeholder="Password"
             placeholderTextColor={theme.colors.labelColor}
             secureTextEntry={!showPassword}
+            prefix={<LockIcon color={theme.colors.secondaryBgColor} />}
+            suffix={
+              <Pressable onPress={() => setShowPassword(!showPassword)}>
+                {!showPassword ? (
+                  <EyeIcon
+                    color={theme.colors.labelColor}
+                    width={wp(6)}
+                    height={hp(5)}
+                  />
+                ) : (
+                  <CloseEyeIcon
+                    color={theme.colors.labelColor}
+                    width={wp(6)}
+                    height={hp(5)}
+                  />
+                )}
+              </Pressable>
+            }
           />
-          <LockIcon
-            style={{
-              position: "absolute",
-              top: hp(1.6),
-              left: wp(3),
-              fill: theme.colors.secondaryBgColor,
-            }}
-          />
-          <Pressable
-            style={{
-              position: "absolute",
-              top: hp(1.6),
-              right: wp(3),
-              width: wp(10),
-              alignItems: "flex-end",
-            }}
-            onPress={() => setShowPassword(!showPassword)}
-          >
-            {!showPassword ? (
-              <EyeIcon
-                color={theme.colors.labelColor}
-                width={wp(6)}
-                height={hp(5)}
-              />
-            ) : (
-              <CloseEyeIcon
-                color={theme.colors.labelColor}
-                width={wp(6)}
-                height={hp(5)}
-              />
-            )}
-          </Pressable>
         </View>
         <CashFlowButton
           label="Sign In"

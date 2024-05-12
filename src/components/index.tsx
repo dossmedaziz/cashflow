@@ -3,4 +3,12 @@ import Paginator from "./Paginator";
 
 import CashFlowButton from "./CashFlowButton";
 import SafeAreaWrapper from "./shared/SafeAreaView";
-export { OnboardingItem, Paginator, CashFlowButton, SafeAreaWrapper };
+import CashFlowInput from "./shared/CashFlowInput";
+
+export {
+  OnboardingItem,
+  Paginator,
+  CashFlowButton,
+  SafeAreaWrapper,
+  CashFlowInput,
+};
