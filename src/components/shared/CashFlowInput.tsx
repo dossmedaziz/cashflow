@@ -1,8 +1,6 @@
-import { View, Text, TextInput } from "react-native";
+import { View, TextInput } from "react-native";
 import React from "react";
 import { hp, wp } from "@/helpers/ruler";
-import { useTheme } from "@/theme/useTheme";
-import UserIcon from "./UserIcon";
 
 type CashFlowInputProps = {
   style?: object;
@@ -21,8 +19,6 @@ const CashFlowInput = ({
   suffix,
   secureTextEntry = false,
 }: CashFlowInputProps) => {
-  const { theme } = useTheme();
-
   return (
     <>
       <TextInput

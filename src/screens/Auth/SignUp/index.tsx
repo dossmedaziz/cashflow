@@ -8,14 +8,12 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { CashFlowButton, SafeAreaWrapper } from "@/components";
+import { CashFlowButton, CashFlowInput, SafeAreaWrapper } from "@/components";
 import { hp, moderateScale, wp } from "@/helpers/ruler";
 import { useTheme } from "@/theme/useTheme";
-import UserIcon from "@/components/shared/UserIcon";
-import EyeIcon from "@/components/shared/EyeIcon";
-import CloseEyeIcon from "@/components/shared/CloseEyeIcon";
-import LockIcon from "@/components/shared/LockIcon";
 import { useNavigation } from "@react-navigation/native";
+
+import { UserIcon, EyeIcon, CloseEyeIcon, LockIcon, EmailIcon } from "@/icons";
 
 const SignInScreen = () => {
   const { theme } = useTheme();
@@ -53,7 +51,7 @@ const SignInScreen = () => {
             marginVertical: hp(2),
           }}
         >
-          <TextInput
+          <CashFlowInput
             style={{
               borderWidth: 1,
               alignSelf: "center",
@@ -65,14 +63,7 @@ const SignInScreen = () => {
             }}
             placeholder="First Name"
             placeholderTextColor={theme.colors.labelColor}
-          />
-          <UserIcon
-            style={{
-              position: "absolute",
-              top: hp(1.6),
-              left: wp(3),
-              fill: theme.colors.secondaryBgColor,
-            }}
+            prefix={<UserIcon color={theme.colors.secondaryBgColor} />}
           />
         </View>
         <View
@@ -82,7 +73,7 @@ const SignInScreen = () => {
             marginVertical: hp(2),
           }}
         >
-          <TextInput
+          <CashFlowInput
             style={{
               borderWidth: 1,
               alignSelf: "center",
@@ -94,14 +85,7 @@ const SignInScreen = () => {
             }}
             placeholder="Last Name"
             placeholderTextColor={theme.colors.labelColor}
-          />
-          <UserIcon
-            style={{
-              position: "absolute",
-              top: hp(1.6),
-              left: wp(3),
-              fill: theme.colors.secondaryBgColor,
-            }}
+            prefix={<UserIcon color={theme.colors.secondaryBgColor} />}
           />
         </View>
         <View
@@ -111,7 +95,7 @@ const SignInScreen = () => {
             marginVertical: hp(2),
           }}
         >
-          <TextInput
+          <CashFlowInput
             style={{
               borderWidth: 1,
               alignSelf: "center",
@@ -123,14 +107,7 @@ const SignInScreen = () => {
             }}
             placeholder="Email"
             placeholderTextColor={theme.colors.labelColor}
-          />
-          <UserIcon
-            style={{
-              position: "absolute",
-              top: hp(1.6),
-              left: wp(3),
-              fill: theme.colors.secondaryBgColor,
-            }}
+            prefix={<EmailIcon color={theme.colors.secondaryBgColor} />}
           />
         </View>
         <View
@@ -140,7 +117,7 @@ const SignInScreen = () => {
             marginVertical: hp(2),
           }}
         >
-          <TextInput
+          <CashFlowInput
             style={{
               borderWidth: 1,
               alignSelf: "center",
@@ -153,39 +130,25 @@ const SignInScreen = () => {
             placeholder="Password"
             placeholderTextColor={theme.colors.labelColor}
             secureTextEntry={!showPassword}
+            prefix={<LockIcon color={theme.colors.secondaryBgColor} />}
+            suffix={
+              <Pressable onPress={() => setShowPassword(!showPassword)}>
+                {!showPassword ? (
+                  <EyeIcon
+                    color={theme.colors.labelColor}
+                    width={wp(6)}
+                    height={hp(5)}
+                  />
+                ) : (
+                  <CloseEyeIcon
+                    color={theme.colors.labelColor}
+                    width={wp(6)}
+                    height={hp(5)}
+                  />
+                )}
+              </Pressable>
+            }
           />
-          <LockIcon
-            style={{
-              position: "absolute",
-              top: hp(1.6),
-              left: wp(3),
-              fill: theme.colors.secondaryBgColor,
-            }}
-          />
-          <Pressable
-            style={{
-              position: "absolute",
-              top: hp(1.6),
-              right: wp(3),
-              width: wp(10),
-              alignItems: "flex-end",
-            }}
-            onPress={() => setShowPassword(!showPassword)}
-          >
-            {!showPassword ? (
-              <EyeIcon
-                color={theme.colors.labelColor}
-                width={wp(6)}
-                height={hp(5)}
-              />
-            ) : (
-              <CloseEyeIcon
-                color={theme.colors.labelColor}
-                width={wp(6)}
-                height={hp(5)}
-              />
-            )}
-          </Pressable>
         </View>
         <CashFlowButton
           label="Sign Up"

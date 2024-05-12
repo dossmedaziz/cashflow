@@ -12,7 +12,7 @@ import { hp, moderateScale, wp } from "@/helpers/ruler";
 import { useTheme } from "@/theme/useTheme";
 import { useNavigation } from "@react-navigation/native";
 
-import { EmailIcon, CloseEyeIcon, EyeIcon, LockIcon } from "@/components";
+import { EmailIcon, CloseEyeIcon, EyeIcon, LockIcon } from "@/icons";
 const SignInScreen = () => {
   const { theme } = useTheme();
   const [showPassword, setShowPassword] = React.useState(false);
