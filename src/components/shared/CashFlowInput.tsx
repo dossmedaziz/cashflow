@@ -10,7 +10,7 @@ type CashFlowInputProps = {
   placeholderTextColor: string;
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
-  secureTextEntry: boolean;
+  secureTextEntry?: boolean;
 };
 
 const CashFlowInput = ({

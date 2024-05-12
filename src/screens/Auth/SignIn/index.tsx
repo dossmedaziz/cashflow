@@ -4,19 +4,15 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import React from "react";
 import { CashFlowButton, SafeAreaWrapper, CashFlowInput } from "@/components";
 import { hp, moderateScale, wp } from "@/helpers/ruler";
 import { useTheme } from "@/theme/useTheme";
-import UserIcon from "@/components/shared/UserIcon";
-import EyeIcon from "@/components/shared/EyeIcon";
-import CloseEyeIcon from "@/components/shared/CloseEyeIcon";
-import LockIcon from "@/components/shared/LockIcon";
 import { useNavigation } from "@react-navigation/native";
 
+import { EmailIcon, CloseEyeIcon, EyeIcon, LockIcon } from "@/components";
 const SignInScreen = () => {
   const { theme } = useTheme();
   const [showPassword, setShowPassword] = React.useState(false);
@@ -68,7 +64,7 @@ const SignInScreen = () => {
             }}
             placeholder="Email"
             placeholderTextColor={theme.colors.labelColor}
-            prefix={<UserIcon color={theme.colors.secondaryBgColor} />}
+            prefix={<EmailIcon color={theme.colors.secondaryBgColor} />}
           />
         </View>
 
@@ -90,7 +86,7 @@ const SignInScreen = () => {
               borderColor: theme.colors.labelColor,
               borderRadius: hp(1.5),
             }}
-            placeholder="Password"
+            placeholder="Passwords"
             placeholderTextColor={theme.colors.labelColor}
             secureTextEntry={!showPassword}
             prefix={<LockIcon color={theme.colors.secondaryBgColor} />}

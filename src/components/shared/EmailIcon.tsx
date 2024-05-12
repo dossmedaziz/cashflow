@@ -1,13 +1,13 @@
 import { hp, wp } from "@/helpers/ruler";
 import * as React from "react";
-import Svg, { Path } from "react-native-svg";
+import Svg, { Path, Polyline } from "react-native-svg";
 type EmailIconProps = {
   style?: object;
   color?: string;
   width?: number;
   height?: number;
 };
-const EmailIcon = ({ style, color, width, height }: CloseEyeIconProps) => (
+const EmailIcon = ({ style, color, width, height }: EmailIconProps) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
     width={width || wp(7)}
@@ -16,22 +16,13 @@ const EmailIcon = ({ style, color, width, height }: CloseEyeIconProps) => (
     fill="none"
     stroke={color || "#000000"}
     strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="feather feather-mail"
     style={style}
   >
-    <Path
-      d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"
-      stroke="black"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M22 6L12 13L2 6"
-      stroke="black"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
+    <Path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+    <Polyline points="22,6 12,13 2,6" />
   </Svg>
 );
 export default EmailIcon;
