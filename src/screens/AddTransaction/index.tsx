@@ -1,11 +1,12 @@
 import { View, Text } from "react-native";
 import React from "react";
+import { SafeAreaWrapper } from "@/components";
 
 const AddTransactionScreen = () => {
   return (
-    <View>
+    <SafeAreaWrapper>
       <Text>AddTransactionScreen</Text>
-    </View>
+    </SafeAreaWrapper>
   );
 };
 
