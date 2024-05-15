@@ -4,6 +4,7 @@ import { RootButtonTabParamList } from "./types";
 import HomeStackNavigator from "./home-stack";
 import { useTheme } from "@/theme/useTheme";
 import { Text } from "react-native";
+import { ButtomNavigationBar } from "@/components";
 
 const Tab = createBottomTabNavigator<RootButtonTabParamList>();
 
@@ -16,9 +17,7 @@ const BottomTabNavigator = () => {
         tabBarInactiveTintColor: theme.colors.gray550,
         tabBarHideOnKeyboard: true,
       }}
-      tabBar={() => {
-        return <Text>TabBar</Text>;
-      }}
+      tabBar={() => <ButtomNavigationBar />}
     >
       <Tab.Screen
         name="HomeStack"
