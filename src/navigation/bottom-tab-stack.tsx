@@ -5,6 +5,7 @@ import HomeStackNavigator from "./home-stack";
 import { useTheme } from "@/theme/useTheme";
 import { Text } from "react-native";
 import { ButtomNavigationBar } from "@/components";
+import { AddTransactionScreen, PorfileScreen } from "@/screens";
 
 const Tab = createBottomTabNavigator<RootButtonTabParamList>();
 
@@ -16,18 +17,14 @@ const BottomTabNavigator = () => {
         tabBarActiveTintColor: "black",
         tabBarInactiveTintColor: theme.colors.gray550,
         tabBarHideOnKeyboard: true,
+        tabBarShowLabel: false,
+        headerShown: true,
       }}
-      tabBar={() => <ButtomNavigationBar />}
+      tabBar={(props) => <ButtomNavigationBar {...props} />}
     >
-      <Tab.Screen
-        name="HomeStack"
-        component={HomeStackNavigator}
-        options={() => ({
-          title: "Home",
-          tabBarIcon: ({ color }) => <Text>Home</Text>,
-          headerShown: false,
-        })}
-      />
+      <Tab.Screen name="HomeStack" component={HomeStackNavigator} />
+      <Tab.Screen name="AddTransaction" component={AddTransactionScreen} />
+      <Tab.Screen name="Porfile" component={PorfileScreen} />
     </Tab.Navigator>
   );
 };
