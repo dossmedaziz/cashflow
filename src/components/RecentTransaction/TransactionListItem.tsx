@@ -15,6 +15,8 @@ const TransactionListItem = () => {
         borderRadius: hp(1),
         alignItems: "center",
         flexDirection: "row",
+        borderBottomWidth: 1,
+        borderBottomColor: theme.colors.labelColor,
       }}
     >
       <View

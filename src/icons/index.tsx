@@ -7,7 +7,7 @@ import UserIcon from "./UserIcon";
 import HomeIcon from "./HomeIcon";
 import PlusIcon from "./PlusIcon";
 import ShopCartIcon from "./ShopIcon";
-
+import LeftArrowIcon from "./LeftArrowIcon";
 export {
   EmailIcon,
   EyeIcon,
@@ -17,4 +17,5 @@ export {
   HomeIcon,
   PlusIcon,
   ShopCartIcon,
+  LeftArrowIcon,
 };
