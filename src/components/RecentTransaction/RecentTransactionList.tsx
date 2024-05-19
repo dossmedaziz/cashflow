@@ -43,7 +43,7 @@ const RecentTransactionList = () => {
           paddingBottom: hp(16),
         }}
       >
-        {Array.from({ length: 5 }).map((_, index) => {
+        {Array.from({ length: 10 }).map((_, index) => {
           return <TransactionListItem key={index} />;
         })}
       </View>
