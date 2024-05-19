@@ -1,19 +1,35 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { SafeAreaWrapper } from "@/components";
+import { HomeScreenCard, SafeAreaWrapper } from "@/components";
+import { hp, wp } from "@/helpers/ruler";
+import { useTheme } from "@/theme/useTheme";
 
 const HomeScreen = () => {
+  const { theme } = useTheme();
   return (
     <SafeAreaWrapper>
-      <ScrollView style={{ flex: 1 }}>
-        {/* {Array.from({ length: 20 }).map((_, index) => (
-          <View
-            key={index}
-            style={{ height: 100, marginBottom: 20, backgroundColor: "blue" }}
+      <ScrollView style={styles.container}>
+        <View>
+          <Text style={[styles.greeting, { color: theme.colors.labelColor }]}>
+            Welcome Back
+          </Text>
+          <Text
+            style={[
+              styles.conntectedUserName,
+              { color: theme.colors.primaryTextColor },
+            ]}
           >
-            <Text>{index}</Text>
-          </View>
-        ))} */}
+            Mohamed Aziz.
+          </Text>
+        </View>
+        <View
+          style={{
+            alignItems: "center",
+            marginTop: hp(5),
+          }}
+        >
+          <HomeScreenCard />
+        </View>
       </ScrollView>
     </SafeAreaWrapper>
   );
@@ -21,4 +37,8 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: { flex: 1, paddingHorizontal: wp(5), paddingTop: hp(4) },
+  greeting: { fontSize: hp(2) },
+  conntectedUserName: { fontSize: hp(3), fontWeight: "bold" },
+});
