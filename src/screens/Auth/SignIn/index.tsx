@@ -23,7 +23,7 @@ type SignInForm = {
 
 const SignInScreen = () => {
   const { theme } = useTheme();
-  const { setConnectUser } = useAuth();
+  const { setConnectUser, setAccessToken } = useAuth();
   const [showPassword, setShowPassword] = React.useState(false);
   const navigateTo = useNavigation();
 
@@ -39,13 +39,14 @@ const SignInScreen = () => {
   const onSubmit = (data: SignInForm) => {
     login(data.email, data.password)
       .then((response) => {
-        const { data, status } = response;
+        const { data } = response;
         const { token, user } = data;
         setConnectUser(user);
+        setAccessToken(token.token);
       })
       .catch((error) => {
         const { status } = error.response;
-        console.log(status);
+        alert(`Login failed`);
       });
   };
   return (

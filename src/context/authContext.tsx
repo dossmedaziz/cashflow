@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { storeData, getData, removeData } from "../services/asyncStorage";
 import { Text } from "react-native";
+import { connectedUser } from "@/services/authService";
 const AuthContext = createContext({});
 
 type AuthProviderProps = {
@@ -27,12 +28,21 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     removeData("token");
     setConnectUser(null);
   };
+
+  const getConnectedUser = () => {
+    getData("token").then((token) => {
+      connectedUser(token).then((response) => {
+        const { user } = response.data;
+        console.log(user);
+      });
+    });
+  };
+
   useEffect(() => {
     const getUser = () => {
       getData("user").then((user) => {
         if (user) {
           setUser(JSON.parse(user));
-          console.log("user", user);
         }
         setIsLoading(false);
       });
@@ -45,7 +55,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, setConnectUser, setAccessToken, logout }}
+      value={{ user, setConnectUser, setAccessToken, logout, getConnectedUser }}
     >
       {isLoading ? <Text>loading</Text> : children}
     </AuthContext.Provider>

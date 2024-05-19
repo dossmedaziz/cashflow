@@ -7,9 +7,11 @@ import {
 } from "@/components";
 import { hp, wp } from "@/helpers/ruler";
 import { useTheme } from "@/theme/useTheme";
+import { useAuth } from "@/context/authContext";
 
 const HomeScreen = () => {
   const { theme } = useTheme();
+  const { user } = useAuth();
   return (
     <SafeAreaWrapper>
       <ScrollView style={styles.container}>
@@ -23,7 +25,7 @@ const HomeScreen = () => {
               { color: theme.colors.primaryTextColor },
             ]}
           >
-            Mohamed Aziz.
+            {user.lastName}.
           </Text>
         </View>
         <View

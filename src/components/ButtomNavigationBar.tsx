@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     height: "100%",
-    borderRadius: hp(3),
+    borderRadius: hp(1.5),
     paddingHorizontal: wp(10),
   },
 });
