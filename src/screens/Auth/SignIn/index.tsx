@@ -14,7 +14,8 @@ import { useNavigation } from "@react-navigation/native";
 
 import { EmailIcon, CloseEyeIcon, EyeIcon, LockIcon } from "@/icons";
 import { useForm, Controller } from "react-hook-form";
-
+import { login } from "@/services/authService";
+import { useAuth } from "@/context/authContext";
 type SignInForm = {
   email: string;
   password: string;
@@ -22,6 +23,7 @@ type SignInForm = {
 
 const SignInScreen = () => {
   const { theme } = useTheme();
+  const { setConnectUser } = useAuth();
   const [showPassword, setShowPassword] = React.useState(false);
   const navigateTo = useNavigation();
 
@@ -35,7 +37,16 @@ const SignInScreen = () => {
     formState: { errors },
   } = useForm<SignInForm>();
   const onSubmit = (data: SignInForm) => {
-    console.log(data);
+    login(data.email, data.password)
+      .then((response) => {
+        const { data, status } = response;
+        const { token, user } = data;
+        setConnectUser(user);
+      })
+      .catch((error) => {
+        const { status } = error.response;
+        console.log(status);
+      });
   };
   return (
     <SafeAreaWrapper>
