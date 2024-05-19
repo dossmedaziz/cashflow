@@ -6,6 +6,7 @@ import LockIcon from "./LockIcon";
 import UserIcon from "./UserIcon";
 import HomeIcon from "./HomeIcon";
 import PlusIcon from "./PlusIcon";
+import ShopCartIcon from "./ShopIcon";
 
 export {
   EmailIcon,
@@ -15,4 +16,5 @@ export {
   UserIcon,
   HomeIcon,
   PlusIcon,
+  ShopCartIcon,
 };

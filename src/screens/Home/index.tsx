@@ -1,6 +1,10 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { HomeScreenCard, SafeAreaWrapper } from "@/components";
+import {
+  HomeScreenCard,
+  RecentTransactionList,
+  SafeAreaWrapper,
+} from "@/components";
 import { hp, wp } from "@/helpers/ruler";
 import { useTheme } from "@/theme/useTheme";
 
@@ -29,6 +33,15 @@ const HomeScreen = () => {
           }}
         >
           <HomeScreenCard />
+          <View
+            style={{
+              height: 1,
+              width: "100%",
+              backgroundColor: theme.colors.labelColor,
+              marginVertical: hp(2),
+            }}
+          />
+          <RecentTransactionList />
         </View>
       </ScrollView>
     </SafeAreaWrapper>
