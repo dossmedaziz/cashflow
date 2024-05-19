@@ -5,7 +5,9 @@ import { HomeIcon, PlusIcon, UserIcon } from "@/icons";
 import { hp, wp } from "@/helpers/ruler";
 const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
   const { theme } = useTheme();
-  const { index } = state;
+  const { index, routes } = state;
+
+  console.log(routes);
 
   // state.routes.map((route: any, index: number) => {
   //   console.log(descriptors);
@@ -26,12 +28,7 @@ const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
   //   },
   // ]
   return (
-    <View
-      style={[
-        styles.container,
-        { backgroundColor: theme.colors.primaryBgColor },
-      ]}
-    >
+    <View style={styles.container}>
       <View
         style={[
           styles.links,
@@ -110,7 +107,7 @@ const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
                   ? theme.colors.activeIconColor
                   : theme.colors.secondaryTextColor,
               fontSize: 12,
-              fontWeight: "bold",
+              fontWeight: "normal",
             }}
           >
             Profile
@@ -125,7 +122,11 @@ export default ButtomNavigationBar;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.15,
+    position: "absolute",
+    bottom: 20,
+    height: hp(8),
+    width: "80%",
+    alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -133,8 +134,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "80%",
-    height: "80%",
+    width: "100%",
+    height: "100%",
     borderRadius: hp(3),
     paddingHorizontal: wp(10),
   },
