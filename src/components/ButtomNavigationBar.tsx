@@ -3,30 +3,77 @@ import React from "react";
 import { useTheme } from "@/theme/useTheme";
 import { HomeIcon, PlusIcon, UserIcon } from "@/icons";
 import { hp, wp } from "@/helpers/ruler";
+import ButtomBarNavLink from "@/components/ButtomBarNavLink";
 const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
   const { theme } = useTheme();
   const { index, routes } = state;
 
-  console.log(routes);
+  const navigateTo = (screenName: string) => {
+    navigation.navigate(screenName);
+  };
 
-  // state.routes.map((route: any, index: number) => {
-  //   console.log(descriptors);
-  // });
+  const renderTabBarLinks = (screenName: string, isActive: boolean) => {
+    switch (screenName) {
+      case "HomeStack":
+        return (
+          <ButtomBarNavLink
+            isActive={isActive}
+            label="Home"
+            navigateTo={navigateTo}
+            screenName="HomeStack"
+            icon={
+              <HomeIcon
+                color={
+                  isActive
+                    ? theme.colors.activeIconColor
+                    : theme.colors.secondaryTextColor
+                }
+              />
+            }
+            key={screenName}
+          />
+        );
+      case "AddTransaction":
+        return (
+          <ButtomBarNavLink
+            isActive={isActive}
+            label="Add"
+            navigateTo={navigateTo}
+            screenName="AddTransaction"
+            icon={
+              <PlusIcon
+                color={
+                  isActive
+                    ? theme.colors.activeIconColor
+                    : theme.colors.secondaryTextColor
+                }
+              />
+            }
+            key={screenName}
+          />
+        );
+      case "Porfile":
+        return (
+          <ButtomBarNavLink
+            isActive={isActive}
+            label="Profile"
+            navigateTo={navigateTo}
+            screenName="Porfile"
+            icon={
+              <UserIcon
+                color={
+                  isActive
+                    ? theme.colors.activeIconColor
+                    : theme.colors.secondaryTextColor
+                }
+              />
+            }
+            key={screenName}
+          />
+        );
+    }
+  };
 
-  // const icons =[
-  //   {
-  //     name: "Home",
-  //     icon: <HomeIcon color={theme.colors.secondaryTextColor} />,
-  //   },
-  //   {
-  //     name: "Add",
-  //     icon: <PlusIcon color={theme.colors.secondaryTextColor} />,
-  //   },
-  //   {
-  //     name: "Profile",
-  //     icon: <UserIcon color={theme.colors.primaryBgColor} />,
-  //   },
-  // ]
   return (
     <View style={styles.container}>
       <View
@@ -35,84 +82,9 @@ const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
           { backgroundColor: theme.colors.secondaryBgColor },
         ]}
       >
-        <Pressable
-          style={{
-            alignItems: "center",
-          }}
-          onPress={() => navigation.navigate("HomeStack")}
-        >
-          <HomeIcon
-            color={
-              index == 0
-                ? theme.colors.activeIconColor
-                : theme.colors.secondaryTextColor
-            }
-          />
-          <Text
-            style={{
-              color:
-                index == 0
-                  ? theme.colors.activeIconColor
-                  : theme.colors.secondaryTextColor,
-              fontSize: 12,
-              fontWeight: "bold",
-            }}
-          >
-            Home
-          </Text>
-        </Pressable>
-        <Pressable
-          style={{
-            alignItems: "center",
-          }}
-          onPress={() => navigation.navigate("AddTransaction")}
-        >
-          <PlusIcon
-            color={
-              index == 1
-                ? theme.colors.activeIconColor
-                : theme.colors.secondaryTextColor
-            }
-          />
-          <Text
-            style={{
-              color:
-                index == 1
-                  ? theme.colors.activeIconColor
-                  : theme.colors.secondaryTextColor,
-              fontSize: 12,
-              fontWeight: "bold",
-            }}
-          >
-            Add
-          </Text>
-        </Pressable>
-        <Pressable
-          style={{
-            alignItems: "center",
-          }}
-          onPress={() => navigation.navigate("Porfile")}
-        >
-          <UserIcon
-            color={
-              index == 2
-                ? theme.colors.activeIconColor
-                : theme.colors.secondaryTextColor
-            }
-          />
-          <Text
-            style={{
-              color:
-                index == 2
-                  ? theme.colors.activeIconColor
-                  : theme.colors.secondaryTextColor,
-              fontSize: 12,
-              fontWeight: "normal",
-            }}
-          >
-            Profile
-          </Text>
-        </Pressable>
+        {routes.map((route: any, i: number) => {
+          return renderTabBarLinks(route.name, index === i);
+        })}
       </View>
     </View>
   );
