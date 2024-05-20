@@ -4,13 +4,13 @@ import { SafeAreaWrapper } from "@/components";
 import { useAuth } from "@/context/authContext";
 
 const PorfileScreen = () => {
-  const { logout, getConnectedUser } = useAuth();
+  const { logout } = useAuth();
   return (
     <SafeAreaWrapper>
       <Text>PorfileScreen</Text>
       <Pressable
         onPress={() => {
-          getConnectedUser();
+          logout();
         }}
       >
         <Text>Logout</Text>

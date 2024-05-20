@@ -7,6 +7,8 @@ import ButtomNavigationBar from "./ButtomNavigationBar";
 import ButtomBarNavLink from "./ButtomBarNavLink";
 import HomeScreenCard from "./HomeScreenCard";
 import RecentTransactionList from "./RecentTransaction/RecentTransactionList";
+
+import Loader from "./shared/Loader";
 export {
   OnboardingItem,
   Paginator,
@@ -17,4 +19,5 @@ export {
   ButtomBarNavLink,
   HomeScreenCard,
   RecentTransactionList,
+  Loader,
 };

@@ -37,17 +37,36 @@ const SignInScreen = () => {
     formState: { errors },
   } = useForm<SignInForm>();
   const onSubmit = (data: SignInForm) => {
-    login(data.email, data.password)
-      .then((response) => {
-        const { data } = response;
-        const { token, user } = data;
-        setConnectUser(user);
-        setAccessToken(token.token);
-      })
-      .catch((error) => {
-        const { status } = error.response;
-        alert(`Login failed`);
-      });
+    const onSuccess = (response: any) => {
+      const { data } = response;
+      const { token, user } = data;
+      setConnectUser(user);
+      setAccessToken(token.token);
+    };
+    const onFail = (error: any) => {
+      const { status } = error.response;
+      switch (status) {
+        case 422:
+          const response = error.response;
+          let { email, password } = response.data.errors;
+          control.setError("email", {
+            type: "manual",
+            message: email,
+          });
+          control.setError("password", {
+            type: "manual",
+            message: password,
+          });
+          break;
+        case 401:
+          alert("Login failed");
+          break;
+        default:
+          alert("another error");
+          break;
+      }
+    };
+    login(data.email, data.password, onSuccess, onFail);
   };
   return (
     <SafeAreaWrapper>
@@ -100,6 +119,7 @@ const SignInScreen = () => {
                 }}
                 placeholder="Email"
                 placeholderTextColor={theme.colors.labelColor}
+                keyboardType="email-address"
                 onBlur={onBlur}
                 onChange={onChange}
                 value={value}

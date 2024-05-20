@@ -1,4 +1,4 @@
-import { View, TextInput } from "react-native";
+import { View, TextInput, KeyboardTypeOptions } from "react-native";
 import React from "react";
 import { hp, wp } from "@/helpers/ruler";
 
@@ -12,6 +12,7 @@ type CashFlowInputProps = {
   onChange?: (text: string) => void;
   onBlur?: () => void;
   value?: string;
+  keyboardType?: KeyboardTypeOptions;
 };
 
 const CashFlowInput = ({
@@ -24,6 +25,7 @@ const CashFlowInput = ({
   onChange,
   onBlur,
   value,
+  keyboardType,
 }: CashFlowInputProps) => {
   return (
     <>
@@ -35,6 +37,7 @@ const CashFlowInput = ({
         onBlur={onBlur}
         onChangeText={onChange}
         value={value}
+        keyboardType={keyboardType}
       />
       {prefix && (
         <View

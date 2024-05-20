@@ -37,22 +37,20 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       });
     });
   };
-
+  const getConnecteduserFromStorage = () => {
+    getData("user").then((user) => {
+      if (user) {
+        console.log(user);
+        setUser(JSON.parse(user));
+      }
+      setIsLoading(false);
+    });
+    setUser(user);
+    // setIsLoading(false);
+  };
   useEffect(() => {
-    const getUser = () => {
-      getData("user").then((user) => {
-        if (user) {
-          setUser(JSON.parse(user));
-        }
-        setIsLoading(false);
-      });
-      setUser(user);
-    };
-    getUser();
+    getConnecteduserFromStorage();
   }, []);
-
-  children;
-
   return (
     <AuthContext.Provider
       value={{ user, setConnectUser, setAccessToken, logout, getConnectedUser }}
