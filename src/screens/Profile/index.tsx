@@ -1,16 +1,20 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { SafeAreaWrapper } from "@/components";
-import { useAuth } from "@/context/authContext";
-
+import useUserStore from "@/stores/useUserStore";
+import AuthService from "@/services/authService";
 const PorfileScreen = () => {
-  const { logout } = useAuth();
+const {  logout , token } = useUserStore();
+
+
+
   return (
     <SafeAreaWrapper>
       <Text>PorfileScreen</Text>
       <Pressable
         onPress={() => {
-          logout();
+         AuthService.logout(token);
+         logout()
         }}
       >
         <Text>Logout</Text>

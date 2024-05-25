@@ -7,12 +7,13 @@ import {
 } from "@/components";
 import { hp, wp } from "@/helpers/ruler";
 import { useTheme } from "@/theme/useTheme";
-import { useAuth } from "@/context/authContext";
+import useUserStore from "@/stores/useUserStore";
 
 const HomeScreen = () => {
   const { theme } = useTheme();
-  const { user } = useAuth();
-  return (
+    const { user } = useUserStore();
+
+    return (
     <SafeAreaWrapper>
       <ScrollView style={styles.container}>
         <View>

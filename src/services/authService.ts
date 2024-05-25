@@ -27,7 +27,19 @@ import httpClient from "./httpClient";
    }
 }
 
+const logout = async (token : string) => {
+    try{
+        return await httpClient.post("/auth/logout", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+    }catch(error){
+        throw error
+    }
+}
 export default {
     login,
-    connectedUser
+    connectedUser,
+    logout
 }

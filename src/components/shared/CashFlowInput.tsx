@@ -13,6 +13,7 @@ type CashFlowInputProps = {
   onBlur?: () => void;
   value?: string;
   keyboardType?: KeyboardTypeOptions;
+  autoCapitalize?: "none";
 };
 
 const CashFlowInput = ({
@@ -26,6 +27,7 @@ const CashFlowInput = ({
   onBlur,
   value,
   keyboardType,
+    autoCapitalize,
 }: CashFlowInputProps) => {
   return (
     <>
@@ -38,6 +40,7 @@ const CashFlowInput = ({
         onChangeText={onChange}
         value={value}
         keyboardType={keyboardType}
+        autoCapitalize={autoCapitalize || "none"}
       />
       {prefix && (
         <View

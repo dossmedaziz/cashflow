@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { EmailIcon, CloseEyeIcon, EyeIcon, LockIcon } from "@/icons";
 import { useForm, Controller } from "react-hook-form";
 import AuthService from "@/services/authService";
-import { useAuth } from "@/context/authContext";
+import useUserStore from "@/stores/useUserStore";
 type SignInForm = {
   email: string;
   password: string;
@@ -23,7 +23,7 @@ type SignInForm = {
 
 const SignInScreen = () => {
   const { theme } = useTheme();
-  const { setConnectUser, setAccessToken } = useAuth();
+  const {updateUser , updateToken} = useUserStore();
   const [showPassword, setShowPassword] = React.useState(false);
   const navigateTo = useNavigation();
 
@@ -40,8 +40,8 @@ const SignInScreen = () => {
     const onSuccess = (response: any) => {
       const { data } = response;
       const { token, user } = data;
-      setConnectUser(user);
-      setAccessToken(token.token);
+        updateUser(user);
+        updateToken(token.token);
     };
     const onFail = (error: any) => {
       const { status } = error.response;

@@ -3,9 +3,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import BottomTabNavigator from "./bottom-tab-stack";
 import AuthStackNavigator from "./auth-stack";
-import { useAuth } from "@/context/authContext";
+import useUserStore from "@/stores/useUserStore";
 const Navigation = () => {
-  const { user } = useAuth();
+  const { user } = useUserStore();
   return (
     <NavigationContainer>
       {user ? <BottomTabNavigator /> : <AuthStackNavigator />}
