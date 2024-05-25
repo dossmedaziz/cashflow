@@ -3,10 +3,11 @@ export type SignInForm = {
     password: string;
 };
 
-export type SignUpForm = {
+export  type SignUpForm = {
     email: string;
     password: string;
-    password_confirmation: string;
+    firstName: string;
+    lastName: string;
 };
 
 export type UserDeviceDetails={

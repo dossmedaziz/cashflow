@@ -16,10 +16,7 @@ import { EmailIcon, CloseEyeIcon, EyeIcon, LockIcon } from "@/icons";
 import { useForm, Controller } from "react-hook-form";
 import AuthService from "@/services/authService";
 import useUserStore from "@/stores/useUserStore";
-type SignInForm = {
-  email: string;
-  password: string;
-};
+import { SignInForm } from "@/types";
 
 const SignInScreen = () => {
   const { theme } = useTheme();

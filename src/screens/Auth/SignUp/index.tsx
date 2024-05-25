@@ -15,12 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { UserIcon, EyeIcon, CloseEyeIcon, LockIcon, EmailIcon } from "@/icons";
 import { useForm, Controller } from "react-hook-form";
 
-type SignUpForm = {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-};
+import { SignUpForm } from "@/types";
 const SignInScreen = () => {
   const { theme } = useTheme();
   const [showPassword, setShowPassword] = React.useState(false);
