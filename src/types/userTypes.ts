@@ -8,3 +8,7 @@ export type SignUpForm = {
     password: string;
     password_confirmation: string;
 };
+
+export type UserDeviceDetails={
+    onBoarding:boolean;
+}

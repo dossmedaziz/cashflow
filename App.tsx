@@ -17,22 +17,26 @@ Reactotron.configure() // controls connection & communication settings
     .connect(); // let's connect!
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-  const {updateUser ,updateToken} = useUserStore();
-  const loadConnectedUser = async () =>{
-  await  CashFlowLocalStorage.getData("token").then((token) => {
-        if(!token)return;
+  const {updateUser ,updateToken,updateOnBoarding} = useUserStore();
+  const loadConnectedUser = async () => {
+    await CashFlowLocalStorage.getData("token").then((token) => {
+      if (!token) return;
       updateToken(token)
       AuthService.connectedUser(token)
           .then((response) => {
-        let{user} = response.data;
-        updateUser(user)
-      })
+            let {user} = response.data;
+            updateUser(user)
+          })
           .catch((error) => {
-        console.log(error)
-      })
+            console.log(error)
+          })
     })
-  }
 
+    await CashFlowLocalStorage.getData("onboarding")
+        .then((onboarding) => {
+          updateOnBoarding(onboarding === "true")
+        })
+  }
   useEffect(() => {
     async function prepare() {
       try {

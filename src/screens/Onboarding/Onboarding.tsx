@@ -10,6 +10,7 @@ import { Paginator, OnboardingItem, CashFlowButton } from "@/components";
 import { hp, wp } from "@/helpers/ruler";
 import { useNavigation } from "@react-navigation/native";
 import {SafeAreaWrapper} from '@/components'
+import useUserStore from "@/stores/useUserStore";
 
 const Onboarding = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,9 +19,10 @@ const Onboarding = () => {
   const slidesRef = useRef(null);
 
   const navigateTo = useNavigation();
-
+const {updateOnBoarding} = useUserStore();
   const navToSignIn = () => {
     navigateTo.navigate("SignIn");
+    updateOnBoarding(true);
   };
 
   const viewableItemsChanged = useRef(({ viewableItems }: any) => {
