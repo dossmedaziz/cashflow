@@ -12,9 +12,13 @@ const {  logout , token } = useUserStore();
     <SafeAreaWrapper>
       <Text>PorfileScreen</Text>
       <Pressable
-        onPress={() => {
-         AuthService.logout(token);
-         logout()
+        onPress={async () => {
+         AuthService.logout(token)
+             .then((response)=>{
+         }).catch((error)=>{
+             console.log(error)
+         })
+            logout()
         }}
       >
         <Text>Logout</Text>

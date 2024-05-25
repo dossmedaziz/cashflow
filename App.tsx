@@ -17,13 +17,11 @@ Reactotron.configure() // controls connection & communication settings
     .connect(); // let's connect!
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-  const {updateUser} = useUserStore();
-
-
-
-
+  const {updateUser ,updateToken} = useUserStore();
   const loadConnectedUser = async () =>{
   await  CashFlowLocalStorage.getData("token").then((token) => {
+        if(!token)return;
+      updateToken(token)
       AuthService.connectedUser(token)
           .then((response) => {
         let{user} = response.data;
@@ -39,7 +37,7 @@ export default function App() {
     async function prepare() {
       try {
         await SplashScreen.preventAutoHideAsync();
-        await loadConnectedUser()
+       await loadConnectedUser()
       } catch (e) {
         console.warn(e);
       } finally {

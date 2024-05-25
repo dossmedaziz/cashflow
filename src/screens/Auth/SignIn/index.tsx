@@ -35,7 +35,15 @@ const SignInScreen = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignInForm>();
+  } = useForm<SignInForm>(
+    {
+      defaultValues: {
+          email: "dossaziz@gmail.com",
+          password: "testtest",
+      },
+    }
+  );
+
   const onSubmit = (data: SignInForm) => {
     const onSuccess = (response: any) => {
       const { data } = response;

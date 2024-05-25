@@ -17,8 +17,8 @@ const useUserStore = create<IUserStore>()(
                 CashFlowLocalStorage.storeData("user", JSON.stringify(user));
                 set({ user });
             },
-            updateToken: (token) => {
-                CashFlowLocalStorage.storeData("token", token);
+            updateToken: async (token) => {
+               await CashFlowLocalStorage.storeData("token", token);
                 set({ token });
             },
             logout: () => {
