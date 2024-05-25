@@ -1,7 +1,7 @@
 import httpClient from "./httpClient";
 
 
-export const login = async (email: string, password: string , onSuccess :(response : any)=>void  , onFail :(response : any)=> void) => {
+ const login = async (email: string, password: string , onSuccess :(response : any)=>void  , onFail :(response : any)=> void) => {
   try {
    return  await httpClient.post("/auth/login", {
       email,
@@ -15,11 +15,19 @@ export const login = async (email: string, password: string , onSuccess :(respon
 };
 
 
-export const connectedUser = async (token : string) =>{
+ const connectedUser = async (token : string) =>{
    try{
-    return await httpClient.get("/auth/user")
-    
+    return await httpClient.get("/auth/user", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        })
    }catch(error){
     throw error
    }
+}
+
+export default {
+    login,
+    connectedUser
 }

@@ -14,7 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import { EmailIcon, CloseEyeIcon, EyeIcon, LockIcon } from "@/icons";
 import { useForm, Controller } from "react-hook-form";
-import { login } from "@/services/authService";
+import AuthService from "@/services/authService";
 import { useAuth } from "@/context/authContext";
 type SignInForm = {
   email: string;
@@ -66,7 +66,7 @@ const SignInScreen = () => {
           break;
       }
     };
-    login(data.email, data.password, onSuccess, onFail);
+    AuthService.login(data.email, data.password, onSuccess, onFail);
   };
   return (
     <SafeAreaWrapper>

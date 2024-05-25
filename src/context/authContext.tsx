@@ -1,7 +1,6 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { storeData, getData, removeData } from "../services/asyncStorage";
-import { Text } from "react-native";
-import { connectedUser } from "@/services/authService";
+import {createContext, useCallback, useContext, useEffect, useMemo, useState} from "react";
+import CashFlowLocalStorage from "@/services/asyncStorage";
+import AuthService from "@/services/authService";
 const AuthContext = createContext({});
 
 type AuthProviderProps = {
@@ -10,54 +9,53 @@ type AuthProviderProps = {
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<null | object>(null);
-  const [token, setToken] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [token, setToken] = useState<null | string>(null);
 
   const setConnectUser = (user: any) => {
     setUser(user);
-    storeData("user", JSON.stringify(user));
+    CashFlowLocalStorage.storeData("user", JSON.stringify(user));
   };
 
-  const setAccessToken = (token: string) => {
-    setToken(token);
-    storeData("token", token);
+  const setAccessToken = (token: string | null) => {
+      setToken(token);
+      CashFlowLocalStorage.storeData("token", token);
   };
 
   const logout = () => {
-    removeData("user");
-    removeData("token");
+    CashFlowLocalStorage.removeData("user");
+    CashFlowLocalStorage.removeData("token");
     setConnectUser(null);
+    setToken(undefined)
   };
 
-  const getConnectedUser = () => {
-    getData("token").then((token) => {
-      connectedUser(token).then((response) => {
-        const { user } = response.data;
-        console.log(user);
-      });
-    });
-  };
-  const getConnecteduserFromStorage = () => {
-    getData("user").then((user) => {
-      if (user) {
-        console.log(user);
-        setUser(JSON.parse(user));
-      }
-      setIsLoading(false);
-    });
-    setUser(user);
-    // setIsLoading(false);
-  };
+
+  const setConnectedUser = useMemo(async () => {
+    if (token) {
+        await AuthService.connectedUser(token).then((response) => {
+         let{user} = response.data;
+         setConnectUser(user)
+        }).catch((error) => {
+            console.log(error)
+        })
+
+
+    }
+  } ,[token])
+
   useEffect(() => {
-    getConnecteduserFromStorage();
+      CashFlowLocalStorage.getData("token").then((token) => {
+          if (token) {
+              setAccessToken(token);
+          }
+      });
   }, []);
   return (
     <AuthContext.Provider
-      value={{ user, setConnectUser, setAccessToken, logout, getConnectedUser }}
+      value={{ user, setConnectUser, setAccessToken, logout }}
     >
-      {isLoading ? <Text>loading</Text> : children}
+      {children}
     </AuthContext.Provider>
-  );
+  )
 };
 
 export const useAuth = () => useContext(AuthContext);
