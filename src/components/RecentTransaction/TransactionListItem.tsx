@@ -3,8 +3,14 @@ import React from "react";
 import { hp, wp } from "@/helpers/ruler";
 import { useTheme } from "@/theme/useTheme";
 import { ShopCartIcon } from "@/icons";
+import {Transaction} from "@/types";
 
-const TransactionListItem = () => {
+
+
+type TransactionListItemProps = {
+    transaction : Transaction
+}
+const TransactionListItem = ({transaction} : TransactionListItemProps) => {
   const { theme } = useTheme();
   return (
     <View
@@ -48,8 +54,8 @@ const TransactionListItem = () => {
             width: "100%",
           }}
         >
-          <Text>Transaction Type</Text>
-          <Text> Amount</Text>
+          <Text>{transaction.transactionCategory.name}</Text>
+          <Text> {transaction.amount}</Text>
         </View>
         <View
           style={{
@@ -60,7 +66,7 @@ const TransactionListItem = () => {
           }}
         >
           <Text>Shop</Text>
-          <Text> Date</Text>
+          <Text> {transaction.transactionDate}</Text>
         </View>
       </View>
     </View>

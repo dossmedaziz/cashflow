@@ -1,9 +1,9 @@
 import httpClient from "./httpClient";
 
 
- const login = async (email: string, password: string , onSuccess :(response : any)=>void  , onFail :(response : any)=> void) => {
+ const login =  (email: string, password: string , onSuccess :(response : any)=>void  , onFail :(response : any)=> void) => {
   try {
-   return  await httpClient.post("/auth/login", {
+   return   httpClient.post("/auth/login", {
       email,
       password,
     })
@@ -15,25 +15,17 @@ import httpClient from "./httpClient";
 };
 
 
- const connectedUser = async (token : string) =>{
+ const connectedUser =  () =>{
    try{
-    return await httpClient.get("/auth/user", {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-        })
+    return  httpClient.get("/auth/user")
    }catch(error){
     throw error
    }
 }
 
-const logout = async (token : string) => {
+const logout =  () => {
     try{
-        return await httpClient.post("/auth/logout", null,{
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
+        return  httpClient.post("/auth/logout",)
     }catch(error){
         throw error
     }

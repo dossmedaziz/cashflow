@@ -1,29 +1,29 @@
 import CashFlowLocalStorage from "@/services/asyncStorage";
 import AuthService from "@/services/authService";
+import TransactionService from "@/services/transactionService";
+import {AccessToken, TransactionStore, UserStore} from "@/types";
 
 
- const init = async ({updateToken ,updateUser , updateOnBoarding } : any) => {
-    await CashFlowLocalStorage.getData("token")
-        .then((token) => {
-        if (!token) return;
-        token = JSON.parse(token)
-        updateToken(token)
-        AuthService.connectedUser(token.token)
+ const init =  async (userStore : UserStore , transactionStore : TransactionStore) => {
+     await  loadConnectedUser(userStore)
+}
+
+const loadConnectedUser = async (userStore : UserStore) => {
+    const {updateUser, updateOnBoarding,updateToken} = userStore;
+     let accessToken =await CashFlowLocalStorage.getData("token")
+    if(accessToken){
+        AuthService.connectedUser()
             .then((response) => {
-                let {user} = response.data;
+                const {user} = response.data;
                 updateUser(user)
             })
             .catch((error) => {
                 console.log(error)
             })
-    })
-
-    await CashFlowLocalStorage.getData("onboarding")
-        .then((onboarding) => {
-            updateOnBoarding(onboarding === "true")
-        })
+    }
+     const onboarding=await CashFlowLocalStorage.getData("onboarding")
+     await updateOnBoarding(onboarding === "true")
 }
-
 export default {
     init
 }

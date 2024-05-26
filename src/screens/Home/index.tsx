@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View ,ActivityIndicator} from "react-native";
 import React from "react";
 import {
   HomeScreenCard,
@@ -8,11 +8,28 @@ import {
 import { hp, wp } from "@/helpers/ruler";
 import { useTheme } from "@/theme/useTheme";
 import useUserStore from "@/stores/useUserStore";
+import TransactionService from "@/services/transactionService";
+import useTransactionStore from "@/stores/useTransactionStore";
 
 const HomeScreen = () => {
   // @ts-ignore
     const { theme } = useTheme();
     const { user } = useUserStore();
+    const [isLoading, setIsLoading] = React.useState(true);
+    const {transactions , addTransactions} = useTransactionStore();
+
+    React.useEffect(() => {
+            TransactionService.getUserTransactions()
+                .then((response) => {
+                    const {data} = response;
+                    addTransactions(data)
+                    setIsLoading(false)
+                })
+                .catch((error) => {
+                    console.log("error" , error);
+                }
+            )
+    }, []);
 
     return (
     <SafeAreaWrapper>
@@ -23,7 +40,7 @@ const HomeScreen = () => {
           </Text>
           <Text
             style={[
-              styles.conntectedUserName,
+              styles.connectedUserName,
               { color: theme.colors.primaryTextColor },
             ]}
           >
@@ -45,7 +62,9 @@ const HomeScreen = () => {
               marginVertical: hp(2),
             }}
           />
-          <RecentTransactionList />
+            {
+                isLoading ? <ActivityIndicator size="large" color={theme.colors.secondaryBgColor} /> : <RecentTransactionList transactions={transactions} />
+            }
         </View>
       </ScrollView>
     </SafeAreaWrapper>
@@ -57,5 +76,5 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: { flex: 1, paddingHorizontal: wp(5), paddingTop: hp(4) },
   greeting: { fontSize: hp(2) },
-  conntectedUserName: { fontSize: hp(3), fontWeight: "bold" },
+  connectedUserName: { fontSize: hp(3), fontWeight: "bold" },
 });

@@ -11,6 +11,7 @@ import { SafeAreaWrapper } from "@/components";
 import { hp, wp } from "@/helpers/ruler";
 import TransactionListItem from "@/components/RecentTransaction/TransactionListItem";
 import { LeftArrowIcon } from "@/icons";
+import useTransactionStore from "@/stores/useTransactionStore";
 
 type AllTransanctionsScreenProps = {
   navigation: any;
@@ -20,6 +21,7 @@ const AllTransanctionsScreen = ({
   navigation,
 }: AllTransanctionsScreenProps) => {
   const countTransactions = 10;
+  const {transactions} = useTransactionStore();
   return (
     <SafeAreaWrapper>
       <ScrollView style={styles.container}>
@@ -56,8 +58,8 @@ const AllTransanctionsScreen = ({
           }}
         >
           {countTransactions > 0 ? (
-            Array.from({ length: countTransactions }).map((_, index) => {
-              return <TransactionListItem key={index} />;
+              transactions.map((transaction, index) => {
+              return <TransactionListItem key={index}  transaction={transaction} />;
             })
           ) : (
             <Image

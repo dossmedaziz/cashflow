@@ -8,10 +8,9 @@ import { useCallback, useEffect, useState } from "react";
 import onStart from './src/onStart';
 
 import Reactotron from "reactotron-react-native";
-import CashFlowLocalStorage from "@/services/asyncStorage";
-import AuthService from "@/services/authService";
-import useUserStore from "@/stores/useUserStore";
 
+import useUserStore from "@/stores/useUserStore";
+import useTransactionStore from "@/stores/useTransactionStore";
 Reactotron.configure({
   name: "CashFlow",
 })
@@ -21,13 +20,14 @@ Reactotron.configure({
     .connect();
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
+  const transactionStore = useTransactionStore();
   const userStore = useUserStore();
 
   useEffect(() => {
     async function prepare() {
       try {
         await SplashScreen.preventAutoHideAsync();
-       await onStart.init(userStore)
+       await onStart.init(userStore , transactionStore)
       } catch (e) {
         console.warn(e);
       } finally {

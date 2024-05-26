@@ -4,20 +4,14 @@ import { SafeAreaWrapper } from "@/components";
 import useUserStore from "@/stores/useUserStore";
 import AuthService from "@/services/authService";
 const PorfileScreen = () => {
-const {  logout , token } = useUserStore();
+const {  logout  } = useUserStore();
   return (
     <SafeAreaWrapper>
       <Text>PorfileScreen</Text>
       <Pressable
         onPress={async () => {
-            if(token) {
-                AuthService.logout(token.token)
-                    .then((response)=>{
-                    }).catch((error)=>{
-                    console.log(error)
-                })
-            }
-            logout()
+               await AuthService.logout()
+                logout()
         }}
       >
         <Text>Logout</Text>

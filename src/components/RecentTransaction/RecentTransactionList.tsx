@@ -4,7 +4,12 @@ import { hp } from "@/helpers/ruler";
 import { useNavigation } from "@react-navigation/native";
 import { HomeStackParamList } from "@/navigation/types";
 import TransactionListItem from "./TransactionListItem";
-const RecentTransactionList = () => {
+import {Transaction} from "@/types";
+
+type RecentTransactionListProps = {
+    transactions : Transaction[]
+};
+const RecentTransactionList = ({transactions = []} : RecentTransactionListProps) => {
   const navigation = useNavigation();
   return (
     <View
@@ -43,8 +48,8 @@ const RecentTransactionList = () => {
           paddingBottom: hp(16),
         }}
       >
-        {Array.from({ length: 10 }).map((_, index) => {
-          return <TransactionListItem key={index} />;
+        {transactions.map((transaction, index) => {
+          return <TransactionListItem key={index} transaction={transaction} />;
         })}
       </View>
     </View>

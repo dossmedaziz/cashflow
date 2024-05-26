@@ -10,9 +10,6 @@ export  type SignUpForm = {
     lastName: string;
 };
 
-export type UserDeviceDetails={
-    onBoarding:boolean;
-}
 
 export type LoginResponse={
     token:AccessToken;
@@ -30,4 +27,33 @@ export type AccessToken={
     token:string;
     expiresAt:string;
     type:string;
+}
+
+export type  UserStore ={
+    user: User | null;
+    token: AccessToken | null;
+    updateToken: (token: AccessToken | null) => void;
+    updateUser: (user: User | null) => void;
+    updateOnBoarding: (onBoarding: boolean) => void;
+    logout: () => void;
+    onBoarding: boolean;
+}
+
+
+export type TransactionStore={
+    transactions: Transaction[];
+    addTransaction: (transaction: Transaction) => void;
+    addTransactions: (transactions: Transaction[]) => void;
+}
+
+export type Transaction={
+    id:string;
+    amount:number;
+    transactionDate:string;
+    description:string;
+    transactionCategory:TransactionCategory;
+}
+export type TransactionCategory={
+    id:string;
+    name:string;
 }
