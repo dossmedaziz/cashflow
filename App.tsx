@@ -5,7 +5,7 @@ import * as SplashScreen from "expo-splash-screen";
 
 import Navigation from "@/navigation";
 import { useCallback, useEffect, useState } from "react";
-
+import onStart from './src/onStart';
 
 import Reactotron from "reactotron-react-native";
 import CashFlowLocalStorage from "@/services/asyncStorage";
@@ -17,31 +17,13 @@ Reactotron.configure() // controls connection & communication settings
     .connect(); // let's connect!
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-  const {updateUser ,updateToken,updateOnBoarding} = useUserStore();
-  const loadConnectedUser = async () => {
-    await CashFlowLocalStorage.getData("token").then((token) => {
-      if (!token) return;
-      updateToken(token)
-      AuthService.connectedUser(token)
-          .then((response) => {
-            let {user} = response.data;
-            updateUser(user)
-          })
-          .catch((error) => {
-            console.log(error)
-          })
-    })
+  const userStore = useUserStore();
 
-    await CashFlowLocalStorage.getData("onboarding")
-        .then((onboarding) => {
-          updateOnBoarding(onboarding === "true")
-        })
-  }
   useEffect(() => {
     async function prepare() {
       try {
         await SplashScreen.preventAutoHideAsync();
-       await loadConnectedUser()
+       await onStart.init(userStore)
       } catch (e) {
         console.warn(e);
       } finally {
