@@ -1,12 +1,13 @@
 import { create } from "zustand";
 import CashFlowLocalStorage from "@/services/asyncStorage";
+import {AccessToken, User} from "@/types";
 
 
 interface IUserStore {
-    user: Object | null;
-    token: string | null;
-    updateToken: (token: string | null) => void;
-    updateUser: (user: Object | null) => void;
+    user: User | null;
+    token: AccessToken | null;
+    updateToken: (token: AccessToken | null) => void;
+    updateUser: (user: User | null) => void;
     updateOnBoarding: (onBoarding: boolean) => void;
     logout: () => void;
     onBoarding: boolean;
@@ -22,7 +23,7 @@ const useUserStore = create<IUserStore>()(
             },
             updateToken: async (token) => {
                if(token){
-                   await CashFlowLocalStorage.storeData("token", token);
+                   await CashFlowLocalStorage.storeData("token", JSON.stringify(token));
                    set({ token });
                }
                set({ token });

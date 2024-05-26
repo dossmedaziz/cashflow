@@ -5,19 +5,18 @@ import useUserStore from "@/stores/useUserStore";
 import AuthService from "@/services/authService";
 const PorfileScreen = () => {
 const {  logout , token } = useUserStore();
-
-
-
   return (
     <SafeAreaWrapper>
       <Text>PorfileScreen</Text>
       <Pressable
         onPress={async () => {
-         AuthService.logout(token)
-             .then((response)=>{
-         }).catch((error)=>{
-             console.log(error)
-         })
+            if(token) {
+                AuthService.logout(token.token)
+                    .then((response)=>{
+                    }).catch((error)=>{
+                    console.log(error)
+                })
+            }
             logout()
         }}
       >

@@ -12,9 +12,13 @@ import CashFlowLocalStorage from "@/services/asyncStorage";
 import AuthService from "@/services/authService";
 import useUserStore from "@/stores/useUserStore";
 
-Reactotron.configure() // controls connection & communication settings
-    .useReactNative() // add all built-in react native plugins
-    .connect(); // let's connect!
+Reactotron.configure({
+  name: "CashFlow",
+})
+    .useReactNative({
+      asyncStorage :true
+    })
+    .connect();
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
   const userStore = useUserStore();

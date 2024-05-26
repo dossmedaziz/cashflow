@@ -10,7 +10,8 @@ import { useTheme } from "@/theme/useTheme";
 import useUserStore from "@/stores/useUserStore";
 
 const HomeScreen = () => {
-  const { theme } = useTheme();
+  // @ts-ignore
+    const { theme } = useTheme();
     const { user } = useUserStore();
 
     return (
@@ -26,7 +27,7 @@ const HomeScreen = () => {
               { color: theme.colors.primaryTextColor },
             ]}
           >
-            {user.lastName}.
+            {user?.lastName}.
           </Text>
         </View>
         <View

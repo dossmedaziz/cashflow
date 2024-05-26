@@ -16,7 +16,7 @@ import { EmailIcon, CloseEyeIcon, EyeIcon, LockIcon } from "@/icons";
 import { useForm, Controller } from "react-hook-form";
 import AuthService from "@/services/authService";
 import useUserStore from "@/stores/useUserStore";
-import { SignInForm } from "@/types";
+import {LoginResponse, SignInForm} from "@/types";
 
 const SignInScreen = () => {
   const { theme } = useTheme();
@@ -44,9 +44,9 @@ const SignInScreen = () => {
   const onSubmit = (data: SignInForm) => {
     const onSuccess = (response: any) => {
       const { data } = response;
-      const { token, user } = data;
+      const { user , token } : LoginResponse = data;
         updateUser(user);
-        updateToken(token.token);
+        updateToken(token);
     };
     const onFail = (error: any) => {
       const { status } = error.response;
