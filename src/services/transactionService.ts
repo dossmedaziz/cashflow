@@ -1,4 +1,5 @@
 import httpClient from "@/services/httpClient";
+import { TransactionForm } from "@/types";
 
 
 const getUserTransactions =  () => {
@@ -17,7 +18,27 @@ const getTransactionTypes =  () => {
     }
 }
 
+const getTransactionCategoriesByType =  (typeId: number) => {
+    try {
+        return  httpClient.get(`/transaction-types/${typeId}/transaction-categories`)
+    }catch (e) {
+        throw e
+    }
+
+}
+
+const createTransaction =  (transaction: TransactionForm) => {
+    try {
+        return  httpClient.post("/transactions", transaction)
+    }catch (e) {
+        throw e
+    }
+
+
+}
 export default {
     getUserTransactions,
-    getTransactionTypes
+    getTransactionTypes,
+    getTransactionCategoriesByType,
+    createTransaction
 }

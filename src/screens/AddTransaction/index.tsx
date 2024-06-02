@@ -1,40 +1,67 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  Da,
-  Platform,
-  Pressable,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, ScrollView, Platform, Pressable } from "react-native";
 import React from "react";
-import { CashFlowInput, SafeAreaWrapper } from "@/components";
+import { CashFlowButton, CashFlowInput, SafeAreaWrapper } from "@/components";
 import { TransactionForm, TransactionType } from "@/types";
-import transactionService from "@/services/transactionService";
+import TransactionService from "@/services/transactionService";
 import { Controller, useForm } from "react-hook-form";
 import { useTheme } from "@/theme/useTheme";
 import { hp, wp } from "@/helpers/ruler";
-import { CalendarIcon, DollarIcon, TextIcon } from "@/icons";
+import {
+  CalendarIcon,
+  Checkicon,
+  DollarIcon,
+  LeftArrowIcon,
+  TextIcon,
+} from "@/icons";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import moment from "moment";
-const AddTransactionScreen = () => {
+import RNPickerSelect from "react-native-picker-select";
+import Toast from "react-native-toast-message";
+
+const AddTransactionScreen = ({ navigation }: any) => {
   const { theme } = useTheme();
   const [showDatePicker, setShowDatePicker] = React.useState(false);
-  const [transactionTypes, setTransactionTypes] = React.useState<
-    TransactionType[]
-  >([]);
+  const [transactionTypeOptions, setTransactionTypeOptions] = React.useState(
+    []
+  );
+  const [transactionCategoryOptions, setTransactionCategoryOptions] =
+    React.useState([]);
   React.useEffect(() => {
-    transactionService
-      .getTransactionTypes()
+    TransactionService.getTransactionTypes()
       .then((response) => {
-        setTransactionTypes(response.data);
+        let { data } = response;
+        let options = data.map((item: TransactionType) => {
+          return {
+            label: item.name,
+            value: item.id,
+          };
+        });
+        setTransactionTypeOptions(options);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
+
+  const handleOnTransactionTypeChanged = (value: string) => {
+    if (!value) return;
+    TransactionService.getTransactionCategoriesByType(Number(value))
+      .then((response) => {
+        let { data } = response;
+        let options = data.map((item: TransactionType) => {
+          return {
+            label: item.name,
+            value: item.id,
+          };
+        });
+        setTransactionCategoryOptions(options);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   const {
     control,
@@ -64,14 +91,47 @@ const AddTransactionScreen = () => {
     }
   };
   const onSubmit = (data: TransactionForm) => {
-    console.log(data);
+    TransactionService.createTransaction(data)
+      .then((response) => {
+        Toast.show({
+          type: "success",
+          text1: "Transaction added successfully",
+        });
+
+        // reset the form
+        navigation.goBack();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   return (
     <SafeAreaWrapper>
       <ScrollView>
-        <Text style={{ fontSize: 20, fontWeight: "bold", alignSelf: "center" }}>
-          Add Transaction
-        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingHorizontal: wp(5),
+            marginTop: hp(2.5),
+          }}
+        >
+          <Pressable
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            <LeftArrowIcon />
+          </Pressable>
+          <Text
+            style={{ fontSize: 20, fontWeight: "bold", alignSelf: "center" }}
+          >
+            Add Transaction
+          </Text>
+          <Pressable onPress={handleSubmit(onSubmit)}>
+            <Checkicon />
+          </Pressable>
+        </View>
         <Controller
           control={control}
           rules={{
@@ -136,7 +196,7 @@ const AddTransactionScreen = () => {
                   paddingVertical: hp(1.8),
                   paddingHorizontal: wp(15),
                   width: "100%",
-                  borderColor: errors.amount
+                  borderColor: errors.description
                     ? theme.colors.errorTextColor
                     : theme.colors.labelColor,
                   borderRadius: hp(1.5),
@@ -149,7 +209,7 @@ const AddTransactionScreen = () => {
                 prefix={
                   <TextIcon
                     color={
-                      errors.amount
+                      errors.description
                         ? theme.colors.errorTextColor
                         : theme.colors.secondaryBgColor
                     }
@@ -179,8 +239,6 @@ const AddTransactionScreen = () => {
                   if (setShowDatePicker) {
                     setShowDatePicker(false);
                   }
-                  console.log("show date pickerrr");
-
                   setTimeout(() => {
                     setShowDatePicker(true);
                   }, 0);
@@ -193,7 +251,7 @@ const AddTransactionScreen = () => {
                     paddingVertical: hp(1.8),
                     paddingHorizontal: wp(15),
                     width: "100%",
-                    borderColor: errors.amount
+                    borderColor: errors.transactionDate
                       ? theme.colors.errorTextColor
                       : theme.colors.labelColor,
                     borderRadius: hp(1.5),
@@ -208,7 +266,7 @@ const AddTransactionScreen = () => {
                   prefix={
                     <CalendarIcon
                       color={
-                        errors.amount
+                        errors.transactionDate
                           ? theme.colors.errorTextColor
                           : theme.colors.secondaryBgColor
                       }
@@ -235,6 +293,68 @@ const AddTransactionScreen = () => {
             name={"transactionDate"}
           />
         )}
+        <View
+          style={{
+            width: wp(85),
+            alignSelf: "center",
+            marginVertical: hp(2.5),
+          }}
+        >
+          <View
+            style={{
+              borderWidth: 1,
+              alignSelf: "center",
+              width: "100%",
+              borderColor: theme.colors.labelColor,
+              borderRadius: hp(1.5),
+            }}
+          >
+            <RNPickerSelect
+              onValueChange={handleOnTransactionTypeChanged}
+              items={transactionTypeOptions}
+              placeholder={{
+                label: "Select Transaction Type",
+                value: null,
+              }}
+            />
+          </View>
+        </View>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View
+              style={{
+                width: wp(85),
+                alignSelf: "center",
+                marginVertical: hp(2.5),
+              }}
+            >
+              <View
+                style={{
+                  borderWidth: 1,
+                  width: "100%",
+                  borderColor: errors.transactionCategoryId
+                    ? theme.colors.errorTextColor
+                    : theme.colors.labelColor,
+                  borderRadius: hp(1.5),
+                }}
+              >
+                <RNPickerSelect
+                  onValueChange={onChange}
+                  items={transactionCategoryOptions}
+                  placeholder={{
+                    label: "Select Transaction Type",
+                    value: null,
+                  }}
+                />
+              </View>
+            </View>
+          )}
+          name="transactionCategoryId"
+        />
       </ScrollView>
     </SafeAreaWrapper>
   );

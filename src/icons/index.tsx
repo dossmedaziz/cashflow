@@ -11,6 +11,7 @@ import LeftArrowIcon from "./LeftArrowIcon";
 import DollarIcon from "./DollarIcon";
 import TextIcon from "./TextIcon";
 import CalendarIcon from "./CalendarIcon";
+import Checkicon from "./CheckIcon";
 export {
   EmailIcon,
   EyeIcon,
@@ -24,4 +25,5 @@ export {
   DollarIcon,
   TextIcon,
   CalendarIcon,
+  Checkicon,
 };
