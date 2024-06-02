@@ -3,14 +3,13 @@ import React from "react";
 import { hp, wp } from "@/helpers/ruler";
 import { useTheme } from "@/theme/useTheme";
 import { ShopCartIcon } from "@/icons";
-import {Transaction} from "@/types";
-
-
+import { Transaction } from "@/types";
+import { TransactionTypeEnum } from "@/enums";
 
 type TransactionListItemProps = {
-    transaction : Transaction
-}
-const TransactionListItem = ({transaction} : TransactionListItemProps) => {
+  transaction: Transaction;
+};
+const TransactionListItem = ({ transaction }: TransactionListItemProps) => {
   const { theme } = useTheme();
   return (
     <View
@@ -55,7 +54,21 @@ const TransactionListItem = ({transaction} : TransactionListItemProps) => {
           }}
         >
           <Text>{transaction.transactionCategory.name}</Text>
-          <Text> {transaction.amount}</Text>
+          <Text
+            style={{
+              color:
+                transaction.transactionCategory.transactionType.name ===
+                TransactionTypeEnum.INCOME
+                  ? theme.colors.successTextColor
+                  : theme.colors.errorTextColor,
+            }}
+          >
+            {" "}
+            {transaction.transactionCategory.transactionType.name ===
+            TransactionTypeEnum.INCOME
+              ? "+" + transaction.amount
+              : "-" + transaction.amount}
+          </Text>
         </View>
         <View
           style={{
@@ -65,7 +78,16 @@ const TransactionListItem = ({transaction} : TransactionListItemProps) => {
             width: "100%",
           }}
         >
-          <Text>Shop</Text>
+          <Text
+            style={{
+              maxWidth: "50%",
+              overflow: "visible",
+            }}
+            numberOfLines={1}
+            ellipsizeMode="middle"
+          >
+            {transaction.description}
+          </Text>
           <Text> {transaction.transactionDate}</Text>
         </View>
       </View>

@@ -56,4 +56,10 @@ export type Transaction={
 export type TransactionCategory={
     id:string;
     name:string;
+    transactionType:TransactionType;
+}
+
+export type TransactionType={
+    id:string;
+    name:string;
 }

@@ -1,4 +1,10 @@
-import { ScrollView, StyleSheet, Text, View ,ActivityIndicator} from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+} from "react-native";
 import React from "react";
 import {
   HomeScreenCard,
@@ -13,25 +19,24 @@ import useTransactionStore from "@/stores/useTransactionStore";
 
 const HomeScreen = () => {
   // @ts-ignore
-    const { theme } = useTheme();
-    const { user } = useUserStore();
-    const [isLoading, setIsLoading] = React.useState(true);
-    const {transactions , addTransactions} = useTransactionStore();
+  const { theme } = useTheme();
+  const { user } = useUserStore();
+  const [isLoading, setIsLoading] = React.useState(true);
+  const { transactions, addTransactions } = useTransactionStore();
 
-    React.useEffect(() => {
-            TransactionService.getUserTransactions()
-                .then((response) => {
-                    const {data} = response;
-                    addTransactions(data)
-                    setIsLoading(false)
-                })
-                .catch((error) => {
-                    console.log("error" , error);
-                }
-            )
-    }, []);
+  React.useEffect(() => {
+    TransactionService.getUserTransactions()
+      .then((response) => {
+        const { data } = response;
+        addTransactions(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }, []);
 
-    return (
+  return (
     <SafeAreaWrapper>
       <ScrollView style={styles.container}>
         <View>
@@ -62,9 +67,14 @@ const HomeScreen = () => {
               marginVertical: hp(2),
             }}
           />
-            {
-                isLoading ? <ActivityIndicator size="large" color={theme.colors.secondaryBgColor} /> : <RecentTransactionList transactions={transactions} />
-            }
+          {isLoading ? (
+            <ActivityIndicator
+              size="large"
+              color={theme.colors.secondaryBgColor}
+            />
+          ) : (
+            <RecentTransactionList transactions={transactions} />
+          )}
         </View>
       </ScrollView>
     </SafeAreaWrapper>
