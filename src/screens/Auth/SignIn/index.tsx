@@ -5,7 +5,10 @@ import {
   StyleSheet,
   Text,
   View,
+  ToastAndroid,
 } from "react-native";
+import Toast from "react-native-toast-message";
+
 import React from "react";
 import { CashFlowButton, SafeAreaWrapper, CashFlowInput } from "@/components";
 import { hp, moderateScale, wp } from "@/helpers/ruler";
@@ -16,11 +19,11 @@ import { EmailIcon, CloseEyeIcon, EyeIcon, LockIcon } from "@/icons";
 import { useForm, Controller } from "react-hook-form";
 import AuthService from "@/services/authService";
 import useUserStore from "@/stores/useUserStore";
-import {LoginResponse, SignInForm} from "@/types";
+import { LoginResponse, SignInForm } from "@/types";
 
 const SignInScreen = () => {
   const { theme } = useTheme();
-  const {updateUser , updateToken} = useUserStore();
+  const { updateUser, updateToken } = useUserStore();
   const [showPassword, setShowPassword] = React.useState(false);
   const navigateTo = useNavigation();
 
@@ -32,21 +35,23 @@ const SignInScreen = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignInForm>(
-    {
-      defaultValues: {
-          email: "dossaziz@gmail.com",
-          password: "testtest",
-      },
-    }
-  );
+  } = useForm<SignInForm>({
+    defaultValues: {
+      email: "dossaziz@gmail.com",
+      password: "testtest",
+    },
+  });
 
   const onSubmit = (data: SignInForm) => {
     const onSuccess = (response: any) => {
       const { data } = response;
-      const { user , token } : LoginResponse = data;
-        updateUser(user);
-        updateToken(token);
+      const { user, token }: LoginResponse = data;
+      updateUser(user);
+      updateToken(token);
+      Toast.show({
+        type: "success",
+        text1: "Welcome back",
+      });
     };
     const onFail = (error: any) => {
       const { status } = error.response;
@@ -63,15 +68,21 @@ const SignInScreen = () => {
             message: password,
           });
           break;
-        case 401:
-          alert("Login failed");
+        case 400:
+          Toast.show({
+            type: "error",
+            text1: "Invalid credentials",
+          });
           break;
         default:
-          alert("another error");
+          Toast.show({
+            type: "info",
+            text1: "Something went wrong, please try again later.",
+          });
           break;
       }
     };
-    AuthService.login(data.email, data.password, onSuccess, onFail);
+    AuthService.login(data, onSuccess, onFail);
   };
   return (
     <SafeAreaWrapper>

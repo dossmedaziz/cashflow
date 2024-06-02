@@ -2,10 +2,11 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import ThemeProvider from "./src/theme/useTheme";
 import * as SplashScreen from "expo-splash-screen";
+import Toast from "react-native-toast-message";
 
 import Navigation from "@/navigation";
 import { useCallback, useEffect, useState } from "react";
-import onStart from './src/onStart';
+import onStart from "./src/onStart";
 
 import Reactotron from "reactotron-react-native";
 
@@ -14,10 +15,10 @@ import useTransactionStore from "@/stores/useTransactionStore";
 Reactotron.configure({
   name: "CashFlow",
 })
-    .useReactNative({
-      asyncStorage :true
-    })
-    .connect();
+  .useReactNative({
+    asyncStorage: true,
+  })
+  .connect();
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
   const transactionStore = useTransactionStore();
@@ -27,7 +28,7 @@ export default function App() {
     async function prepare() {
       try {
         await SplashScreen.preventAutoHideAsync();
-       await onStart.init(userStore , transactionStore)
+        await onStart.init(userStore, transactionStore);
       } catch (e) {
         console.warn(e);
       } finally {
@@ -50,10 +51,11 @@ export default function App() {
   }
   return (
     <ThemeProvider>
-        <View style={styles.container} onLayout={onLayoutRootView}>
-          <Navigation />
-          <StatusBar style="auto" />
-        </View>
+      <View style={styles.container} onLayout={onLayoutRootView}>
+        <Navigation />
+        <StatusBar style="auto" />
+        <Toast />
+      </View>
     </ThemeProvider>
   );
 }

@@ -14,9 +14,11 @@ import { useNavigation } from "@react-navigation/native";
 
 import { UserIcon, EyeIcon, CloseEyeIcon, LockIcon, EmailIcon } from "@/icons";
 import { useForm, Controller } from "react-hook-form";
+import Toast from "react-native-toast-message";
 
 import { SignUpForm } from "@/types";
-const SignInScreen = () => {
+import AuthService from "@/services/authService";
+const SignInScreen = ({ navigation, route, options, back }: any) => {
   const { theme } = useTheme();
   const [showPassword, setShowPassword] = React.useState(false);
   const navigateTo = useNavigation();
@@ -29,9 +31,46 @@ const SignInScreen = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpForm>();
+  } = useForm<SignUpForm>({
+    defaultValues: {
+      email: "dossaziz@gmail.com",
+      password: "testtest",
+      firstName: "Abdul",
+      lastName: "Aziz",
+    },
+  });
   const onSubmit = (data: SignUpForm) => {
-    console.log(data);
+    const onFail = (error: any) => {
+      const { status } = error.response;
+      switch (status) {
+        case 422:
+          const response = error.response;
+          let errors: SignUpForm = response.data.errors;
+
+          Object.keys(errors).map((key: string) => {
+            control.setError("email", {
+              type: "manual",
+              message: errors[key][0],
+            });
+          });
+
+          break;
+        default:
+          Toast.show({
+            type: "error",
+            text1: "An error occurred",
+          });
+          break;
+      }
+    };
+    const onSuccess = (response: any) => {
+      navigation.navigate("SignIn");
+      Toast.show({
+        type: "success",
+        text1: "Account created successfully",
+      });
+    };
+    AuthService.register(data, onSuccess, onFail);
   };
   return (
     <SafeAreaWrapper>
@@ -83,6 +122,7 @@ const SignInScreen = () => {
                 placeholderTextColor={theme.colors.labelColor}
                 onBlur={onBlur}
                 onChange={onChange}
+                value={value}
                 prefix={
                   <UserIcon
                     color={
@@ -127,6 +167,7 @@ const SignInScreen = () => {
                 placeholderTextColor={theme.colors.labelColor}
                 onBlur={onBlur}
                 onChange={onChange}
+                value={value}
                 prefix={
                   <UserIcon
                     color={
@@ -171,6 +212,7 @@ const SignInScreen = () => {
                 placeholderTextColor={theme.colors.labelColor}
                 onBlur={onBlur}
                 onChange={onChange}
+                value={value}
                 prefix={
                   <EmailIcon
                     color={
@@ -216,6 +258,7 @@ const SignInScreen = () => {
                 secureTextEntry={!showPassword}
                 onBlur={onBlur}
                 onChange={onChange}
+                value={value}
                 prefix={
                   <LockIcon
                     color={

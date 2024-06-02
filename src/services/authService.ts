@@ -1,18 +1,29 @@
 import httpClient from "./httpClient";
 
-
- const login =  (email: string, password: string , onSuccess :(response : any)=>void  , onFail :(response : any)=> void) => {
+import {SignInForm , SignUpForm} from "@/types"
+ const login =  (signInForm  : SignInForm , onSuccess :(response : any)=>void  , onFail :(response : any)=> void) => {
   try {
-   return   httpClient.post("/auth/login", {
-      email,
-      password,
-    })
+   return   httpClient.post("/auth/login", signInForm)
     .then(onSuccess)
     .catch(onFail);
   } catch (error) {
     throw error;
   }
 };
+
+const register =  (signUpForm : SignUpForm , onSuccess :(response : any)=>void  , onFail :(response : any)=> void) => {
+    try {
+     return   httpClient.post("/auth/register", {
+       ...signUpForm,
+       password_confirmation : signUpForm.password
+      })
+      .then(onSuccess)
+      .catch(onFail);
+    } catch (error) {
+      throw error;
+    }
+  
+}
 
 
  const connectedUser =  () =>{
@@ -33,5 +44,6 @@ const logout =  () => {
 export default {
     login,
     connectedUser,
-    logout
+    logout,
+    register
 }
