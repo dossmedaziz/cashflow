@@ -21,7 +21,7 @@ const AllTransanctionsScreen = ({
   navigation,
 }: AllTransanctionsScreenProps) => {
   const countTransactions = 10;
-  const {transactions} = useTransactionStore();
+  const { transactions } = useTransactionStore();
   return (
     <SafeAreaWrapper>
       <ScrollView style={styles.container}>
@@ -47,7 +47,7 @@ const AllTransanctionsScreen = ({
               fontWeight: "bold",
             }}
           >
-            AllTransanctionsScreen
+            All Transactions
           </Text>
         </View>
 
@@ -58,8 +58,10 @@ const AllTransanctionsScreen = ({
           }}
         >
           {countTransactions > 0 ? (
-              transactions.map((transaction, index) => {
-              return <TransactionListItem key={index}  transaction={transaction} />;
+            transactions.map((transaction, index) => {
+              return (
+                <TransactionListItem key={index} transaction={transaction} />
+              );
             })
           ) : (
             <Image
