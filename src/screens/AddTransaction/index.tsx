@@ -19,6 +19,7 @@ import DateTimePicker, {
 import moment from "moment";
 import RNPickerSelect from "react-native-picker-select";
 import Toast from "react-native-toast-message";
+import useTransactionStore from "@/stores/useTransactionStore";
 
 const AddTransactionScreen = ({ navigation }: any) => {
   const { theme } = useTheme();
@@ -26,6 +27,7 @@ const AddTransactionScreen = ({ navigation }: any) => {
   const [transactionTypeOptions, setTransactionTypeOptions] = React.useState(
     []
   );
+  const { addTransaction } = useTransactionStore();
   const [transactionCategoryOptions, setTransactionCategoryOptions] =
     React.useState([]);
   React.useEffect(() => {
@@ -68,6 +70,8 @@ const AddTransactionScreen = ({ navigation }: any) => {
     handleSubmit,
     formState: { errors },
     setValue,
+    resetField,
+    reset,
   } = useForm<TransactionForm>();
 
   const handleOnChange = (
@@ -93,11 +97,15 @@ const AddTransactionScreen = ({ navigation }: any) => {
   const onSubmit = (data: TransactionForm) => {
     TransactionService.createTransaction(data)
       .then((response) => {
+        let { data } = response;
+        addTransaction(data);
         Toast.show({
           type: "success",
           text1: "Transaction added successfully",
         });
 
+        setValue("description", "");
+        resetField("transactionCategoryId");
         // reset the form
         navigation.goBack();
       })
