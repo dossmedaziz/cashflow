@@ -11,9 +11,12 @@ type CashFlowInputProps = {
   secureTextEntry?: boolean;
   onChange?: (text: string) => void;
   onBlur?: () => void;
+  onFocus?: () => void;
   value?: string;
   keyboardType?: KeyboardTypeOptions;
   autoCapitalize?: "none";
+  multiline?: boolean;
+  editable?: boolean;
 };
 
 const CashFlowInput = ({
@@ -25,9 +28,12 @@ const CashFlowInput = ({
   secureTextEntry = false,
   onChange,
   onBlur,
+  onFocus,
   value,
   keyboardType,
-    autoCapitalize,
+  autoCapitalize,
+  multiline = false,
+  editable = true,
 }: CashFlowInputProps) => {
   return (
     <>
@@ -36,11 +42,14 @@ const CashFlowInput = ({
         placeholder={placeholder}
         placeholderTextColor={placeholderTextColor}
         secureTextEntry={secureTextEntry}
+        onFocus={onFocus}
         onBlur={onBlur}
         onChangeText={onChange}
         value={value}
         keyboardType={keyboardType}
         autoCapitalize={autoCapitalize || "none"}
+        multiline={multiline}
+        editable={editable}
       />
       {prefix && (
         <View

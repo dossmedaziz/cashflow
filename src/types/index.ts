@@ -42,8 +42,13 @@ export type  UserStore ={
 
 export type TransactionStore={
     transactions: Transaction[];
+    transactionCategories: TransactionCategory[];
+    transactionTypes: TransactionType[];
     addTransaction: (transaction: Transaction) => void;
     addTransactions: (transactions: Transaction[]) => void;
+    addTransactionCategories: (transactionCategories: TransactionCategory[]) => void;
+    addTransactionTypes: (transactionTypes: TransactionType[]) => void;
+
 }
 
 export type Transaction={
@@ -62,4 +67,11 @@ export type TransactionCategory={
 export type TransactionType={
     id:string;
     name:string;
+}
+
+export type TransactionForm={
+    amount:number;
+    transactionDate:string;
+    description:string;
+    transactionCategoryId:string;
 }

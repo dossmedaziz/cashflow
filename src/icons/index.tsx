@@ -8,6 +8,9 @@ import HomeIcon from "./HomeIcon";
 import PlusIcon from "./PlusIcon";
 import ShopCartIcon from "./ShopIcon";
 import LeftArrowIcon from "./LeftArrowIcon";
+import DollarIcon from "./DollarIcon";
+import TextIcon from "./TextIcon";
+import CalendarIcon from "./CalendarIcon";
 export {
   EmailIcon,
   EyeIcon,
@@ -18,4 +21,7 @@ export {
   PlusIcon,
   ShopCartIcon,
   LeftArrowIcon,
+  DollarIcon,
+  TextIcon,
+  CalendarIcon,
 };

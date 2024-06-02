@@ -9,6 +9,15 @@ const getUserTransactions =  () => {
     }
 }
 
+const getTransactionTypes =  () => {
+    try {
+        return  httpClient.get("/transaction-types")
+    }catch (e) {
+        throw e
+    }
+}
+
 export default {
-    getUserTransactions
+    getUserTransactions,
+    getTransactionTypes
 }
