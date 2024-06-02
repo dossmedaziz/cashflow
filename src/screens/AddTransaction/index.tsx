@@ -81,8 +81,6 @@ const AddTransactionScreen = ({ navigation }: any) => {
     if (type === "set" && selectedDate) {
       if (Platform.OS === "android") {
         setShowDatePicker(false);
-        console.log("selectedDate", selectedDate);
-
         setTimeout(() => {
           setValue(
             "transactionDate",
