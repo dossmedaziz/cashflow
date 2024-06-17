@@ -5,7 +5,7 @@ import HomeStackNavigator from "./home-stack";
 import { useTheme } from "@/theme/useTheme";
 import { Text } from "react-native";
 import { ButtomNavigationBar } from "@/components";
-import { AddTransactionScreen, PorfileScreen } from "@/screens";
+import { AddTransactionScreen, PorfileScreen, StatsScreen } from "@/screens";
 
 const Tab = createBottomTabNavigator<RootButtonTabParamList>();
 
@@ -23,6 +23,7 @@ const BottomTabNavigator = () => {
       tabBar={(props) => <ButtomNavigationBar {...props} />}
     >
       <Tab.Screen name="HomeStack" component={HomeStackNavigator} />
+      <Tab.Screen name="Stats" component={StatsScreen} />
       <Tab.Screen name="AddTransaction" component={AddTransactionScreen} />
       <Tab.Screen name="Porfile" component={PorfileScreen} />
     </Tab.Navigator>

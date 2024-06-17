@@ -12,6 +12,7 @@ import DollarIcon from "./DollarIcon";
 import TextIcon from "./TextIcon";
 import CalendarIcon from "./CalendarIcon";
 import Checkicon from "./CheckIcon";
+import StatsIcon from "./StatsIcon";
 export {
   EmailIcon,
   EyeIcon,
@@ -26,4 +27,5 @@ export {
   TextIcon,
   CalendarIcon,
   Checkicon,
+  StatsIcon,
 };

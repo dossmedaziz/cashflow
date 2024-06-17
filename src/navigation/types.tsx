@@ -20,6 +20,7 @@ import {
   export type RootButtonTabParamList = {
     HomeStack: NavigatorScreenParams<HomeStackParamList>;
     AddTransaction: undefined;
+    Stats: undefined;
     Porfile: undefined;
   };
   

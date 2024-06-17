@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useTheme } from "@/theme/useTheme";
-import { HomeIcon, PlusIcon, UserIcon } from "@/icons";
+import { HomeIcon, PlusIcon, StatsIcon, UserIcon } from "@/icons";
 import { hp, wp } from "@/helpers/ruler";
 import ButtomBarNavLink from "@/components/ButtomBarNavLink";
 const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
@@ -71,6 +71,25 @@ const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
             key={screenName}
           />
         );
+        case "Stats":
+        return (
+          <ButtomBarNavLink
+            isActive={isActive}
+            label="Stats"
+            navigateTo={navigateTo}
+            screenName="Stats"
+            icon={
+              <StatsIcon
+                color={
+                  isActive
+                    ? theme.colors.activeIconColor
+                    : theme.colors.secondaryTextColor
+                }
+              />
+            }
+            key={screenName}
+          />
+        );
     }
   };
 
@@ -97,7 +116,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 20,
     height: hp(8),
-    width: "80%",
+    width: "85%",
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
