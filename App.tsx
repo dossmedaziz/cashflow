@@ -12,6 +12,8 @@ import Reactotron from "reactotron-react-native";
 
 import useUserStore from "@/stores/useUserStore";
 import useTransactionStore from "@/stores/useTransactionStore";
+import 'react-native-reanimated';
+
 Reactotron.configure({
   name: "CashFlow",
 })
