@@ -7,7 +7,15 @@ import ButtomBarNavLink from "@/components/ButtomBarNavLink";
 const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
   const { theme } = useTheme();
   const { index, routes } = state;
+  const currentRoute = state.routes[state.index];
 
+  if(currentRoute.name ==="HomeStack"){
+   if(currentRoute.state){
+     if(currentRoute.state.index === 1){
+      return null;
+     }
+   }
+  };
   const navigateTo = (screenName: string) => {
     navigation.navigate(screenName);
   };

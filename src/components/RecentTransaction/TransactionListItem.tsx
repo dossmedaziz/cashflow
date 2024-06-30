@@ -5,6 +5,7 @@ import { useTheme } from "@/theme/useTheme";
 import { ShopCartIcon } from "@/icons";
 import { Transaction } from "@/types";
 import { TransactionTypeEnum } from "@/enums";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 type TransactionListItemProps = {
   transaction: Transaction;
@@ -12,7 +13,8 @@ type TransactionListItemProps = {
 const TransactionListItem = ({ transaction }: TransactionListItemProps) => {
   const { theme } = useTheme();
   return (
-    <View
+    <TouchableOpacity>
+         <View
       style={{
         width: "100%",
         height: hp(8),
@@ -92,6 +94,7 @@ const TransactionListItem = ({ transaction }: TransactionListItemProps) => {
         </View>
       </View>
     </View>
+    </TouchableOpacity>
   );
 };
 

@@ -19,6 +19,9 @@ const BottomTabNavigator = () => {
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
         headerShown: false,
+        tabBarStyle: {
+          backgroundColor: "red"
+        }
       }}
       tabBar={(props) => <ButtomNavigationBar {...props} />}
     >
