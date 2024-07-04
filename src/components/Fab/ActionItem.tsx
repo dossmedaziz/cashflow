@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Pressable, StyleSheet,Dimensions } from "react-native";
+import { View, Text, Pressable, StyleSheet, Dimensions } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -17,6 +17,7 @@ interface ActionItemProps {
   color: string;
   title: string;
   description?: string;
+  onClick?: () => void;
 }
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
@@ -25,9 +26,10 @@ export const ActionItem: React.FC<ActionItemProps> = ({
   color,
   title,
   description,
+  onClick,
 }) => {
   const scale = useSharedValue(1);
-  const {theme} = useTheme();
+  const { theme } = useTheme();
 
   const actionItemAStyle = useAnimatedStyle(() => {
     return {
@@ -45,6 +47,7 @@ export const ActionItem: React.FC<ActionItemProps> = ({
         scale.value = withTiming(1);
       }}
       style={[styles.actionItem, actionItemAStyle]}
+      onPress={onClick}
     >
       <View
         style={{
@@ -56,7 +59,9 @@ export const ActionItem: React.FC<ActionItemProps> = ({
       </View>
       <View style={styles.actionTextContainer}>
         <Text style={styles.actionTitle}>{title}</Text>
-       {description && <Text style={styles.actionDescription}>{description}</Text>} 
+        {description && (
+          <Text style={styles.actionDescription}>{description}</Text>
+        )}
       </View>
     </AnimatedPressable>
   );
@@ -69,7 +74,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(44, 44, 46, 0.6)",
     borderRadius: hp(2),
     padding: wp(1),
-    borderWidth: wp(.5), // Adding border
+    borderWidth: wp(0.5), // Adding border
     borderColor: "#3a3a3c", // Slightly lighter border color
     height: hp(12),
     width: SCREEN_WIDTH * 0.82,

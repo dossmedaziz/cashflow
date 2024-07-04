@@ -1,24 +1,55 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useTheme } from "@/theme/useTheme";
-import { HomeIcon, PlusIcon, StatsIcon, UserIcon } from "@/icons";
+import { HomeIcon, PlusIcon, StatsIcon } from "@/icons";
 import { hp, wp } from "@/helpers/ruler";
 import ButtomBarNavLink from "@/components/ButtomBarNavLink";
+import {
+  BarChartBig,
+  House,
+  ScrollText,
+  User as UserIcon,
+} from "lucide-react-native";
 const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
   const { theme } = useTheme();
   const { index, routes } = state;
-  const currentRoute = state.routes[state.index];
 
-  if(currentRoute.name ==="HomeStack"){
-   if(currentRoute.state){
-     if(currentRoute.state.index === 1){
-      return null;
-     }
-   }
-  };
+  const currentRoute = state.routes[state.index];
+  console.log(currentRoute.name, "state");
+
+  if (currentRoute.name === "HomeStack") {
+    if (currentRoute.state) {
+      if (currentRoute.state.index === 1) {
+        return null;
+      }
+    }
+  }
   const navigateTo = (screenName: string) => {
     navigation.navigate(screenName);
   };
+
+  const bottomTabBarLinks = [
+    {
+      screenName: "HomeStack",
+      label: "Home",
+      icon: HomeIcon,
+    },
+    {
+      screenName: "AllTransactions",
+      label: "Transactions",
+      icon: ScrollText,
+    },
+    {
+      screenName: "Stats",
+      label: "Stats",
+      icon: StatsIcon,
+    },
+    {
+      screenName: "Porfile",
+      label: "Profile",
+      icon: UserIcon,
+    },
+  ];
 
   const renderTabBarLinks = (screenName: string, isActive: boolean) => {
     switch (screenName) {
@@ -30,7 +61,7 @@ const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
             navigateTo={navigateTo}
             screenName="HomeStack"
             icon={
-              <HomeIcon
+              <House
                 color={
                   isActive
                     ? theme.colors.activeIconColor
@@ -41,15 +72,15 @@ const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
             key={screenName}
           />
         );
-      case "AddTransaction":
+      case "AllTransactions":
         return (
           <ButtomBarNavLink
             isActive={isActive}
-            label="Add"
+            label="Transactions"
             navigateTo={navigateTo}
-            screenName="AddTransaction"
+            screenName="AllTransactions"
             icon={
-              <PlusIcon
+              <ScrollText
                 color={
                   isActive
                     ? theme.colors.activeIconColor
@@ -79,7 +110,7 @@ const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
             key={screenName}
           />
         );
-        case "Stats":
+      case "Stats":
         return (
           <ButtomBarNavLink
             isActive={isActive}
@@ -87,7 +118,7 @@ const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
             navigateTo={navigateTo}
             screenName="Stats"
             icon={
-              <StatsIcon
+              <BarChartBig
                 color={
                   isActive
                     ? theme.colors.activeIconColor
@@ -109,9 +140,30 @@ const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
           { backgroundColor: theme.colors.secondaryBgColor },
         ]}
       >
-        {routes.map((route: any, i: number) => {
-          return renderTabBarLinks(route.name, index === i);
+        {bottomTabBarLinks.map((link) => {
+          return (
+            <ButtomBarNavLink
+              isActive={currentRoute.name === link.screenName}
+              label={link.label}
+              navigateTo={navigateTo}
+              screenName={link.screenName}
+              icon={
+                <link.icon
+                  color={
+                    currentRoute.name === link.screenName
+                      ? theme.colors.activeIconColor
+                      : theme.colors.secondaryTextColor
+                  }
+                />
+              }
+              key={link.screenName}
+            />
+          );
         })}
+
+        {/* {routes.map((route: any, i: number) => {
+          return renderTabBarLinks(route.name, index === i);
+        })} */}
       </View>
     </View>
   );

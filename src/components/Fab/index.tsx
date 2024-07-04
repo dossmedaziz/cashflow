@@ -1,5 +1,5 @@
 import React, { useImperativeHandle, forwardRef, useState } from "react";
-import { Pressable, StyleSheet, View,Dimensions } from "react-native";
+import { Pressable, StyleSheet, View, Dimensions } from "react-native";
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -8,12 +8,18 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { ActionItem } from "./ActionItem";
-import { ArrowUp, ArrowDown, Plus, MessageCircle, Camera } from "lucide-react-native";
-
+import {
+  ArrowUp,
+  ArrowDown,
+  Plus,
+  MessageCircle,
+  Camera,
+} from "lucide-react-native";
+import { useNavigation } from "@react-navigation/native";
 const { width, height } = Dimensions.get("window");
 
- const SCREEN_WIDTH = width;
- const SCREEN_HEIGHT = height;
+const SCREEN_WIDTH = width;
+const SCREEN_HEIGHT = height;
 
 export const SPRING_CONFIG = {
   damping: 27,
@@ -40,20 +46,22 @@ const actionItems = [
     color: "orange",
     title: "Message",
     description: "Send and receive messages from your contacts.",
+    screen: "AddTransaction",
   },
   {
     icon: Camera,
     color: "pink",
     title: "Capture",
     description: "Capture photos and videos of your moments.",
+    screen: "AddTransaction",
   },
 ];
 
 export const FAB = forwardRef<FABHandle>((props, ref) => {
   const width = useSharedValue(65);
   const height = useSharedValue(65);
-
-  const  {theme} = useTheme();
+  const navigation = useNavigation();
+  const { theme } = useTheme();
   //No need to use shared values for these
   const [iconSize, setIconSize] = useState(45);
   const [iconOpacity, setIconOpacity] = useState(1);
@@ -93,7 +101,14 @@ export const FAB = forwardRef<FABHandle>((props, ref) => {
   }));
 
   return (
-    <AnimatedPressable style={[styles.fab, aStyle , {backgroundColor : theme.colors.secondaryBgColor}]} onPress={handlePress}>
+    <AnimatedPressable
+      style={[
+        styles.fab,
+        aStyle,
+        { backgroundColor: theme.colors.secondaryBgColor },
+      ]}
+      onPress={handlePress}
+    >
       <AnimatedPlusIcon
         color={theme.colors.primaryBgColor}
         size={iconSize}
@@ -102,13 +117,16 @@ export const FAB = forwardRef<FABHandle>((props, ref) => {
       {isExpanded && (
         <View style={styles.expandedContainer}>
           {actionItems.map((item, index) => {
-            const { icon, color, title, description } = item;
+            const { icon, color, title, description, screen } = item;
             return (
               <ActionItem
                 key={index}
                 icon={ArrowUp}
                 color={color}
                 title={title}
+                onClick={() => {
+                  navigation.navigate(screen);
+                }}
                 // description={description}
               />
             );

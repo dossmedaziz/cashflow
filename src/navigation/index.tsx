@@ -4,11 +4,12 @@ import React from "react";
 import BottomTabNavigator from "./bottom-tab-stack";
 import AuthStackNavigator from "./auth-stack";
 import useUserStore from "@/stores/useUserStore";
+import AppStack from "./app-stack";
 const Navigation = () => {
   const { user } = useUserStore();
   return (
     <NavigationContainer>
-      {user ? <BottomTabNavigator /> : <AuthStackNavigator />}
+      {user ? <AppStack /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 };
