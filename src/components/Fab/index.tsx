@@ -1,5 +1,6 @@
 import React, { useImperativeHandle, forwardRef, useState } from "react";
 import { Pressable, StyleSheet, View, Dimensions } from "react-native";
+import { TransactionTypeEnum } from "@/enums";
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -8,13 +9,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { ActionItem } from "./ActionItem";
-import {
-  ArrowUp,
-  ArrowDown,
-  Plus,
-  MessageCircle,
-  Camera,
-} from "lucide-react-native";
+import { ArrowUp, Plus, ArrowDown } from "lucide-react-native";
 import { useNavigation } from "@react-navigation/native";
 const { width, height } = Dimensions.get("window");
 
@@ -42,17 +37,17 @@ import { useTheme } from "@/theme/useTheme";
 
 const actionItems = [
   {
-    icon: MessageCircle,
-    color: "orange",
-    title: "Message",
-    description: "Send and receive messages from your contacts.",
+    id: 1,
+    icon: ArrowDown,
+    color: "green",
+    title: TransactionTypeEnum.INCOME.toUpperCase(),
     screen: "AddTransaction",
   },
   {
-    icon: Camera,
-    color: "pink",
-    title: "Capture",
-    description: "Capture photos and videos of your moments.",
+    id: 2,
+    icon: ArrowUp,
+    color: "red",
+    title: TransactionTypeEnum.EXPENSE.toUpperCase(),
     screen: "AddTransaction",
   },
 ];
@@ -117,15 +112,18 @@ export const FAB = forwardRef<FABHandle>((props, ref) => {
       {isExpanded && (
         <View style={styles.expandedContainer}>
           {actionItems.map((item, index) => {
-            const { icon, color, title, description, screen } = item;
+            const { icon, color, title, screen } = item;
             return (
               <ActionItem
                 key={index}
-                icon={ArrowUp}
+                icon={icon}
                 color={color}
                 title={title}
                 onClick={() => {
-                  navigation.navigate(screen);
+                  navigation.navigate(screen, {
+                    transactionType: item.id,
+                  });
+                  ref.current.closeFAB();
                 }}
                 // description={description}
               />

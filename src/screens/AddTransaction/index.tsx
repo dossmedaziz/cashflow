@@ -21,33 +21,24 @@ import RNPickerSelect from "react-native-picker-select";
 import Toast from "react-native-toast-message";
 import useTransactionStore from "@/stores/useTransactionStore";
 
-const AddTransactionScreen = ({ navigation }: any) => {
+const AddTransactionScreen = ({ route, navigation }: any) => {
   const { theme } = useTheme();
+  const { transactionType } = route.params;
+
   const [showDatePicker, setShowDatePicker] = React.useState(false);
-  const [transactionTypeOptions, setTransactionTypeOptions] = React.useState(
-    []
-  );
   const { addTransaction } = useTransactionStore();
   const [transactionCategoryOptions, setTransactionCategoryOptions] =
     React.useState([]);
   React.useEffect(() => {
-    TransactionService.getTransactionTypes()
-      .then((response) => {
-        let { data } = response;
-        let options = data.map((item: TransactionType) => {
-          return {
-            label: item.name,
-            value: item.id,
-          };
-        });
-        setTransactionTypeOptions(options);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    getTransactionCartegoriesByType(transactionType);
+
+    return () => {
+      setTransactionCategoryOptions([]);
+      //
+    };
   }, []);
 
-  const handleOnTransactionTypeChanged = (value: string) => {
+  const getTransactionCartegoriesByType = (value: string) => {
     if (!value) return;
     TransactionService.getTransactionCategoriesByType(Number(value))
       .then((response) => {
@@ -299,32 +290,6 @@ const AddTransactionScreen = ({ navigation }: any) => {
             name={"transactionDate"}
           />
         )}
-        <View
-          style={{
-            width: wp(85),
-            alignSelf: "center",
-            marginVertical: hp(2.5),
-          }}
-        >
-          <View
-            style={{
-              borderWidth: 1,
-              alignSelf: "center",
-              width: "100%",
-              borderColor: theme.colors.labelColor,
-              borderRadius: hp(1.5),
-            }}
-          >
-            <RNPickerSelect
-              onValueChange={handleOnTransactionTypeChanged}
-              items={transactionTypeOptions}
-              placeholder={{
-                label: "Select Transaction Type",
-                value: null,
-              }}
-            />
-          </View>
-        </View>
         <Controller
           control={control}
           rules={{
