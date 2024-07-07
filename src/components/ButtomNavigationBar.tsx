@@ -15,7 +15,6 @@ const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
   const { index, routes } = state;
 
   const currentRoute = state.routes[state.index];
-  console.log(currentRoute.name, "state");
 
   if (currentRoute.name === "HomeStack") {
     if (currentRoute.state) {

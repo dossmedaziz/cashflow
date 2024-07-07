@@ -5,12 +5,29 @@ import { ArrowLeft, Plus, Scroll } from "lucide-react-native";
 import { wp, hp } from "@/helpers/ruler";
 import useTransactionStore from "@/stores/useTransactionStore";
 import TransactionListItem from "@/components/RecentTransaction/TransactionListItem";
-
+import { TransactionTypeEnum } from "@/enums";
 type AllTransactionsProps = {
   navigation: any;
 };
 const AllTransactions = ({ navigation }: AllTransactionsProps) => {
   const { transactions } = useTransactionStore();
+
+  const handleCreateTransaction = (transactionType: string) => {
+    switch (transactionType) {
+      case TransactionTypeEnum.EXPENSE:
+        navigation.navigate("AddTransaction", {
+          transactionType: 1,
+        });
+        break;
+      case TransactionTypeEnum.INCOME:
+        navigation.navigate("AddTransaction", {
+          transactionType: 2,
+        });
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <SafeAreaWrapper
@@ -42,7 +59,12 @@ const AllTransactions = ({ navigation }: AllTransactionsProps) => {
             </View>
           </View>
           <View>
-            <Pressable style={styles.addBtn}>
+            <Pressable
+              style={styles.addBtn}
+              onPress={() => {
+                handleCreateTransaction(TransactionTypeEnum.EXPENSE);
+              }}
+            >
               <Plus color={"black"} />
             </Pressable>
           </View>
@@ -57,13 +79,18 @@ const AllTransactions = ({ navigation }: AllTransactionsProps) => {
 
         <View style={styles.container}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>All My Expenses</Text>
+            <Text style={styles.sectionTitle}>All My Icomes</Text>
             <View style={styles.left}>
               <Text style={styles.seeAll}>View All</Text>
             </View>
           </View>
           <View>
-            <Pressable style={styles.addBtn}>
+            <Pressable
+              style={styles.addBtn}
+              onPress={() => {
+                handleCreateTransaction(TransactionTypeEnum.INCOME);
+              }}
+            >
               <Plus color={"black"} />
             </Pressable>
           </View>
