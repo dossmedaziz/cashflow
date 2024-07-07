@@ -3,14 +3,14 @@ import { TransactionStackParamList } from "./types";
 import {
   AddTransactionScreen,
   AllTransanctionsScreen,
-  HomeScreen,
+  AllTransactions,
 } from "@/screens";
 
 const Stack = createNativeStackNavigator<TransactionStackParamList>();
 
 const TransactionStack = (
   <Stack.Group screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="AllTransactions" component={AllTransanctionsScreen} />
+    <Stack.Screen name="AllTransactions" component={AllTransactions} />
     <Stack.Screen name="AddTransaction" component={AddTransactionScreen} />
     <Stack.Screen name="EditTransaction" component={AddTransactionScreen} />
   </Stack.Group>

@@ -4,15 +4,17 @@ import { useTheme } from "../../theme/useTheme";
 
 type SafeAreaWrapperProps = {
   children: React.ReactNode;
+  style?: Object;
 };
 
-const SafeAreaWrapper = ({ children }: SafeAreaWrapperProps) => {
-    const { theme } = useTheme();
-    return (
+const SafeAreaWrapper = ({ children, style }: SafeAreaWrapperProps) => {
+  const { theme } = useTheme();
+  return (
     <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: theme.colors.primaryBgColor,
+        ...style,
       }}
     >
       {children}

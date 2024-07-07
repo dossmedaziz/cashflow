@@ -34,7 +34,7 @@ const RecentTransactionList = ({
         >
           Recent Transactions
         </Text>
-        <Pressable onPress={() => navigation.navigate("AllTransanction")}>
+        <Pressable onPress={() => navigation.navigate("AllTransactions")}>
           <Text
             style={{
               fontWeight: "bold",

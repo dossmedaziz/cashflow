@@ -13,8 +13,7 @@ type TransactionListItemProps = {
 const TransactionListItem = ({ transaction }: TransactionListItemProps) => {
   const { theme } = useTheme();
   return (
-    <TouchableOpacity>
-         <View
+    <View
       style={{
         width: "100%",
         height: hp(8),
@@ -94,7 +93,6 @@ const TransactionListItem = ({ transaction }: TransactionListItemProps) => {
         </View>
       </View>
     </View>
-    </TouchableOpacity>
   );
 };
 
