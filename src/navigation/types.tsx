@@ -18,7 +18,7 @@ export type AuthStackParamList = {
   */
 export type RootButtonTabParamList = {
   HomeStack: NavigatorScreenParams<HomeStackParamList>;
-  AllTransactions: undefined;
+  Transactionstack: NativeStackNavigationProp<TransactionStackParamList>;
   Stats: undefined;
   Porfile: undefined;
 };

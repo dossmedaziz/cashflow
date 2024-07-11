@@ -9,7 +9,7 @@ const Navigation = () => {
   const { user } = useUserStore();
   return (
     <NavigationContainer>
-      {user ? <AppStack /> : <AuthStackNavigator />}
+      {user ? <BottomTabNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 };

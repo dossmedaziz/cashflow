@@ -34,7 +34,7 @@ const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
       icon: HomeIcon,
     },
     {
-      screenName: "AllTransactions",
+      screenName: "Transactionstack",
       label: "Transactions",
       icon: ScrollText,
     },
