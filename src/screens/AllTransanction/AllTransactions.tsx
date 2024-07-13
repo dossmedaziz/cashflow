@@ -6,29 +6,19 @@ import { wp, hp } from "@/helpers/ruler";
 import useTransactionStore from "@/stores/useTransactionStore";
 import TransactionListItem from "@/components/RecentTransaction/TransactionListItem";
 import { TransactionTypeEnum } from "@/enums";
+import TabViewExample from "./TabViewExample";
+import transactionService from "@/services/transactionService";
 type AllTransactionsProps = {
   navigation: any;
 };
 const AllTransactions = ({ navigation }: AllTransactionsProps) => {
-  const { transactions } = useTransactionStore();
+  const { addTransactionTypes } = useTransactionStore();
 
-  const handleCreateTransaction = (transactionType: string) => {
-    switch (transactionType) {
-      case TransactionTypeEnum.EXPENSE:
-        navigation.navigate("AddTransaction", {
-          transactionType: 1,
-        });
-        break;
-      case TransactionTypeEnum.INCOME:
-        navigation.navigate("AddTransaction", {
-          transactionType: 2,
-        });
-        break;
-      default:
-        break;
-    }
-  };
-
+  React.useEffect(() => {
+    transactionService.getTransactionTypes().then((res) => {
+      addTransactionTypes(res.data);
+    });
+  }, []);
   return (
     <SafeAreaWrapper
       style={{
@@ -39,70 +29,18 @@ const AllTransactions = ({ navigation }: AllTransactionsProps) => {
         elevation: 5, // for Android
       }}
     >
-      <ScrollView>
-        <View style={styles.header}>
-          <Pressable onPress={() => navigation.goBack()}>
-            <ArrowLeft size={hp(3.5)} color={"black"} />
-          </Pressable>
-          <Text style={styles.headerTitle}>All Transactions</Text>
-          <Text></Text>
-        </View>
-        <View style={styles.profileSection}>
-          <Text style={styles.balance}>tnd 1200.0</Text>
-          <Text style={styles.balanceDescription}>My Total earnings</Text>
-        </View>
-        <View style={styles.container}>
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>All My Expenses</Text>
-            <View style={styles.left}>
-              <Text style={styles.seeAll}>View All</Text>
-            </View>
-          </View>
-          <View>
-            <Pressable
-              style={styles.addBtn}
-              onPress={() => {
-                handleCreateTransaction(TransactionTypeEnum.EXPENSE);
-              }}
-            >
-              <Plus color={"black"} />
-            </Pressable>
-          </View>
-          <View style={styles.transactionsContainer}>
-            {transactions.slice(0, 3).map((transaction, index) => {
-              return (
-                <TransactionListItem key={index} transaction={transaction} />
-              );
-            })}
-          </View>
-        </View>
-
-        <View style={styles.container}>
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>All My Icomes</Text>
-            <View style={styles.left}>
-              <Text style={styles.seeAll}>View All</Text>
-            </View>
-          </View>
-          <View>
-            <Pressable
-              style={styles.addBtn}
-              onPress={() => {
-                handleCreateTransaction(TransactionTypeEnum.INCOME);
-              }}
-            >
-              <Plus color={"black"} />
-            </Pressable>
-          </View>
-          <View style={styles.transactionsContainer}>
-            {transactions.slice(0, 3).map((transaction, index) => {
-              return (
-                <TransactionListItem key={index} transaction={transaction} />
-              );
-            })}
-          </View>
-        </View>
-      </ScrollView>
+      <View style={styles.header}>
+        <Pressable onPress={() => navigation.goBack()}>
+          <ArrowLeft size={hp(3.5)} color={"black"} />
+        </Pressable>
+        <Text style={styles.headerTitle}>All Transactions</Text>
+        <Text></Text>
+      </View>
+      <View style={styles.profileSection}>
+        <Text style={styles.balance}>tnd 1200.0</Text>
+        <Text style={styles.balanceDescription}>My Total earnings</Text>
+      </View>
+      <TabViewExample />
     </SafeAreaWrapper>
   );
 };
