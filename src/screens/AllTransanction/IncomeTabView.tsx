@@ -1,19 +1,71 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import useTransactionStore from "@/stores/useTransactionStore";
 import transactionService from "@/services/transactionService";
 import { TransactionTypeIdEnum } from "@/enums";
 
-import { Plus } from "lucide-react-native";
+import { Plus, Trash } from "lucide-react-native";
 import { hp, wp } from "@/helpers/ruler";
 import { Transaction } from "@/types";
 import { FlashList } from "@shopify/flash-list";
 import TransactionListItem from "@/components/RecentTransaction/TransactionListItem";
 import { useNavigation } from "@react-navigation/native";
+import { Swipeable } from "react-native-gesture-handler";
 const IcomeTabView = () => {
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
   const navigation = useNavigation();
 
+  const renderItems = (item: Transaction) => {
+    return (
+      <Swipeable renderLeftActions={(props) => <LeftActions item={item} />}>
+        <TransactionListItem key={item.id} transaction={item} />
+      </Swipeable>
+    );
+  };
+  const LeftActions = ({ item }: { item: Transaction }) => {
+    return (
+      <View
+        style={{
+          width: wp(20),
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Pressable
+          onPress={() => {
+            Alert.alert(
+              "Deleteing Transaction",
+              "Are you sure you want to delete this transaction?",
+              [
+                {
+                  text: "Cancel",
+                  onPress: () => null,
+                  style: "cancel",
+                },
+                {
+                  text: "OK",
+                  onPress: () => {
+                    transactionService.deleteTransaction(item.id).then(() => {
+                      setTransactions((prev) =>
+                        prev.filter((transaction) => transaction.id !== item.id)
+                      );
+                      //swip back the item
+                    });
+                  },
+                },
+              ],
+              {
+                cancelable: true,
+                onDismiss: () => null,
+              }
+            );
+          }}
+        >
+          <Trash size={24} color={"red"} />
+        </Pressable>
+      </View>
+    );
+  };
   React.useEffect(() => {
     transactionService
       .transactionsByTransactionType(TransactionTypeIdEnum.INCOME)
@@ -47,13 +99,12 @@ const IcomeTabView = () => {
         <FlashList
           data={transactions}
           estimatedItemSize={100}
-          renderItem={({ item }) => (
-            <TransactionListItem key={item.id} transaction={item} />
-          )}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => renderItems(item)}
           ListFooterComponent={() => <View style={{ height: hp(10) }} />}
         />
       ) : (
-        <Text>No expenses found</Text>
+        <Text>No icomes found</Text>
       )}
     </View>
   );
@@ -70,7 +121,6 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    borderBottomWidth: 1,
-    borderBottomColor: "gray",
+    marginBottom: hp(2.5),
   },
 });

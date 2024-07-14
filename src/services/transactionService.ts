@@ -42,10 +42,20 @@ const transactionsByTransactionType =  (typeId: number) => {
         throw e
     }
 }
+
+const deleteTransaction =  (transactionId: string) => {
+    try {
+        return  httpClient.delete(`/transactions/${transactionId}`)
+    }catch (e) {
+        throw e
+    }
+
+}
 export default {
     getUserTransactions,
     getTransactionTypes,
     getTransactionCategoriesByType,
     createTransaction,
-    transactionsByTransactionType   
+    transactionsByTransactionType   ,
+    deleteTransaction
 }
