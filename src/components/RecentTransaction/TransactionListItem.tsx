@@ -52,7 +52,14 @@ const TransactionListItem = ({ transaction }: TransactionListItemProps) => {
             width: "100%",
           }}
         >
-          <Text>{transaction.transactionCategory.name}</Text>
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: hp(2),
+            }}
+          >
+            {transaction.transactionCategory.name}
+          </Text>
           <Text
             style={{
               color:

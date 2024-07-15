@@ -2,9 +2,11 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useTheme } from "@/theme/useTheme";
 import { hp } from "@/helpers/ruler";
+import useUserStore from "@/stores/useUserStore";
 
 const HomeScreenCard = () => {
   const { theme } = useTheme();
+  const { user } = useUserStore();
   return (
     <View
       style={[styles.card, { backgroundColor: theme.colors.secondaryBgColor }]}
@@ -39,7 +41,7 @@ const HomeScreenCard = () => {
             fontWeight: "bold",
           }}
         >
-          25000.0
+          {user?.balance}
         </Text>
       </View>
       <View
@@ -59,7 +61,7 @@ const HomeScreenCard = () => {
             fontWeight: "bold",
           }}
         >
-          + 2500.0
+          + {user?.thisMonthIncome}
         </Text>
         <Text
           style={{
@@ -69,7 +71,7 @@ const HomeScreenCard = () => {
             borderRadius: 5,
           }}
         >
-          - 2500.0
+          - {user?.thisMonthExpense}
         </Text>
       </View>
     </View>

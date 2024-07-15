@@ -9,10 +9,10 @@ import {
   House,
   ScrollText,
   User as UserIcon,
+  ArrowUpDown,
 } from "lucide-react-native";
 const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
   const { theme } = useTheme();
-  const { index, routes } = state;
 
   const currentRoute = state.routes[state.index];
 
@@ -36,7 +36,7 @@ const ButtomNavigationBar = ({ state, descriptors, navigation }: any) => {
     {
       screenName: "Transactionstack",
       label: "Transactions",
-      icon: ScrollText,
+      icon: ArrowUpDown,
     },
     {
       screenName: "Stats",

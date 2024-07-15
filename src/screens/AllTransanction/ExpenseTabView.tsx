@@ -9,10 +9,12 @@ import { Transaction } from "@/types";
 import { FlashList } from "@shopify/flash-list";
 import TransactionListItem from "@/components/RecentTransaction/TransactionListItem";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+import { useTheme } from "@/theme/useTheme";
 const ExpenseTabView = () => {
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
   const navigation = useNavigation();
 
+  const { theme } = useTheme();
   const renderItems = (item: Transaction) => {
     return (
       <Swipeable renderLeftActions={(props) => <LeftActions item={item} />}>
@@ -91,7 +93,7 @@ const ExpenseTabView = () => {
             });
           }}
         >
-          <Plus size={20} color={"black"} />
+          <Plus size={hp(3.5)} color={theme.colors.primaryTextColor} />
         </Pressable>
       </View>
 

@@ -1,7 +1,6 @@
 import CashFlowLocalStorage from "@/services/asyncStorage";
 import AuthService from "@/services/authService";
-import TransactionService from "@/services/transactionService";
-import {AccessToken, TransactionStore, UserStore} from "@/types";
+import { TransactionStore, UserStore} from "@/types";
 
 
  const init =  async (userStore : UserStore , transactionStore : TransactionStore) => {
