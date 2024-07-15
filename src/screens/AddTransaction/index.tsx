@@ -20,13 +20,15 @@ import moment from "moment";
 import RNPickerSelect from "react-native-picker-select";
 import Toast from "react-native-toast-message";
 import useTransactionStore from "@/stores/useTransactionStore";
-
+import { Transaction } from "@/types";
+import { TransactionTypeEnum } from "@/enums";
 const AddTransactionScreen = ({ route, navigation }: any) => {
   const { theme } = useTheme();
   const { transactionType } = route.params;
 
   const [showDatePicker, setShowDatePicker] = React.useState(false);
-  const { addTransaction } = useTransactionStore();
+  const { addTransaction, addExpenseTransactions, addIncomeTransactions } =
+    useTransactionStore();
   const [transactionCategoryOptions, setTransactionCategoryOptions] =
     React.useState([]);
   React.useEffect(() => {
@@ -86,8 +88,17 @@ const AddTransactionScreen = ({ route, navigation }: any) => {
   const onSubmit = (data: TransactionForm) => {
     TransactionService.createTransaction(data)
       .then((response) => {
-        let { data } = response;
+        let { data }: { data: Transaction } = response;
         addTransaction(data);
+        switch (data.transactionCategory.transactionType.name) {
+          case TransactionTypeEnum.EXPENSE:
+            addExpenseTransactions([data]);
+            break;
+          case TransactionTypeEnum.INCOME:
+            addIncomeTransactions([data]);
+            break;
+        }
+
         Toast.show({
           type: "success",
           text1: "Transaction added successfully",

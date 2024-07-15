@@ -12,8 +12,13 @@ import TransactionListItem from "@/components/RecentTransaction/TransactionListI
 import { useNavigation } from "@react-navigation/native";
 import { Swipeable } from "react-native-gesture-handler";
 const IcomeTabView = () => {
-  const [transactions, setTransactions] = React.useState<Transaction[]>([]);
   const navigation = useNavigation();
+  const {
+    incomeTransactions,
+    addIncomeTransactions,
+    deleteIcomeTransaction,
+    deleteTransaction,
+  } = useTransactionStore();
 
   const renderItems = (item: Transaction) => {
     return (
@@ -46,9 +51,8 @@ const IcomeTabView = () => {
                   text: "OK",
                   onPress: () => {
                     transactionService.deleteTransaction(item.id).then(() => {
-                      setTransactions((prev) =>
-                        prev.filter((transaction) => transaction.id !== item.id)
-                      );
+                      deleteIcomeTransaction(item.id);
+                      deleteTransaction(item.id);
                       //swip back the item
                     });
                   },
@@ -70,7 +74,7 @@ const IcomeTabView = () => {
     transactionService
       .transactionsByTransactionType(TransactionTypeIdEnum.INCOME)
       .then((res) => {
-        setTransactions(res.data);
+        addIncomeTransactions(res.data);
       });
   }, []);
   return (
@@ -95,9 +99,9 @@ const IcomeTabView = () => {
         </Pressable>
       </View>
 
-      {transactions.length > 0 ? (
+      {incomeTransactions.length > 0 ? (
         <FlashList
-          data={transactions}
+          data={incomeTransactions}
           estimatedItemSize={100}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => renderItems(item)}

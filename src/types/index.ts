@@ -47,10 +47,17 @@ export type TransactionStore={
     transactions: Transaction[];
     transactionCategories: TransactionCategory[];
     transactionTypes: TransactionType[];
+    incomeTransactions: Transaction[];
+    expenseTransactions: Transaction[];
     addTransaction: (transaction: Transaction) => void;
     addTransactions: (transactions: Transaction[]) => void;
     addTransactionCategories: (transactionCategories: TransactionCategory[]) => void;
     addTransactionTypes: (transactionTypes: TransactionType[]) => void;
+    addIncomeTransactions: (incomeTransactions: Transaction[]) => void;
+    addExpenseTransactions: (expenseTransactions: Transaction[]) => void;
+    deleteIcomeTransaction: (id: string) => void;
+    deleteExpenseTransaction: (id: string) => void;
+    deleteTransaction: (id: string) => void;
 
 }
 

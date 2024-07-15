@@ -5,16 +5,22 @@ import { TransactionTypeIdEnum } from "@/enums";
 import { useNavigation } from "@react-navigation/native";
 import { Plus, Trash } from "lucide-react-native";
 import { hp, wp } from "@/helpers/ruler";
-import { Transaction } from "@/types";
+import { Transaction, TransactionStore } from "@/types";
 import { FlashList } from "@shopify/flash-list";
 import TransactionListItem from "@/components/RecentTransaction/TransactionListItem";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { useTheme } from "@/theme/useTheme";
+import useTransactionStore from "@/stores/useTransactionStore";
 const ExpenseTabView = () => {
-  const [transactions, setTransactions] = React.useState<Transaction[]>([]);
   const navigation = useNavigation();
 
   const { theme } = useTheme();
+  const {
+    expenseTransactions,
+    addExpenseTransactions,
+    deleteExpenseTransaction,
+    deleteTransaction,
+  } = useTransactionStore();
   const renderItems = (item: Transaction) => {
     return (
       <Swipeable renderLeftActions={(props) => <LeftActions item={item} />}>
@@ -47,9 +53,8 @@ const ExpenseTabView = () => {
                   text: "OK",
                   onPress: () => {
                     transactionService.deleteTransaction(item.id).then(() => {
-                      setTransactions((prev) =>
-                        prev.filter((transaction) => transaction.id !== item.id)
-                      );
+                      deleteExpenseTransaction(item.id);
+                      deleteTransaction(item.id);
                       //swip back the item
                     });
                   },
@@ -72,7 +77,7 @@ const ExpenseTabView = () => {
     transactionService
       .transactionsByTransactionType(TransactionTypeIdEnum.EXPENSE)
       .then((res) => {
-        setTransactions(res.data);
+        addExpenseTransactions(res.data);
       });
   }, []);
   return (
@@ -97,9 +102,9 @@ const ExpenseTabView = () => {
         </Pressable>
       </View>
 
-      {transactions.length > 0 ? (
+      {expenseTransactions.length > 0 ? (
         <FlashList
-          data={transactions}
+          data={expenseTransactions}
           estimatedItemSize={100}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => renderItems(item)}
