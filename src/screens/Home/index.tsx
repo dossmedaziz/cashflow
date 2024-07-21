@@ -1,13 +1,13 @@
 import {
+  ActivityIndicator,
   ScrollView,
   StyleSheet,
   Text,
   View,
-  ActivityIndicator,
 } from "react-native";
 import React from "react";
 import {
-  HomeScreenCard,
+  ProjectSavingCard,
   RecentTransactionList,
   SafeAreaWrapper,
 } from "@/components";
@@ -17,8 +17,14 @@ import useUserStore from "@/stores/useUserStore";
 import TransactionService from "@/services/transactionService";
 import useTransactionStore from "@/stores/useTransactionStore";
 import { StatusBar } from "expo-status-bar";
-import { ArrowUp, ChevronDown, ChevronUp } from "lucide-react-native";
-import { StretchOutY } from "react-native-reanimated";
+import {
+  ArrowUp,
+  Bitcoin,
+  ChevronDown,
+  ChevronUp,
+  HandCoins,
+} from "lucide-react-native";
+import CircularProgress from "react-native-circular-progress-indicator";
 
 const HomeScreen = () => {
   // @ts-ignore
@@ -45,13 +51,13 @@ const HomeScreen = () => {
         style="light"
         backgroundColor={theme.colors.secondaryBgColor}
       />
-      <ScrollView style={styles.container}>
-        <View
-          style={[
-            styles.topSide,
-            { backgroundColor: theme.colors.secondaryBgColor },
-          ]}
-        >
+      <ScrollView
+        style={[
+          styles.container,
+          { backgroundColor: theme.colors.secondaryBgColor },
+        ]}
+      >
+        <View style={styles.topSide}>
           <View>
             <Text
               style={[
@@ -169,6 +175,34 @@ const HomeScreen = () => {
             </View>
           </View>
         </View>
+
+        <View
+          style={{
+            backgroundColor: theme.colors.primaryBgColor,
+            height: hp(100),
+            borderTopStartRadius: hp(5),
+            borderTopEndRadius: hp(5),
+            paddingTop: hp(2.5),
+            paddingHorizontal: wp(5),
+          }}
+        >
+          <ProjectSavingCard />
+
+          {isLoading ? (
+            <ActivityIndicator
+              size="large"
+              color={theme.colors.secondaryBgColor}
+            />
+          ) : (
+            <View
+              style={{
+                marginTop: hp(2),
+              }}
+            >
+              <RecentTransactionList transactions={transactions} />
+            </View>
+          )}
+        </View>
       </ScrollView>
     </SafeAreaWrapper>
   );
@@ -179,7 +213,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     // flex: 1, paddingHorizontal: wp(5),
-    // paddingTop: hp(4)
+    // paddingTop: hp(4
   },
   greeting: {
     fontSize: hp(2),
@@ -208,5 +242,13 @@ const styles = StyleSheet.create({
   seprator: {
     width: 1,
     height: "100%",
+  },
+  randomProjectCard: {
+    height: hp(20),
+    width: "100%",
+    borderRadius: hp(4),
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });
