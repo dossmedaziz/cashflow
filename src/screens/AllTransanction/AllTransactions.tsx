@@ -8,11 +8,13 @@ import TransactionListItem from "@/components/RecentTransaction/TransactionListI
 import { TransactionTypeEnum } from "@/enums";
 import TabViewExample from "./TabViewExample";
 import transactionService from "@/services/transactionService";
+import useUserStore from "@/stores/useUserStore";
 type AllTransactionsProps = {
   navigation: any;
 };
 const AllTransactions = ({ navigation }: AllTransactionsProps) => {
   const { addTransactionTypes } = useTransactionStore();
+  const  {user} =  useUserStore()
 
   React.useEffect(() => {
     transactionService.getTransactionTypes().then((res) => {
@@ -37,7 +39,7 @@ const AllTransactions = ({ navigation }: AllTransactionsProps) => {
         <Text></Text>
       </View>
       <View style={styles.profileSection}>
-        <Text style={styles.balance}>tnd 1200.0</Text>
+        <Text style={styles.balance}>{user?.balance} TND</Text>
         <Text style={styles.balanceDescription}>My Total earnings</Text>
       </View>
       <TabViewExample />

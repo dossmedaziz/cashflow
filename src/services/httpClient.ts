@@ -1,8 +1,10 @@
 import axios from "axios";
 import CashFlowLocalStorage from "@/services/asyncStorage";
 
+// GET THE BASE URL FROM THE ENVIRONMENT VARIABLES
+
 const httpClient = axios.create({
-    baseURL: "http:192.168.100.185:8000/api",
+    baseURL: "http:192.168.1.11:8000/api",
 });
 
 httpClient.interceptors.request.use(
