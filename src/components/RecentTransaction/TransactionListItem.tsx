@@ -5,6 +5,7 @@ import { useTheme } from "@/theme/useTheme";
 import { ShopCartIcon } from "@/icons";
 import { Transaction } from "@/types";
 import { TransactionTypeEnum } from "@/enums";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 type TransactionListItemProps = {
   transaction: Transaction;
@@ -20,8 +21,6 @@ const TransactionListItem = ({ transaction }: TransactionListItemProps) => {
         borderRadius: hp(1),
         alignItems: "center",
         flexDirection: "row",
-        borderBottomWidth: 1,
-        borderBottomColor: theme.colors.labelColor,
       }}
     >
       <View
@@ -53,7 +52,14 @@ const TransactionListItem = ({ transaction }: TransactionListItemProps) => {
             width: "100%",
           }}
         >
-          <Text>{transaction.transactionCategory.name}</Text>
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: hp(2),
+            }}
+          >
+            {transaction.transactionCategory.name}
+          </Text>
           <Text
             style={{
               color:

@@ -12,6 +12,9 @@ import Reactotron from "reactotron-react-native";
 
 import useUserStore from "@/stores/useUserStore";
 import useTransactionStore from "@/stores/useTransactionStore";
+import 'react-native-reanimated';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 Reactotron.configure({
   name: "CashFlow",
 })
@@ -50,6 +53,8 @@ export default function App() {
     return null;
   }
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+
     <ThemeProvider>
       <View style={styles.container} onLayout={onLayoutRootView}>
         <Navigation />
@@ -57,6 +62,7 @@ export default function App() {
         <Toast />
       </View>
     </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
 

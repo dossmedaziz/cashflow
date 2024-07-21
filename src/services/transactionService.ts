@@ -33,12 +33,29 @@ const createTransaction =  (transaction: TransactionForm) => {
     }catch (e) {
         throw e
     }
+}
 
+const transactionsByTransactionType =  (typeId: number) => {
+    try {
+        return  httpClient.get(`/transaction-types/${typeId}/transactions`)
+    }catch (e) {
+        throw e
+    }
+}
+
+const deleteTransaction =  (transactionId: string) => {
+    try {
+        return  httpClient.delete(`/transactions/${transactionId}`)
+    }catch (e) {
+        throw e
+    }
 
 }
 export default {
     getUserTransactions,
     getTransactionTypes,
     getTransactionCategoriesByType,
-    createTransaction
+    createTransaction,
+    transactionsByTransactionType   ,
+    deleteTransaction
 }

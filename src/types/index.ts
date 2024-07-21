@@ -22,6 +22,9 @@ export type User={
     email:string;
     firstName:string;
     lastName:string;
+    balance:number;
+    thisMonthExpense:number;
+    thisMonthIncome:number;
 }
 export type AccessToken={
     token:string;

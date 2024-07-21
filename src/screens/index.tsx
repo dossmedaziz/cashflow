@@ -6,6 +6,8 @@ import AllTransanctionsScreen from "./AllTransanction";
 import AddTransactionScreen from "./AddTransaction";
 import PorfileScreen from "./Profile";
 import StatsScreen from "./StatsScreen";
+
+import AllTransactions from "./AllTransanction/AllTransactions";
 export {
   Onboarding,
   SignInScreen,
@@ -15,4 +17,5 @@ export {
   AddTransactionScreen,
   PorfileScreen,
   StatsScreen,
+  AllTransactions,
 };

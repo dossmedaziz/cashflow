@@ -2,7 +2,6 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { hp } from "@/helpers/ruler";
 import { useNavigation } from "@react-navigation/native";
-import { HomeStackParamList } from "@/navigation/types";
 import TransactionListItem from "./TransactionListItem";
 import { Transaction } from "@/types";
 
@@ -34,7 +33,7 @@ const RecentTransactionList = ({
         >
           Recent Transactions
         </Text>
-        <Pressable onPress={() => navigation.navigate("AllTransanction")}>
+        <Pressable onPress={() => navigation.navigate("Transactionstack")}>
           <Text
             style={{
               fontWeight: "bold",
