@@ -125,7 +125,7 @@ const HomeScreen = () => {
                       fontSize: hp(2),
                     }}
                   >
-                    Icome
+                    Income
                   </Text>
                 </View>
                 <Text
