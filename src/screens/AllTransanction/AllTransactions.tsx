@@ -4,8 +4,6 @@ import { SafeAreaWrapper } from "@/components";
 import { ArrowLeft, Plus, Scroll } from "lucide-react-native";
 import { wp, hp } from "@/helpers/ruler";
 import useTransactionStore from "@/stores/useTransactionStore";
-import TransactionListItem from "@/components/RecentTransaction/TransactionListItem";
-import { TransactionTypeEnum } from "@/enums";
 import TabViewExample from "./TabViewExample";
 import transactionService from "@/services/transactionService";
 import useUserStore from "@/stores/useUserStore";
