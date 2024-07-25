@@ -9,6 +9,7 @@ import HomeScreenCard from "./HomeScreenCard";
 import RecentTransactionList from "./RecentTransaction/RecentTransactionList";
 
 import Loader from "./shared/Loader";
+import ProjectSavingCard from "./ProjectSavingCard";
 export {
   OnboardingItem,
   Paginator,
@@ -20,4 +21,5 @@ export {
   HomeScreenCard,
   RecentTransactionList,
   Loader,
+  ProjectSavingCard,
 };
