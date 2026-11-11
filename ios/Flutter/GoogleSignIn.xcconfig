@@ -1,0 +1,9 @@
+// Google Sign-In for iOS — fill these in from Google Cloud Console
+// (see README.md, "Google Cloud Console"). Do not use quotes.
+//
+// iOS OAuth client ID, e.g. 1234567890-abc123.apps.googleusercontent.com
+GOOGLE_IOS_CLIENT_ID = REPLACE_ME.apps.googleusercontent.com
+// The same ID reversed, e.g. com.googleusercontent.apps.1234567890-abc123
+GOOGLE_REVERSED_CLIENT_ID = com.googleusercontent.apps.REPLACE_ME
+// Web OAuth client ID (the one configured in Supabase)
+GOOGLE_WEB_CLIENT_ID = 807038902928-ibbqqcg55bbbd1kffreldcafkdfl5acn.apps.googleusercontent.com

@@ -1,0 +1,235 @@
+{
+  "@@locale": "en",
+  "appName": "Cashflow",
+  "loginTagline": "Take control of your spending, simply",
+  "continueWithGoogle": "Continue with Google",
+  "termsPrefix": "By continuing, you agree to the",
+  "termsLink": "Terms",
+  "termsAnd": "and",
+  "privacyLink": "Privacy Policy",
+  "languageLabel": "Language",
+  "signInCancelled": "Sign-in was cancelled.",
+  "signInNetworkError": "No connection. Check your internet and try again.",
+  "signInConfigError": "Google sign-in isn't configured for this build yet.",
+  "signInFailed": "Couldn't sign you in. Please try again.",
+  "dateLongPattern": "EEEE, d MMMM",
+  "@dateLongPattern": {
+    "description": "intl DateFormat pattern for the Home header and day groups. Do not translate the letters."
+  },
+  "dateShortPattern": "d MMM",
+  "@dateShortPattern": {
+    "description": "intl DateFormat pattern for the date button. Do not translate the letters."
+  },
+  "monthChipPattern": "MMM y",
+  "@monthChipPattern": {
+    "description": "intl DateFormat pattern for the month chip. Do not translate the letters."
+  },
+  "hello": "Hello, {name}",
+  "@hello": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "helloNoName": "Hello",
+  "monthTotalLabel": "Spent this month",
+  "@monthTotalLabel": {
+    "description": "Hero card label. Arabic includes the month name.",
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "compareLess": "{percent}% less than {month}",
+  "@compareLess": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "compareMore": "{percent}% more than {month}",
+  "@compareMore": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "compareSame": "Same as {month}",
+  "@compareSame": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "heroEmpty": "Log your first expense to get started",
+  "filterAll": "All",
+  "filterLabel": "Filter by category",
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "emptyTitle": "No expenses yet",
+  "emptySubtitle": "Tap + to log your first expense. Small steps add up.",
+  "emptyFilteredTitle": "Nothing in {category} this month",
+  "@emptyFilteredTitle": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "emptyFilteredSubtitle": "Pick another category or add a new expense.",
+  "addExpense": "Add expense",
+  "categoriesTooltip": "Categories",
+  "settingsTooltip": "Settings",
+  "delete": "Delete",
+  "expenseDeleted": "“{title}” deleted",
+  "@expenseDeleted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "undo": "Undo",
+  "errorLoading": "Couldn't load your data.",
+  "errorNetwork": "You're offline. Showing what was saved on this device.",
+  "errorGeneric": "Something went wrong. Please try again.",
+  "retry": "Try again",
+  "newExpense": "New expense",
+  "editExpense": "Edit expense",
+  "amount": "Amount",
+  "category": "Category",
+  "noteLabel": "Note",
+  "notePlaceholder": "Add a note (optional)",
+  "add": "Add",
+  "saveChanges": "Save changes",
+  "deleteExpense": "Delete expense",
+  "close": "Close",
+  "deleteDigit": "Delete digit",
+  "decimalPoint": "Decimal point",
+  "errorAmountRequired": "Enter an amount greater than zero.",
+  "errorCategoryRequired": "Choose a category.",
+  "chooseDate": "Choose date",
+  "categoriesTitle": "Categories",
+  "categoriesSubtitle": "{count, plural, =1{1 category} other{{count} categories}} · drag to reorder",
+  "@categoriesSubtitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "categoryMeta": "{count, plural, =0{No expenses} =1{1 expense} other{{count} expenses}} · {amount}",
+  "@categoryMeta": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "addCategory": "Add category",
+  "addNewCategory": "Add a new category",
+  "categoryDeleteNote": "Deleting a category moves its expenses to “Other” — nothing is lost.",
+  "reorderCategory": "Reorder {name}",
+  "@reorderCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "newCategory": "New category",
+  "editCategory": "Edit category",
+  "categoryName": "Category name",
+  "categoryNameHint": "e.g. Sport",
+  "color": "Color",
+  "icon": "Icon",
+  "saveCategory": "Save category",
+  "deleteCategory": "Delete category",
+  "errorNameRequired": "Give the category a name.",
+  "deleteCategoryTitle": "Delete “{name}”?",
+  "@deleteCategoryTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteCategoryBody": "{count, plural, =0{This category has no expenses.} =1{Its 1 expense will move to “Other”.} other{Its {count} expenses will move to “Other”.}}",
+  "@deleteCategoryBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "cancel": "Cancel",
+  "catFood": "Food",
+  "catTransport": "Transport",
+  "catShopping": "Shopping",
+  "catBills": "Bills",
+  "catHealth": "Health",
+  "catOther": "Other",
+  "colorOrange": "Orange",
+  "colorYellow": "Yellow",
+  "colorGreen": "Green",
+  "colorTeal": "Teal",
+  "colorBlue": "Blue",
+  "colorViolet": "Violet",
+  "colorPink": "Pink",
+  "colorRed": "Red",
+  "iconDumbbell": "Sport",
+  "iconCoffee": "Coffee",
+  "iconBook": "Education",
+  "iconGift": "Gifts",
+  "iconHome": "Home",
+  "iconPlane": "Travel",
+  "iconMusic": "Entertainment",
+  "iconPhone": "Phone",
+  "iconGrad": "Studies",
+  "iconHeart": "Family",
+  "iconBag": "Shopping",
+  "iconStar": "Special",
+  "settingsTitle": "Settings",
+  "back": "Back",
+  "account": "Account",
+  "connectedWithGoogle": "Connected with Google",
+  "appearance": "Appearance",
+  "themeDark": "Dark",
+  "themeLight": "Light",
+  "currency": "Currency",
+  "chooseCurrency": "Choose currency",
+  "currencyNote": "Changing the currency only changes the symbol — amounts aren't converted.",
+  "logout": "Log out",
+  "footerTagline": "made calmly",
+  "currencyTND": "Tunisian dinar",
+  "currencyEUR": "Euro",
+  "currencyUSD": "US dollar",
+  "currencyMAD": "Moroccan dirham",
+  "currencyDZD": "Algerian dinar",
+  "currencyLYD": "Libyan dinar",
+  "widgetTodayA11y": "Spent today: {amount} {currency}",
+  "@widgetTodayA11y": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "currency": {
+        "type": "String"
+      }
+    }
+  }
+}
