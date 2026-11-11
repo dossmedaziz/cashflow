@@ -4,7 +4,8 @@ A simple, calm expense tracker for iOS and Android. Arabic-first (RTL), with Fre
 
 - Google Sign-In only
 - Add / edit / delete expenses (amount, category, optional note, date), swipe-to-delete with undo
-- Filter by category, month total with comparison to last month
+- Filter by category
+- Total card on Home switchable between **today / this week / this month**, compared with yesterday / last week / last month (tap the chip on the card; the choice is remembered, weeks start on Monday)
 - Manage categories (name, color, icon, drag to reorder; deleting moves expenses to "Other")
 - Settings: language (العربية / Français / English, live switch), currency, dark/light theme, log out
 - **Home-screen "Today" widget** (Android + iOS): what you spent today; tap → Add sheet
@@ -18,8 +19,10 @@ A simple, calm expense tracker for iOS and Android. Arabic-first (RTL), with Fre
 | <img src="docs/screenshots/01-login.png" width="200"> | <img src="docs/screenshots/02-home.png" width="200"> | <img src="docs/screenshots/04-add-expense.png" width="200"> | <img src="docs/screenshots/05-edit-expense.png" width="200"> |
 | **Empty state** | **Categories** | **New category** | **Settings** |
 | <img src="docs/screenshots/03-empty.png" width="200"> | <img src="docs/screenshots/06-categories.png" width="200"> | <img src="docs/screenshots/07-new-category.png" width="200"> | <img src="docs/screenshots/08-settings.png" width="200"> |
-| **English (LTR)** | **Français (LTR)** | **Light mode** | |
-| <img src="docs/screenshots/09-home-en.png" width="200"> | <img src="docs/screenshots/10-add-fr.png" width="200"> | <img src="docs/screenshots/11-home-light.png" width="200"> | |
+| **English (LTR)** | **Français (LTR)** | **Light mode** | **Total: pick a period** |
+| <img src="docs/screenshots/09-home-en.png" width="200"> | <img src="docs/screenshots/10-add-fr.png" width="200"> | <img src="docs/screenshots/11-home-light.png" width="200"> | <img src="docs/screenshots/12-period-menu.png" width="200"> |
+| **Total: this week** | | | |
+| <img src="docs/screenshots/13-home-week.png" width="200"> | | | |
 
 Screenshots are rendered from the real screens with demo data (the design's sample month) by `test/screenshots/screenshots_test.dart`. Regenerate them after UI changes with:
 

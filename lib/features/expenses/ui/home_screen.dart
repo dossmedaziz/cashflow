@@ -27,7 +27,7 @@ import '../../categories/providers/categories_providers.dart';
 import '../../settings/providers/settings_providers.dart';
 import '../../today_widget/ui/widget_launch_listener.dart';
 import '../data/expense.dart';
-import '../data/monthly_summary.dart';
+import '../data/summary.dart';
 import '../providers/expenses_providers.dart';
 import 'expense_sheet.dart';
 
@@ -213,36 +213,106 @@ class _Hero extends ConsumerWidget {
     final l10n = context.l10n;
     final lang = context.lang;
     final currency = ref.watch(currencyProvider);
-    final summary = ref.watch(monthlySummaryProvider).value;
+    final period = ref.watch(summaryPeriodProvider);
+    final summary = ref.watch(heroSummaryProvider).value;
     final now = ref.watch(clockProvider)();
     final labels = DateLabels(l10n, lang);
 
     String? comparison;
     var trend = TotalTrend.less;
     if (summary != null && summary.hasComparison) {
-      final prevMonth = labels.monthName(startOfPreviousMonth(now));
       final pct = '${summary.percentChange}';
-      (comparison, trend) = switch (summary.trend) {
-        Trend.less => (l10n.compareLess(pct, prevMonth), TotalTrend.less),
-        Trend.more => (l10n.compareMore(pct, prevMonth), TotalTrend.more),
-        Trend.same => (l10n.compareSame(prevMonth), TotalTrend.same),
+      final prevMonth = labels.monthName(startOfPreviousMonth(now));
+      (comparison, trend) = switch ((period, summary.trend)) {
+        (SummaryPeriod.day, Trend.less) => (l10n.compareLessDay(pct), TotalTrend.less),
+        (SummaryPeriod.day, Trend.more) => (l10n.compareMoreDay(pct), TotalTrend.more),
+        (SummaryPeriod.day, Trend.same) => (l10n.compareSameDay, TotalTrend.same),
+        (SummaryPeriod.week, Trend.less) => (l10n.compareLessWeek(pct), TotalTrend.less),
+        (SummaryPeriod.week, Trend.more) => (l10n.compareMoreWeek(pct), TotalTrend.more),
+        (SummaryPeriod.week, Trend.same) => (l10n.compareSameWeek, TotalTrend.same),
+        (SummaryPeriod.month, Trend.less) => (l10n.compareLess(pct, prevMonth), TotalTrend.less),
+        (SummaryPeriod.month, Trend.more) => (l10n.compareMore(pct, prevMonth), TotalTrend.more),
+        (SummaryPeriod.month, Trend.same) => (l10n.compareSame(prevMonth), TotalTrend.same),
       };
     }
+
+    final (label, chip, emptyHint) = switch (period) {
+      SummaryPeriod.day => (l10n.dayTotalLabel, labels.dayChip(now), l10n.heroEmptyDay),
+      SummaryPeriod.week => (l10n.weekTotalLabel, labels.weekRange(startOfWeek(now)), l10n.heroEmptyWeek),
+      SummaryPeriod.month => (l10n.monthTotalLabel(labels.monthName(now)), labels.monthChip(now), l10n.heroEmpty),
+    };
 
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(20, 22, 20, 0),
       child: AppearIn(
         child: TotalCard(
-          label: l10n.monthTotalLabel(labels.monthName(now)),
-          monthChip: labels.monthChip(now),
+          label: label,
+          periodChip: chip,
+          periodSemantics: l10n.changePeriod,
+          onPeriodTap: (chipContext) => _pickPeriod(chipContext, ref, period),
           total: MoneyFormat.format(summary?.total ?? 0, currency, lang),
           currencySymbol: currency.symbolFor(lang),
           comparison: comparison,
           trend: trend,
-          emptyHint: summary != null && summary.count == 0 ? l10n.heroEmpty : null,
+          emptyHint: summary != null && summary.count == 0 && !summary.hasComparison ? emptyHint : null,
         ),
       ),
     );
+  }
+
+  /// Small menu under the chip: Today / This week / This month.
+  static Future<void> _pickPeriod(BuildContext chipContext, WidgetRef ref, SummaryPeriod current) async {
+    final c = chipContext.colors;
+    final t = chipContext.text;
+    final l10n = chipContext.l10n;
+    final box = chipContext.findRenderObject()! as RenderBox;
+    final overlay = Overlay.of(chipContext).context.findRenderObject()! as RenderBox;
+    final topLeft = box.localToGlobal(Offset(0, box.size.height + 6), ancestor: overlay);
+    final bottomRight = box.localToGlobal(box.size.bottomRight(Offset.zero), ancestor: overlay);
+    final position = RelativeRect.fromRect(Rect.fromPoints(topLeft, bottomRight), Offset.zero & overlay.size);
+
+    final picked = await showMenu<SummaryPeriod>(
+      context: chipContext,
+      position: position,
+      color: c.field,
+      elevation: 0,
+      menuPadding: const EdgeInsets.symmetric(vertical: 6),
+      shape: RoundedRectangleBorder(
+        borderRadius: AppRadii.fieldAll,
+        side: BorderSide(color: c.stroke),
+      ),
+      constraints: const BoxConstraints(minWidth: 190),
+      popUpAnimationStyle: AnimationStyle(
+        duration: AppMotion.of(chipContext, AppMotion.toggle),
+        curve: AppMotion.ease,
+      ),
+      items: [
+        for (final (p, name) in [
+          (SummaryPeriod.day, l10n.today),
+          (SummaryPeriod.week, l10n.periodThisWeek),
+          (SummaryPeriod.month, l10n.periodThisMonth),
+        ])
+          PopupMenuItem<SummaryPeriod>(
+            key: ValueKey('period-${p.name}'),
+            value: p,
+            height: 44,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    name,
+                    style: t.body.copyWith(fontSize: 14, color: p == current ? c.text : c.textSecondary),
+                  ),
+                ),
+                if (p == current) AppIcon(AppIcons.check, size: 18, strokeWidth: 2.4, color: c.primary),
+              ],
+            ),
+          ),
+      ],
+    );
+    if (picked != null && picked != current) {
+      await ref.read(summaryPeriodProvider.notifier).set(picked);
+    }
   }
 }
 

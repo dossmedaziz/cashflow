@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../icons/app_icons.dart';
 import '../theme/app_theme.dart';
 import '../theme/app_tokens.dart';
+import 'pressable.dart';
 
 enum TotalTrend { less, more, same }
 
@@ -12,7 +13,9 @@ class TotalCard extends StatelessWidget {
   const TotalCard({
     super.key,
     required this.label,
-    required this.monthChip,
+    required this.periodChip,
+    this.onPeriodTap,
+    this.periodSemantics,
     required this.total,
     required this.currencySymbol,
     this.comparison,
@@ -21,7 +24,12 @@ class TotalCard extends StatelessWidget {
   });
 
   final String label;
-  final String monthChip;
+  /// "Nov 2026" / "9–15 Nov" / "11 Nov".
+  final String periodChip;
+
+  /// Opens the period picker; receives the chip's context to anchor a menu.
+  final void Function(BuildContext chipContext)? onPeriodTap;
+  final String? periodSemantics;
   final String total;
   final String currencySymbol;
 
@@ -50,13 +58,41 @@ class TotalCard extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Text(label, style: t.bodyMedium.copyWith(color: c.muted, height: 1.3)),
+                child: AnimatedSwitcher(
+                  duration: AppMotion.of(context, AppMotion.toggle),
+                  layoutBuilder: (current, previous) =>
+                      Stack(alignment: AlignmentDirectional.centerStart, children: [...previous, ?current]),
+                  child: Text(label, key: ValueKey(label), style: t.bodyMedium.copyWith(color: c.muted, height: 1.3)),
+                ),
               ),
               const SizedBox(width: 8),
-              Container(
-                padding: const EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(color: c.heroChip, borderRadius: AppRadii.pillAll),
-                child: Text(monthChip, style: t.caption.copyWith(fontWeight: FontWeight.w600, height: 1.2)),
+              Builder(
+                builder: (chipContext) => Pressable(
+                  key: const ValueKey('period-chip'),
+                  onTap: onPeriodTap == null ? null : () => onPeriodTap!(chipContext),
+                  semanticLabel: periodSemantics == null ? periodChip : '$periodSemantics: $periodChip',
+                  child: Container(
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 5, onPeriodTap == null ? 10 : 6, 5),
+                    decoration: BoxDecoration(color: c.heroChip, borderRadius: AppRadii.pillAll),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AnimatedSwitcher(
+                          duration: AppMotion.of(context, AppMotion.toggle),
+                          child: Text(
+                            periodChip,
+                            key: ValueKey(periodChip),
+                            style: t.caption.copyWith(fontWeight: FontWeight.w600, height: 1.2),
+                          ),
+                        ),
+                        if (onPeriodTap != null) ...[
+                          const SizedBox(width: 2),
+                          AppIcon(AppIcons.chevronDown, size: 14, strokeWidth: 2.2, color: c.muted),
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

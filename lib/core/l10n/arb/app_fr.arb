@@ -118,5 +118,18 @@
   "currencyMAD": "Dirham marocain",
   "currencyDZD": "Dinar algérien",
   "currencyLYD": "Dinar libyen",
-  "widgetTodayA11y": "Dépenses du jour : {amount} {currency}"
+  "widgetTodayA11y": "Dépenses du jour : {amount} {currency}",
+  "periodThisWeek": "Cette semaine",
+  "periodThisMonth": "Ce mois-ci",
+  "changePeriod": "Changer la période",
+  "dayTotalLabel": "Dépensé aujourd’hui",
+  "weekTotalLabel": "Dépensé cette semaine",
+  "heroEmptyDay": "Rien dépensé aujourd’hui pour l’instant",
+  "heroEmptyWeek": "Rien dépensé cette semaine pour l’instant",
+  "compareLessDay": "{percent} % de moins qu’hier",
+  "compareMoreDay": "{percent} % de plus qu’hier",
+  "compareSameDay": "Comme hier",
+  "compareLessWeek": "{percent} % de moins que la semaine dernière",
+  "compareMoreWeek": "{percent} % de plus que la semaine dernière",
+  "compareSameWeek": "Comme la semaine dernière"
 }

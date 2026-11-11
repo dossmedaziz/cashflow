@@ -15,6 +15,7 @@ class SettingsRepository {
   static const _kLanguage = 'settings.language';
   static const _kTheme = 'settings.theme';
   static const _kCurrency = 'settings.currency';
+  static const _kHeroPeriod = 'settings.heroPeriod';
 
   /// Arabic by default.
   AppLanguage get language => AppLanguage.fromCode(_prefs.getString(_kLanguage));
@@ -27,6 +28,10 @@ class SettingsRepository {
   /// TND by default.
   Currency get currency => Currency.byCode(_prefs.getString(_kCurrency));
   Future<void> setCurrency(Currency c) => _prefs.setString(_kCurrency, c.code);
+
+  /// Period of the Home total card ('day' | 'week' | 'month'); month by default.
+  String? get heroPeriod => _prefs.getString(_kHeroPeriod);
+  Future<void> setHeroPeriod(String name) => _prefs.setString(_kHeroPeriod, name);
 }
 
 /// The user's profile row (currency is synced so it follows the account).

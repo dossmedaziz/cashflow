@@ -234,4 +234,17 @@ void main() {
     await s.start(light: true);
     await s.save('11-home-light');
   });
+
+  shot('12-period-menu', (s) async {
+    await s.start();
+    await s.tapKey('period-chip');
+    await s.save('12-period-menu');
+  });
+
+  shot('13-home-week', (s) async {
+    await s.start();
+    await s.tapKey('period-chip');
+    await s.tapKey('period-week');
+    await s.save('13-home-week');
+  });
 }

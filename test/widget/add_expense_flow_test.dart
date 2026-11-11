@@ -193,4 +193,38 @@ void main() {
     expect(h.expenses.all.single.id, 'bill');
     expect(find.text('Electricity bill'), findsOneWidget);
   });
+
+  testWidgets('the total card switches between this month, this week and today', (tester) async {
+    final h = _Harness();
+    h.expenses.seed([
+      Expense(id: 't', amount: 8500, categoryId: 'food', date: DateTime(2026, 11, 11, 9)), // today (Wed)
+      Expense(id: 'y', amount: 17000, categoryId: 'food', date: DateTime(2026, 11, 10, 9)), // yesterday
+      Expense(id: 'w', amount: 30000, categoryId: 'bills', date: DateTime(2026, 11, 2, 9)), // last week
+    ]);
+    await h.pump(tester);
+
+    expect(find.text('Spent this month'), findsOneWidget);
+    expect(find.text('55.500'), findsOneWidget);
+
+    Future<void> pick(String period) async {
+      await tester.tap(find.byKey(const ValueKey('period-chip')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(ValueKey('period-$period')));
+      await tester.pumpAndSettle();
+    }
+
+    await pick('week');
+    expect(find.text('Spent this week'), findsOneWidget);
+    expect(find.text('9–15 Nov'), findsOneWidget);
+    expect(find.text('25.500'), findsOneWidget);
+    expect(find.text('15% less than last week'), findsOneWidget);
+
+    await pick('day');
+    expect(find.text('Spent today'), findsOneWidget);
+    expect(find.text('11 Nov'), findsOneWidget);
+    expect(find.text('50% less than yesterday'), findsOneWidget);
+
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getString('settings.heroPeriod'), 'day', reason: 'choice is remembered');
+  });
 }

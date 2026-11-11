@@ -813,6 +813,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Spent today: {amount} {currency}'**
   String widgetTodayA11y(String amount, String currency);
+
+  /// No description provided for @periodThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get periodThisWeek;
+
+  /// No description provided for @periodThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This month'**
+  String get periodThisMonth;
+
+  /// No description provided for @changePeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Change period'**
+  String get changePeriod;
+
+  /// No description provided for @dayTotalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Spent today'**
+  String get dayTotalLabel;
+
+  /// No description provided for @weekTotalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Spent this week'**
+  String get weekTotalLabel;
+
+  /// No description provided for @heroEmptyDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing spent today yet'**
+  String get heroEmptyDay;
+
+  /// No description provided for @heroEmptyWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing spent this week yet'**
+  String get heroEmptyWeek;
+
+  /// No description provided for @compareLessDay.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% less than yesterday'**
+  String compareLessDay(String percent);
+
+  /// No description provided for @compareMoreDay.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% more than yesterday'**
+  String compareMoreDay(String percent);
+
+  /// No description provided for @compareSameDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Same as yesterday'**
+  String get compareSameDay;
+
+  /// No description provided for @compareLessWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% less than last week'**
+  String compareLessWeek(String percent);
+
+  /// No description provided for @compareMoreWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% more than last week'**
+  String compareMoreWeek(String percent);
+
+  /// No description provided for @compareSameWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Same as last week'**
+  String get compareSameWeek;
 }
 
 class _AppLocalizationsDelegate

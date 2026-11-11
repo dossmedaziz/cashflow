@@ -6,6 +6,9 @@ DateTime dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
 
 DateTime startOfMonth(DateTime d) => DateTime(d.year, d.month);
 
+/// Monday of the week containing [d] (ISO week, as used in Tunisia/France).
+DateTime startOfWeek(DateTime d) => DateTime(d.year, d.month, d.day - (d.weekday - DateTime.monday));
+
 DateTime startOfPreviousMonth(DateTime d) => DateTime(d.year, d.month - 1);
 
 DateTime startOfNextMonth(DateTime d) => DateTime(d.year, d.month + 1);
@@ -43,6 +46,17 @@ class DateLabels {
 
   /// "Nov 2026" · "نوفمبر 2026" · "nov. 2026".
   String monthChip(DateTime d) => DateFormat(l10n.monthChipPattern, languageCode).format(d);
+
+  /// Day chip: "11 Nov" · "11 نوفمبر".
+  String dayChip(DateTime d) => DateFormat(l10n.dateShortPattern, languageCode).format(d);
+
+  /// Week chip: "9–15 Nov", or "27 Oct – 2 Nov" across months.
+  String weekRange(DateTime start) {
+    final end = DateTime(start.year, start.month, start.day + 6);
+    final short = DateFormat(l10n.dateShortPattern, languageCode);
+    if (start.month == end.month) return '${start.day}–${short.format(end)}';
+    return '${short.format(start)} – ${short.format(end)}';
+  }
 
   /// Month name used inside sentences ("than October", "من أكتوبر").
   String monthName(DateTime d) => DateFormat.MMMM(languageCode).format(d);

@@ -419,4 +419,51 @@ class AppLocalizationsFr extends AppLocalizations {
   String widgetTodayA11y(String amount, String currency) {
     return 'Dépenses du jour : $amount $currency';
   }
+
+  @override
+  String get periodThisWeek => 'Cette semaine';
+
+  @override
+  String get periodThisMonth => 'Ce mois-ci';
+
+  @override
+  String get changePeriod => 'Changer la période';
+
+  @override
+  String get dayTotalLabel => 'Dépensé aujourd’hui';
+
+  @override
+  String get weekTotalLabel => 'Dépensé cette semaine';
+
+  @override
+  String get heroEmptyDay => 'Rien dépensé aujourd’hui pour l’instant';
+
+  @override
+  String get heroEmptyWeek => 'Rien dépensé cette semaine pour l’instant';
+
+  @override
+  String compareLessDay(String percent) {
+    return '$percent % de moins qu’hier';
+  }
+
+  @override
+  String compareMoreDay(String percent) {
+    return '$percent % de plus qu’hier';
+  }
+
+  @override
+  String get compareSameDay => 'Comme hier';
+
+  @override
+  String compareLessWeek(String percent) {
+    return '$percent % de moins que la semaine dernière';
+  }
+
+  @override
+  String compareMoreWeek(String percent) {
+    return '$percent % de plus que la semaine dernière';
+  }
+
+  @override
+  String get compareSameWeek => 'Comme la semaine dernière';
 }

@@ -231,5 +231,46 @@
         "type": "String"
       }
     }
-  }
+  },
+  "periodThisWeek": "This week",
+  "periodThisMonth": "This month",
+  "changePeriod": "Change period",
+  "dayTotalLabel": "Spent today",
+  "weekTotalLabel": "Spent this week",
+  "heroEmptyDay": "Nothing spent today yet",
+  "heroEmptyWeek": "Nothing spent this week yet",
+  "compareLessDay": "{percent}% less than yesterday",
+  "@compareLessDay": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "compareMoreDay": "{percent}% more than yesterday",
+  "@compareMoreDay": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "compareSameDay": "Same as yesterday",
+  "compareLessWeek": "{percent}% less than last week",
+  "@compareLessWeek": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "compareMoreWeek": "{percent}% more than last week",
+  "@compareMoreWeek": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "compareSameWeek": "Same as last week"
 }

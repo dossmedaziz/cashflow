@@ -118,5 +118,18 @@
   "currencyMAD": "الدرهم المغربي",
   "currencyDZD": "الدينار الجزائري",
   "currencyLYD": "الدينار الليبي",
-  "widgetTodayA11y": "مصاريف اليوم: {amount} {currency}"
+  "widgetTodayA11y": "مصاريف اليوم: {amount} {currency}",
+  "periodThisWeek": "هذا الأسبوع",
+  "periodThisMonth": "هذا الشهر",
+  "changePeriod": "تغيير الفترة",
+  "dayTotalLabel": "مجموع مصاريف اليوم",
+  "weekTotalLabel": "مجموع مصاريف هذا الأسبوع",
+  "heroEmptyDay": "لم تُسجَّل مصاريف اليوم بعد",
+  "heroEmptyWeek": "لم تُسجَّل مصاريف هذا الأسبوع بعد",
+  "compareLessDay": "أقل بـ {percent}% من أمس",
+  "compareMoreDay": "أكثر بـ {percent}% من أمس",
+  "compareSameDay": "مثل أمس",
+  "compareLessWeek": "أقل بـ {percent}% من الأسبوع الماضي",
+  "compareMoreWeek": "أكثر بـ {percent}% من الأسبوع الماضي",
+  "compareSameWeek": "مثل الأسبوع الماضي"
 }
